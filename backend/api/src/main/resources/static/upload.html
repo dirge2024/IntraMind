@@ -1,302 +1,135 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>文件上传测试 — LocalRAG</title>
-    <script src="https://cdn.jsdelivr.net/npm/spark-md5@3.0.2/spark-md5.min.js"></script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #333; }
-        .container { max-width: 720px; margin: 40px auto; padding: 24px; }
-        h1 { margin-bottom: 4px; }
-        a { color: #6366f1; }
-        .card { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.1); padding: 24px; margin-bottom: 16px; }
-        label { display: block; font-weight: 600; margin-bottom: 6px; }
-        input[type=file] { margin-bottom: 12px; }
-        button { padding: 10px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
-        .btn-primary { background: #6366f1; color: #fff; }
-        .btn-primary:hover { background: #4f46e5; }
-        .btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
-        .btn-sm { padding: 6px 14px; font-size: 12px; background: #e5e7eb; }
-
-        #log { background: #1e1e1e; color: #d4d4d4; border-radius: 6px; padding: 16px; font-family: monospace; font-size: 13px; max-height: 400px; overflow-y: auto; white-space: pre-wrap; }
-        #log .info { color: #60a5fa; }
-        #log .ok { color: #4ade80; }
-        #log .warn { color: #fbbf24; }
-        #log .err { color: #f87171; }
-
-        .progress-bar { width: 100%; height: 20px; background: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 12px 0; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #8b5cf6); transition: width .2s; }
-        .stats { display: flex; gap: 24px; font-size: 13px; color: #666; margin-bottom: 12px; }
-        .stats span { font-weight: 600; color: #333; }
-
-        .mode-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
-        .mode-toggle button { padding: 8px 16px; border: 1px solid #d1d5db; background: #fff; border-radius: 6px; cursor: pointer; }
-        .mode-toggle button.active { background: #6366f1; color: #fff; border-color: #6366f1; }
-    </style>
+<meta charset="UTF-8">
+<title>文件上传 — LocalRAG</title>
+<script src="https://cdn.jsdelivr.net/npm/spark-md5@3.0.2/spark-md5.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #333; display: flex; min-height: 100vh; }
+.sidebar { width: 220px; background: #1e1e2e; color: #cdd6f4; display: flex; flex-direction: column; padding: 20px 0; position: fixed; top: 0; left: 0; bottom: 0; }
+.sidebar h2 { padding: 0 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #313244; }
+.sidebar nav { flex: 1; padding: 10px 0; }
+.sidebar a { display: block; padding: 10px 20px; color: #a6adc8; text-decoration: none; font-size: 14px; transition: .15s; }
+.sidebar a:hover, .sidebar a.active { background: #313244; color: #fff; }
+.sidebar .divider { border-top: 1px solid #313244; margin: 10px 16px; }
+.sidebar .info { padding: 10px 20px; font-size: 12px; color: #585b70; }
+.main { margin-left: 220px; flex: 1; padding: 24px 32px; }
+h3 { margin-bottom: 16px; }
+.card { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); padding: 20px 24px; margin-bottom: 16px; }
+label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+input[type=file] { margin-bottom: 12px; }
+.btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.btn-primary { background: #6366f1; color: #fff; } .btn-primary:hover { background: #4f46e5; }
+.btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
+.btn-sm { padding: 6px 14px; font-size: 12px; background: #e5e7eb; margin-left: 8px; }
+#log { background: #1e1e1e; color: #d4d4d4; border-radius: 6px; padding: 16px; font-family: monospace; font-size: 13px; max-height: 350px; overflow-y: auto; white-space: pre-wrap; }
+#log .info { color: #60a5fa; } #log .ok { color: #4ade80; } #log .warn { color: #fbbf24; } #log .err { color: #f87171; }
+.progress-bar { width: 100%; height: 20px; background: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 12px 0; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #8b5cf6); transition: width .2s; }
+.stats { display: flex; gap: 24px; font-size: 13px; color: #666; margin-bottom: 12px; flex-wrap: wrap; }
+.stats span { font-weight: 600; color: #333; }
+.mode-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+.mode-toggle button { padding: 8px 16px; border: 1px solid #d1d5db; background: #fff; border-radius: 6px; cursor: pointer; }
+.mode-toggle button.active { background: #6366f1; color: #fff; border-color: #6366f1; }
+</style>
 </head>
 <body>
-<div class="container">
-    <h1>📤 文件上传测试</h1>
-    <p style="color:#888; margin-bottom:24px;"><a href="/">← 返回首页</a> | 支持分片上传 / 断点续传 / 秒传</p>
-
+<div class="sidebar">
+    <h2>LocalRAG</h2>
+    <nav>
+        <a href="/upload.html" class="active">📤 文件上传</a>
+        <a href="/kb.html">📚 知识库</a>
+        <a href="/chat.html">💬 对话</a>
+    </nav>
+    <div class="divider"></div>
+    <div class="info">ES: localhost:9200<br>MinIO: localhost:19001<br>Kafka: localhost:9092</div>
+</div>
+<div class="main">
+    <h3>📤 文件上传</h3>
     <div class="mode-toggle">
         <button id="btnChunk" class="active" onclick="switchMode('chunk')">分片上传</button>
         <button id="btnDirect" onclick="switchMode('direct')">小文件直传</button>
     </div>
-
     <div class="card">
         <label>选择文件</label>
         <input type="file" id="fileInput">
         <div class="stats">
-            <div>文件大小: <span id="fileSize">-</span></div>
-            <div>分片大小: <span id="chunkSize">5 MB</span></div>
-            <div>总分片: <span id="totalChunks">-</span></div>
+            <div>大小: <span id="fileSize">-</span></div>
+            <div>分片: <span id="chunkSize">5 MB</span></div>
+            <div>总数: <span id="totalChunks">-</span></div>
             <div>MD5: <span id="fileMd5" style="font-size:11px;">-</span></div>
         </div>
-
-        <div class="progress-bar" id="progressBar" style="display:none;">
-            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
-        </div>
+        <div class="progress-bar" id="progressBar" style="display:none;"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
         <p id="progressText" style="font-size:13px; color:#666;"></p>
-
-        <button class="btn-primary" id="btnUpload" onclick="startUpload()" disabled>开始上传</button>
-        <button class="btn-sm" onclick="pauseUpload()" style="margin-left:8px;">暂停</button>
+        <button class="btn btn-primary" id="btnUpload" onclick="startUpload()" disabled>开始上传</button>
+        <button class="btn btn-sm" onclick="pauseUpload()">暂停</button>
     </div>
-
     <div class="card">
-        <h3 style="margin-bottom: 12px;">📋 日志</h3>
+        <h3 style="margin-bottom:12px;">📋 日志</h3>
         <div id="log"><span class="info">等待选择文件...</span></div>
-        <button class="btn-sm" onclick="document.getElementById('log').innerHTML=''" style="margin-top:8px;">清空</button>
+        <button class="btn btn-sm" onclick="document.getElementById('log').innerHTML=''" style="margin-top:8px;margin-left:0;">清空</button>
     </div>
 </div>
-
 <script>
-let uploadMode = 'chunk';
-let md5, totalChunks, chunkSize, uploadedParts = [];
-let paused = false, aborted = false;
-
-const KB = 1024, MB = 1024 * KB, CHUNK = 5 * MB;
-
-function switchMode(mode) {
-    uploadMode = mode;
-    document.getElementById('btnChunk').classList.toggle('active', mode === 'chunk');
-    document.getElementById('btnDirect').classList.toggle('active', mode === 'direct');
-    document.getElementById('btnUpload').disabled = !document.getElementById('fileInput').files[0];
-}
-
-document.getElementById('fileInput').addEventListener('change', async function() {
-    const file = this.files[0];
-    if (!file) return;
-
-    document.getElementById('fileSize').textContent = formatSize(file.size);
-    document.getElementById('btnUpload').disabled = false;
-    document.getElementById('progressFill').style.width = '0%';
-    uploadedParts = [];
-    aborted = false;
-
-    if (uploadMode === 'chunk') {
-        log('info', '正在计算文件 MD5...');
-        md5 = await computeMd5(file, (pct) => {
-            document.getElementById('fileMd5').textContent = '计算中 ' + pct + '%...';
-        });
-        document.getElementById('fileMd5').textContent = md5;
-
-        chunkSize = Math.max(CHUNK, Math.ceil(file.size / 10000));
-        totalChunks = Math.ceil(file.size / chunkSize);
-        document.getElementById('chunkSize').textContent = formatSize(chunkSize);
-        document.getElementById('totalChunks').textContent = totalChunks;
-
-        log('ok', 'MD5: ' + md5);
-        log('info', '分片数: ' + totalChunks + ' × ' + formatSize(chunkSize));
-
-        // check for existing upload (resume)
-        try {
-            const resp = await fetch('/api/storage/upload/' + md5 + '/progress');
-            if (resp.ok) {
-                const data = await resp.json();
-                if (data.code === 200) {
-                    uploadedParts = data.data.uploadedParts || [];
-                    if (uploadedParts.length > 0) {
-                        log('warn', '检测到未完成上传，已上传 ' + uploadedParts.length + ' 个分片，将断点续传');
-                    }
-                }
-            }
-        } catch (e) { /* no existing upload */ }
-    } else {
-        document.getElementById('totalChunks').textContent = '1（直传）';
-        document.getElementById('fileMd5').textContent = '服务端计算';
-    }
+let uploadMode='chunk', md5, totalChunks, chunkSize, uploadedParts=[], paused=false;
+const KB=1024, MB=1024*KB, CHUNK=5*MB;
+function switchMode(m){uploadMode=m;document.getElementById('btnChunk').classList.toggle('active',m==='chunk');document.getElementById('btnDirect').classList.toggle('active',m==='direct');}
+document.getElementById('fileInput').addEventListener('change',async function(){
+    const file=this.files[0];if(!file)return;
+    document.getElementById('fileSize').textContent=formatSize(file.size);document.getElementById('btnUpload').disabled=false;
+    document.getElementById('progressFill').style.width='0%';uploadedParts=[];
+    if(uploadMode==='chunk'){
+        log('info','计算 MD5...');
+        md5=await computeMd5(file,pct=>document.getElementById('fileMd5').textContent='计算中 '+pct+'%...');
+        document.getElementById('fileMd5').textContent=md5;chunkSize=Math.max(CHUNK,Math.ceil(file.size/10000));
+        totalChunks=Math.ceil(file.size/chunkSize);document.getElementById('chunkSize').textContent=formatSize(chunkSize);
+        document.getElementById('totalChunks').textContent=totalChunks;
+        log('ok','MD5: '+md5+' | 分片: '+totalChunks+' × '+formatSize(chunkSize));
+        try{const r=await fetch('/api/storage/upload/'+md5+'/progress');if(r.ok){const d=await r.json();if(d.code===200&&d.data.uploadedParts){uploadedParts=d.data.uploadedParts;log('warn','检测到未完成上传, 已上传 '+uploadedParts.length+' 片');}}}catch(e){}
+    }else{document.getElementById('totalChunks').textContent='1（直传）';}
 });
-
-async function startUpload() {
-    const file = document.getElementById('fileInput').files[0];
-    if (!file) return;
-
-    document.getElementById('btnUpload').disabled = true;
-    document.getElementById('progressBar').style.display = 'block';
-    aborted = false;
-
-    if (uploadMode === 'direct') {
-        await directUpload(file);
-    } else {
-        await chunkedUpload(file);
+async function startUpload(){
+    const file=document.getElementById('fileInput').files[0];if(!file)return;
+    document.getElementById('btnUpload').disabled=true;document.getElementById('progressBar').style.display='block';
+    uploadMode==='direct'?await directUpload(file):await chunkedUpload(file);
+}
+async function directUpload(file){
+    log('info','直传: '+file.name);const form=new FormData();form.append('file',file);
+    const r=await fetch('/api/storage/upload/direct',{method:'POST',body:form});const d=await r.json();
+    if(d.code===200&&(d.data.status==='COMPLETE'||d.data.status==='EXIST')){
+        log('ok','完成! MD5: '+d.data.md5+(d.data.status==='EXIST'?'（秒传）':''));
+        document.getElementById('progressFill').style.width='100%';
+    }else log('err','失败: '+JSON.stringify(d));
+    document.getElementById('btnUpload').disabled=false;
+}
+async function chunkedUpload(file){
+    log('info','→ Init...');
+    const r=await fetch('/api/storage/upload/init',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileMd5:md5,fileName:file.name,fileSize:file.size})});
+    const d=(await r.json()).data;if(!d){log('err','Init 失败');return;}
+    if(d.status==='EXIST'){log('warn','已存在（秒传）!');document.getElementById('btnUpload').disabled=false;return;}
+    if(d.status==='RESUME'){uploadedParts=d.uploadedParts||[];log('warn','续传, 已上传: '+JSON.stringify(uploadedParts));}
+    totalChunks=d.totalParts;chunkSize=d.partSize;log('info','总分片: '+totalChunks);
+    for(let i=1;i<=totalChunks;i++){
+        if(uploadedParts.includes(i)){log('info','跳过 '+i+'/'+totalChunks);updateProgress(i,totalChunks);continue;}
+        while(paused)await sleep(500);
+        const s=(i-1)*chunkSize,e=Math.min(s+chunkSize,file.size);
+        const f=new FormData();f.append('md5',md5);f.append('partNumber',i);f.append('file',file.slice(s,e));
+        for(let retry=0;retry<3;retry++){try{const rr=await fetch('/api/storage/upload/part',{method:'POST',body:f});const dd=await rr.json();if(dd.code===200){log('ok','分片 '+i+'/'+totalChunks+' ✓');uploadedParts.push(i);updateProgress(i,totalChunks);break;}}catch(x){if(retry>=2){log('err','分片 '+i+' 失败');return;}log('warn','重试 '+(retry+1)+'/3');await sleep(1000);}}
     }
+    log('info','→ 合并...');
+    const cr=await fetch('/api/storage/upload/complete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({md5})});
+    const cd=await cr.json();
+    if(cd.code===200){log('ok','完成!');document.getElementById('progressFill').style.width='100%';document.getElementById('progressText').textContent='100% — 完成';}
+    else log('err','合并失败: '+JSON.stringify(cd));
+    document.getElementById('btnUpload').disabled=false;
 }
-
-async function directUpload(file) {
-    log('info', '开始直传: ' + file.name);
-    const form = new FormData();
-    form.append('file', file);
-
-    const resp = await fetch('/api/storage/upload/direct', { method: 'POST', body: form });
-    const data = await resp.json();
-    if (data.code === 200 && data.data.status === 'COMPLETE') {
-        log('ok', '上传完成! MD5: ' + data.data.md5);
-        log('ok', '下载链接: <a href="' + data.data.url + '" style="color:#4ade80;">' + data.data.url + '</a>');
-        document.getElementById('fileMd5').textContent = data.data.md5;
-    } else if (data.data && data.data.status === 'EXIST') {
-        log('warn', '文件已存在（秒传）! MD5: ' + data.data.md5);
-    } else {
-        log('err', '上传失败: ' + JSON.stringify(data));
-    }
-    document.getElementById('btnUpload').disabled = false;
-}
-
-async function chunkedUpload(file) {
-    // Init
-    log('info', '→ 初始化上传...');
-    const initResp = await fetch('/api/storage/upload/init', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fileMd5: md5, fileName: file.name, fileSize: file.size })
-    });
-    const initData = await initResp.json();
-
-    if (initData.code !== 200) { log('err', 'Init 失败: ' + JSON.stringify(initData)); return; }
-
-    const d = initData.data;
-    if (d.status === 'EXIST') {
-        log('warn', '文件已存在（秒传）!');
-        document.getElementById('btnUpload').disabled = false;
-        return;
-    }
-    if (d.status === 'RESUME') {
-        uploadedParts = d.uploadedParts || [];
-        log('warn', '断点续传模式，已上传: [' + uploadedParts.join(',') + ']');
-    }
-
-    totalChunks = d.totalParts;
-    chunkSize = d.partSize;
-    log('info', 'Init 成功，总分片: ' + totalChunks + ', 每片: ' + formatSize(chunkSize));
-
-    // Upload parts
-    for (let i = 1; i <= totalChunks; i++) {
-        if (uploadedParts.includes(i)) {
-            log('info', '跳过已上传分片 ' + i + '/' + totalChunks);
-            updateProgress(i, totalChunks);
-            continue;
-        }
-
-        if (aborted) { log('warn', '上传已取消'); return; }
-        while (paused) { await sleep(500); if (aborted) return; }
-
-        const start = (i - 1) * chunkSize;
-        const end = Math.min(start + chunkSize, file.size);
-        const blob = file.slice(start, end);
-
-        const form = new FormData();
-        form.append('md5', md5);
-        form.append('partNumber', i);
-        form.append('file', blob);
-
-        let retry = 0;
-        while (retry < 3) {
-            try {
-                const partResp = await fetch('/api/storage/upload/part', { method: 'POST', body: form });
-                const partData = await partResp.json();
-                if (partData.code === 200) {
-                    log('ok', '分片 ' + i + '/' + totalChunks + ' ✓ (' + partData.data.uploadedCount + '/' + totalChunks + ')');
-                    uploadedParts.push(i);
-                    updateProgress(i, totalChunks);
-                    break;
-                }
-                throw new Error(partData.message || 'upload failed');
-            } catch (e) {
-                retry++;
-                if (retry >= 3) {
-                    log('err', '分片 ' + i + ' 上传失败（重试3次）: ' + e.message);
-                    return;
-                }
-                log('warn', '分片 ' + i + ' 重试 ' + retry + '/3');
-                await sleep(1000);
-            }
-        }
-    }
-
-    // Complete
-    log('info', '→ 合并分片...');
-    const completeResp = await fetch('/api/storage/upload/complete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ md5: md5 })
-    });
-    const completeData = await completeResp.json();
-    if (completeData.code === 200) {
-        log('ok', '上传完成! 下载: <a href="' + completeData.data.url + '" style="color:#4ade80;">' + completeData.data.url + '</a>');
-        document.getElementById('progressFill').style.width = '100%';
-        document.getElementById('progressText').textContent = '100% — 完成';
-    } else {
-        log('err', '合并失败: ' + JSON.stringify(completeData));
-    }
-    document.getElementById('btnUpload').disabled = false;
-}
-
-function updateProgress(current, total) {
-    const pct = Math.round(current / total * 100);
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressText').textContent = current + '/' + total + ' (' + pct + '%)';
-}
-
-function pauseUpload() {
-    paused = !paused;
-    this.textContent = paused ? '继续' : '暂停';
-    log(paused ? 'warn' : 'info', paused ? '已暂停' : '已继续');
-}
-
-function computeMd5(file, onProgress) {
-    return new Promise((resolve) => {
-        const spark = new SparkMD5.ArrayBuffer();
-        const reader = new FileReader();
-        let offset = 0;
-        reader.onload = (e) => {
-            spark.append(e.target.result);
-            offset += CHUNK;
-            if (onProgress) onProgress(Math.min(100, Math.round(offset / file.size * 100)));
-            if (offset < file.size) {
-                reader.readAsArrayBuffer(file.slice(offset, offset + CHUNK));
-            } else {
-                resolve(spark.end());
-            }
-        };
-        reader.readAsArrayBuffer(file.slice(0, CHUNK));
-    });
-}
-
-function log(cls, msg) {
-    const el = document.getElementById('log');
-    el.innerHTML += '<span class="' + cls + '">' + new Date().toLocaleTimeString() + '  ' + msg + '</span>\n';
-    el.scrollTop = el.scrollHeight;
-}
-
-function formatSize(bytes) {
-    if (bytes < KB) return bytes + ' B';
-    if (bytes < MB) return (bytes / KB).toFixed(1) + ' KB';
-    if (bytes < 1024 * MB) return (bytes / MB).toFixed(1) + ' MB';
-    return (bytes / 1024 / MB).toFixed(1) + ' GB';
-}
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function updateProgress(i,t){const p=Math.round(i/t*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressText').textContent=i+'/'+t+' ('+p+'%)';}
+function pauseUpload(){paused=!paused;event.target.textContent=paused?'继续':'暂停';log(paused?'warn':'info',paused?'已暂停':'已继续');}
+function computeMd5(file,cb){return new Promise(r=>{let S=new SparkMD5.ArrayBuffer(),R=new FileReader(),o=0;R.onload=e=>{S.append(e.target.result);o+=CHUNK;cb(Math.min(100,Math.round(o/file.size*100)));if(o<file.size)R.readAsArrayBuffer(file.slice(o,o+CHUNK));else r(S.end())};R.readAsArrayBuffer(file.slice(0,CHUNK))})}
+function log(cls,msg){const e=document.getElementById('log');e.innerHTML+='<span class="'+cls+'">'+new Date().toLocaleTimeString()+'  '+msg+'</span>\n';e.scrollTop=e.scrollHeight;}
+function formatSize(b){if(b<KB)return b+' B';if(b<MB)return(b/KB).toFixed(1)+' KB';return(b/MB).toFixed(1)+' MB';}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 </script>
 </body>
 </html>

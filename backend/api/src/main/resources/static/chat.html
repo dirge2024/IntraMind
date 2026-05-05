@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>对话 — LocalRAG</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #333; display: flex; min-height: 100vh; }
+.sidebar { width: 220px; background: #1e1e2e; color: #cdd6f4; display: flex; flex-direction: column; padding: 20px 0; position: fixed; top: 0; left: 0; bottom: 0; }
+.sidebar h2 { padding: 0 20px 20px; font-size: 18px; color: #fff; border-bottom: 1px solid #313244; }
+.sidebar nav { flex: 1; padding: 10px 0; }
+.sidebar a { display: block; padding: 10px 20px; color: #a6adc8; text-decoration: none; font-size: 14px; transition: .15s; }
+.sidebar a:hover, .sidebar a.active { background: #313244; color: #fff; }
+.sidebar .divider { border-top: 1px solid #313244; margin: 10px 16px; }
+.sidebar .info { padding: 10px 20px; font-size: 12px; color: #585b70; }
+.main { margin-left: 220px; flex: 1; padding: 24px 32px; }
+h3 { margin-bottom: 16px; }
+.card { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); padding: 20px 24px; margin-bottom: 16px; }
+.empty { text-align: center; color: #9ca3af; padding: 60px 0; font-size: 14px; line-height: 2; }
+.chat-box { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; min-height: 300px; max-height: 500px; overflow-y: auto; margin-bottom: 12px; background: #fafafa; }
+.input-row { display: flex; gap: 8px; }
+.input-row input { flex: 1; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; outline: none; }
+.input-row input:focus { border-color: #6366f1; }
+.btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.btn-primary { background: #6366f1; color: #fff; } .btn-primary:hover { background: #4f46e5; }
+.btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>LocalRAG</h2>
+    <nav>
+        <a href="/upload.html">📤 文件上传</a>
+        <a href="/kb.html">📚 知识库</a>
+        <a href="/chat.html" class="active">💬 对话</a>
+    </nav>
+    <div class="divider"></div>
+    <div class="info">ES: localhost:9200<br>MinIO: localhost:19001<br>Kafka: localhost:9092</div>
+</div>
+<div class="main">
+    <h3>💬 RAG 对话</h3>
+    <div class="card">
+        <div class="chat-box" id="chatBox">
+            <div class="empty">
+                retrieval + llm 模块开发中<br>
+                <span style="font-size:12px;">入链已贯通：上传 → 解析 → 向量化 → ES 存储<br>
+                查询链（KNN + BM25 + LLM）即将就绪</span>
+            </div>
+        </div>
+        <div class="input-row">
+            <input type="text" id="question" placeholder="输入问题..." disabled>
+            <button class="btn btn-primary" disabled>发送</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

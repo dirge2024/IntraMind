@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -264,6 +265,11 @@ public class StorageController {
                 .status("COMPLETE")
                 .url("/api/storage/download/" + md5)
                 .build());
+    }
+
+    @GetMapping("/files")
+    public Result<List<FileMetadata>> listFiles() {
+        return Result.ok(fileMetadataRepository.findAll());
     }
 
     @GetMapping("/download/{md5}")
