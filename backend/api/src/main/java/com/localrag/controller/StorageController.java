@@ -1,6 +1,8 @@
 package com.localrag.controller;
 
 import com.localrag.common.Result;
+import com.localrag.common.dto.FileUploadedPayload;
+import com.localrag.messaging.contract.MessageProducer;
 import com.localrag.storage.config.MinioConfig;
 import com.localrag.storage.contract.FileMetadataRepository;
 import com.localrag.storage.contract.StorageService;
@@ -31,6 +33,7 @@ public class StorageController {
     private final UploadStateManager uploadStateManager;
     private final FileMetadataRepository fileMetadataRepository;
     private final MinioConfig minioConfig;
+    private final MessageProducer messageProducer;
 
     @PostMapping("/upload/init")
     public Result<InitUploadResponse> initUpload(@RequestBody InitUploadRequest request) {
@@ -155,6 +158,13 @@ public class StorageController {
                 .build();
         fileMetadataRepository.save(metadata);
 
+        messageProducer.send("document.uploaded", FileUploadedPayload.builder()
+                .md5(md5)
+                .fileName(task.getFileName())
+                .fileSize(task.getFileSize())
+                .objectKey(task.getObjectKey())
+                .build());
+
         log.info("upload complete: md5={}, fileName={}, size={}", md5, task.getFileName(), task.getFileSize());
         return Result.ok(InitUploadResponse.builder()
                 .md5(md5)
@@ -238,6 +248,13 @@ public class StorageController {
                 .createdAt(LocalDateTime.now())
                 .build();
         fileMetadataRepository.save(metadata);
+
+        messageProducer.send("document.uploaded", FileUploadedPayload.builder()
+                .md5(md5)
+                .fileName(file.getOriginalFilename())
+                .fileSize(file.getSize())
+                .objectKey(objectKey)
+                .build());
 
         log.info("direct upload complete: md5={}, fileName={}", md5, file.getOriginalFilename());
         return Result.ok(InitUploadResponse.builder()
