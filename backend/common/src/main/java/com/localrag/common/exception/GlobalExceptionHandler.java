@@ -18,6 +18,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result<Void> handleException(Exception e) {
         log.error("Unexpected error", e);
-        return Result.fail(500, "Internal server error");
+        return Result.fail(500, e.getClass().getSimpleName() + ": " + e.getMessage());
     }
 }

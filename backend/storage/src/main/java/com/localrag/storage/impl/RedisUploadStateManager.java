@@ -57,17 +57,33 @@ public class RedisUploadStateManager implements UploadStateManager {
             return null;
         }
 
-        return UploadTask.builder()
-                .md5(getStr(fields, "md5"))
-                .fileName(getStr(fields, "fileName"))
-                .fileSize(Long.parseLong(getStr(fields, "fileSize")))
-                .uploadId(getStr(fields, "uploadId"))
-                .bucket(getStr(fields, "bucket"))
-                .objectKey(getStr(fields, "objectKey"))
-                .totalParts(Integer.parseInt(getStr(fields, "totalParts")))
-                .status(UploadTask.Status.valueOf(getStr(fields, "status")))
-                .uploadedParts(getPartsMap(md5))
-                .build();
+        String fileSizeStr = getStr(fields, "fileSize");
+        String totalPartsStr = getStr(fields, "totalParts");
+        String statusStr = getStr(fields, "status");
+
+        if (fileSizeStr.isEmpty() || totalPartsStr.isEmpty() || statusStr.isEmpty()) {
+            log.warn("incomplete upload task in Redis, removing: md5={}", md5);
+            remove(md5);
+            return null;
+        }
+
+        try {
+            return UploadTask.builder()
+                    .md5(getStr(fields, "md5"))
+                    .fileName(getStr(fields, "fileName"))
+                    .fileSize(Long.parseLong(fileSizeStr))
+                    .uploadId(getStr(fields, "uploadId"))
+                    .bucket(getStr(fields, "bucket"))
+                    .objectKey(getStr(fields, "objectKey"))
+                    .totalParts(Integer.parseInt(totalPartsStr))
+                    .status(UploadTask.Status.valueOf(statusStr))
+                    .uploadedParts(getPartsMap(md5))
+                    .build();
+        } catch (Exception e) {
+            log.warn("corrupted upload task in Redis, removing: md5={}", md5, e);
+            remove(md5);
+            return null;
+        }
     }
 
     @Override
