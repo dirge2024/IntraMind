@@ -17,9 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.net.URI;
 import java.security.MessageDigest;
 import java.time.LocalDateTime;
 
@@ -55,7 +53,6 @@ public class StorageController {
             log.info("resume upload: md5={}, uploaded={}", md5, existingTask.getUploadedParts().size());
             return Result.ok(InitUploadResponse.builder()
                     .md5(md5)
-                    .uploadId(existingTask.getUploadId())
                     .partSize(existingTask.getPartSize())
                     .totalParts(existingTask.getTotalParts())
                     .uploadedParts(uploadStateManager.getUploadedParts(md5))
@@ -71,13 +68,10 @@ public class StorageController {
         String bucket = minioConfig.getBucket();
         ensureBucket(bucket);
 
-        String uploadId = storageService.createMultipartUpload(bucket, objectKey);
-
         UploadTask task = UploadTask.builder()
                 .md5(md5)
                 .fileName(request.getFileName())
                 .fileSize(request.getFileSize())
-                .uploadId(uploadId)
                 .bucket(bucket)
                 .objectKey(objectKey)
                 .totalParts(totalParts)
@@ -91,7 +85,6 @@ public class StorageController {
         log.info("new upload: md5={}, totalParts={}, partSize={}MB", md5, totalParts, partSize / 1024 / 1024);
         return Result.ok(InitUploadResponse.builder()
                 .md5(md5)
-                .uploadId(uploadId)
                 .partSize((int) partSize)
                 .totalParts(totalParts)
                 .status("NEW")
@@ -112,8 +105,7 @@ public class StorageController {
         String etag;
         try (InputStream stream = file.getInputStream()) {
             etag = storageService.uploadPart(
-                    task.getBucket(), task.getObjectKey(), task.getUploadId(),
-                    partNumber, stream, file.getSize());
+                    task.getBucket(), task.getObjectKey(), partNumber, stream, file.getSize());
         } catch (Exception e) {
             throw new StorageException("分片上传失败");
         }
@@ -147,8 +139,8 @@ public class StorageController {
                     String.format("分片未全部上传: %d/%d", uploadedCount, task.getTotalParts()));
         }
 
-        String etag = storageService.completeMultipartUpload(
-                task.getBucket(), task.getObjectKey(), task.getUploadId(), task.getTotalParts());
+        storageService.completeMultipartUpload(
+                task.getBucket(), task.getObjectKey(), task.getTotalParts());
 
         uploadStateManager.remove(md5);
 
@@ -197,10 +189,10 @@ public class StorageController {
     public Result<Void> abortUpload(@PathVariable String md5) {
         UploadTask task = uploadStateManager.getByMd5(md5);
         if (task != null) {
-            storageService.abortMultipartUpload(task.getBucket(), task.getObjectKey(), task.getUploadId());
+            storageService.deleteChunks(task.getBucket(), task.getObjectKey(), task.getTotalParts());
             uploadStateManager.remove(md5);
+            log.info("upload aborted, chunks deleted: md5={}", md5);
         }
-        log.info("upload aborted: md5={}", md5);
         return Result.ok();
     }
 
@@ -294,10 +286,8 @@ public class StorageController {
         MessageDigest md = MessageDigest.getInstance("MD5");
         byte[] buffer = new byte[8192];
         int read;
-        long total = 0;
         while ((read = stream.read(buffer)) != -1) {
             md.update(buffer, 0, read);
-            total += read;
         }
         byte[] digest = md.digest();
         StringBuilder sb = new StringBuilder();

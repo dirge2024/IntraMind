@@ -18,16 +18,10 @@ public class StorageServiceImpl implements StorageService {
     private final MinioClient minioClient;
 
     @Override
-    public String createMultipartUpload(String bucket, String objectKey) {
-        log.info("multipart upload initiated: bucket={}, key={}", bucket, objectKey);
-        return "";
-    }
-
-    @Override
-    public String uploadPart(String bucket, String objectKey, String uploadId,
-                             int partNumber, InputStream stream, long size) {
+    public String uploadPart(String bucket, String objectKey, int partNumber,
+                             InputStream stream, long size) {
         try {
-            String chunkKey = objectKey + "/chunks/" + String.format("%05d", partNumber);
+            String chunkKey = chunkKey(objectKey, partNumber);
             ObjectWriteResponse response = minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(bucket)
@@ -42,12 +36,11 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public String completeMultipartUpload(String bucket, String objectKey,
-                                          String uploadId, int totalParts) {
+    public String completeMultipartUpload(String bucket, String objectKey, int totalParts) {
         try {
             java.util.List<ComposeSource> sources = new java.util.ArrayList<>();
             for (int i = 0; i < totalParts; i++) {
-                String chunkKey = objectKey + "/chunks/" + String.format("%05d", i + 1);
+                String chunkKey = chunkKey(objectKey, i + 1);
                 sources.add(ComposeSource.builder()
                         .bucket(bucket)
                         .object(chunkKey)
@@ -62,7 +55,7 @@ public class StorageServiceImpl implements StorageService {
                             .build());
 
             for (int i = 0; i < totalParts; i++) {
-                String chunkKey = objectKey + "/chunks/" + String.format("%05d", i + 1);
+                String chunkKey = chunkKey(objectKey, i + 1);
                 try {
                     minioClient.removeObject(
                             RemoveObjectArgs.builder().bucket(bucket).object(chunkKey).build());
@@ -79,8 +72,17 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public void abortMultipartUpload(String bucket, String objectKey, String uploadId) {
-        log.info("aborting multipart upload: bucket={}, key={}", bucket, objectKey);
+    public void deleteChunks(String bucket, String objectKey, int totalParts) {
+        for (int i = 1; i <= totalParts; i++) {
+            String chunkKey = chunkKey(objectKey, i);
+            try {
+                minioClient.removeObject(
+                        RemoveObjectArgs.builder().bucket(bucket).object(chunkKey).build());
+            } catch (Exception ignored) {
+                log.warn("failed to delete chunk: {}", chunkKey);
+            }
+        }
+        log.info("chunks deleted: bucket={}, key={}, count={}", bucket, objectKey, totalParts);
     }
 
     @Override
@@ -147,5 +149,9 @@ public class StorageServiceImpl implements StorageService {
             log.error("createBucket failed: bucket={}", bucket, e);
             throw new StorageException("创建bucket失败");
         }
+    }
+
+    private String chunkKey(String objectKey, int partNumber) {
+        return objectKey + "/chunks/" + String.format("%05d", partNumber);
     }
 }

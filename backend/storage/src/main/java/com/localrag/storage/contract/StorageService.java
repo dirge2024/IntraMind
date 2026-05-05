@@ -4,13 +4,11 @@ import java.io.InputStream;
 
 public interface StorageService {
 
-    String createMultipartUpload(String bucket, String objectKey);
+    String uploadPart(String bucket, String objectKey, int partNumber, InputStream stream, long size);
 
-    String uploadPart(String bucket, String objectKey, String uploadId, int partNumber, InputStream stream, long size);
+    String completeMultipartUpload(String bucket, String objectKey, int totalParts);
 
-    String completeMultipartUpload(String bucket, String objectKey, String uploadId, int totalParts);
-
-    void abortMultipartUpload(String bucket, String objectKey, String uploadId);
+    void deleteChunks(String bucket, String objectKey, int totalParts);
 
     String putObject(String bucket, String objectKey, InputStream stream, long size, String contentType);
 
