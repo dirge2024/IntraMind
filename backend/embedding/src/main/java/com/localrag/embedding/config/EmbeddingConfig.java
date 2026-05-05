@@ -19,7 +19,7 @@ public class EmbeddingConfig {
 
     @Data
     public static class Qwen {
-        private String model = "text-embedding-v3";
+        private String model = "text-embedding-v4";
         private String apiKey;
         private String endpoint = "https://dashscope.aliyuncs.com/api/v1/services/embeddings/text-embedding/text-embedding";
     }

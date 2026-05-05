@@ -60,7 +60,7 @@ localrag:
   embedding:
     provider: ${EMBEDDING_PROVIDER:qwen}
     qwen:
-      api-key: ${QWEN_API_KEY:}
+      api-key: ${QWEN_API_KEY:sk-b04136f887b2447b955a59769a3bb970}
     deepseek:
       api-key: ${DEEPSEEK_API_KEY:}
   kafka:
