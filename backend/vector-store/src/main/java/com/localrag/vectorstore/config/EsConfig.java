@@ -39,7 +39,7 @@ public class EsConfig {
         creds.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials(username, password));
 
-        RestClient restClient = RestClient.builder(new HttpHost(host, port, "https"))
+        RestClient restClient = RestClient.builder(new HttpHost(host, port, "http"))
                 .setHttpClientConfigCallback(h -> h
                         .setDefaultCredentialsProvider(creds)
                         .setSSLContext(sslContext))

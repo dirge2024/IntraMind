@@ -17,11 +17,15 @@ public class IndexManager implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (!vectorStoreService.indexExists(INDEX)) {
-            vectorStoreService.createIndex(INDEX);
-            log.info("ES index '{}' created with mapping (dense_vector 2048 + ik_max_word)", INDEX);
-        } else {
-            log.info("ES index '{}' already exists", INDEX);
+        try {
+            if (!vectorStoreService.indexExists(INDEX)) {
+                vectorStoreService.createIndex(INDEX);
+                log.info("ES index '{}' created (dense_vector 2048 + ik_max_word)", INDEX);
+            } else {
+                log.info("ES index '{}' already exists", INDEX);
+            }
+        } catch (Exception e) {
+            log.warn("ES index init failed (app will continue): {}", e.getMessage());
         }
     }
 }
