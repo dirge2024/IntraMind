@@ -1,38 +1,39 @@
 server:
-  port: 8080
+  port: 8088
 
 spring:
   application:
     name: localrag
-  web:
-    resources:
-      static-locations:
-        - classpath:/static/
-        - file:./frontend/
   servlet:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:wsy2642@}
 
 localrag:
   mysql:
     host: ${MYSQL_HOST:localhost}
     port: ${MYSQL_PORT:3307}
     username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:}
+    password: ${MYSQL_PASSWORD:wsy2642@}
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
-    password: ${REDIS_PASSWORD:}
+    password: ${REDIS_PASSWORD:wsy2642@}
   elasticsearch:
     host: ${ES_HOST:localhost}
     port: ${ES_PORT:9200}
     username: ${ES_USERNAME:elastic}
-    password: ${ES_PASSWORD:}
+    password: ${ES_PASSWORD:wsy2642@}
   minio:
     endpoint: ${MINIO_ENDPOINT:http://localhost:19000}
-    access-key: ${MINIO_ACCESS_KEY:}
-    secret-key: ${MINIO_SECRET_KEY:}
+    access-key: ${MINIO_ACCESS_KEY:dirge}
+    secret-key: ${MINIO_SECRET_KEY:wsy2642@}
     bucket: ${MINIO_BUCKET:localrag-documents}
   kafka:
     brokers: ${KAFKA_BROKERS:localhost:9092}
