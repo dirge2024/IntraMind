@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: localrag
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/
+        - file:../frontend/
   servlet:
     multipart:
       max-file-size: 50MB
