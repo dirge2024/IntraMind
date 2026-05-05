@@ -1,0 +1,107 @@
+package com.localrag.document.impl;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.localrag.common.dto.DocumentChunkedPayload;
+import com.localrag.common.dto.FileUploadedPayload;
+import com.localrag.document.contract.DocumentParser;
+import com.localrag.document.contract.TextChunker;
+import com.localrag.document.model.Chunk;
+import com.localrag.messaging.contract.MessageProducer;
+import com.localrag.messaging.model.KafkaMessage;
+import com.localrag.storage.config.MinioConfig;
+import com.localrag.storage.contract.StorageService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class DocumentConsumer {
+
+    private static final int BUFFER_SIZE = 5000;
+    private static final int MIN_CHUNK = 512;
+    private static final double OVERLAP_PCT = 0.15;
+
+    private final ObjectMapper objectMapper;
+    private final StorageService storageService;
+    private final DocumentParser documentParser;
+    private final TextChunker textChunker;
+    private final MessageProducer messageProducer;
+    private final MinioConfig minioConfig;
+
+    private final Set<String> processed = ConcurrentHashMap.newKeySet();
+
+    @KafkaListener(topics = "document.uploaded", groupId = "localrag-document")
+    public void onMessage(String json) {
+        FileUploadedPayload payload;
+        try {
+            KafkaMessage<FileUploadedPayload> msg = objectMapper.readValue(
+                    json, new TypeReference<KafkaMessage<FileUploadedPayload>>() {});
+            payload = msg.getPayload();
+        } catch (Exception e) {
+            log.error("failed to deserialize message", e);
+            return;
+        }
+
+        if (processed.contains(payload.getMd5())) {
+            log.info("duplicate message, skipped: md5={}", payload.getMd5());
+            return;
+        }
+
+        log.info("processing document: md5={}, fileName={}", payload.getMd5(), payload.getFileName());
+
+        try {
+            String presignedUrl = storageService.getPresignedUrl(
+                    minioConfig.getBucket(), payload.getObjectKey(), 300);
+
+            HttpURLConnection conn = (HttpURLConnection) new URI(presignedUrl).toURL().openConnection();
+            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(60000);
+
+            try (InputStream stream = conn.getInputStream()) {
+                String text = documentParser.parse(stream);
+                if (text.isEmpty()) {
+                    log.warn("empty text after parsing: md5={}", payload.getMd5());
+                    processed.add(payload.getMd5());
+                    return;
+                }
+
+                List<Chunk> chunks = textChunker.chunk(text, BUFFER_SIZE, MIN_CHUNK, OVERLAP_PCT);
+                log.info("chunked: md5={}, chunks={}", payload.getMd5(), chunks.size());
+
+                List<DocumentChunkedPayload.ChunkData> chunkData = chunks.stream()
+                        .map(c -> DocumentChunkedPayload.ChunkData.builder()
+                                .chunkId(payload.getMd5() + "_" + String.format("%04d", c.getIndex()))
+                                .index(c.getIndex())
+                                .text(c.getText())
+                                .charCount(c.getCharCount())
+                                .build())
+                        .collect(Collectors.toList());
+
+                messageProducer.send("document.chunked", DocumentChunkedPayload.builder()
+                        .md5(payload.getMd5())
+                        .fileName(payload.getFileName())
+                        .chunks(chunkData)
+                        .build());
+
+                processed.add(payload.getMd5());
+                log.info("document processed: md5={}, fileName={}, chunks={}",
+                        payload.getMd5(), payload.getFileName(), chunks.size());
+            }
+        } catch (Exception e) {
+            log.error("document processing failed: md5={}, fileName={}",
+                    payload.getMd5(), payload.getFileName(), e);
+        }
+    }
+}
