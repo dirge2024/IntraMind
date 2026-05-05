@@ -44,6 +44,12 @@ localrag:
     access-key: ${MINIO_ACCESS_KEY:dirge}
     secret-key: ${MINIO_SECRET_KEY:wsy2642@}
     bucket: ${MINIO_BUCKET:localrag-documents}
+  embedding:
+    provider: ${EMBEDDING_PROVIDER:qwen}
+    qwen:
+      api-key: ${QWEN_API_KEY:}
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY:}
   kafka:
     brokers: ${KAFKA_BROKERS:localhost:9092}
     topic-prefix: ${KAFKA_TOPIC_PREFIX:localrag}
