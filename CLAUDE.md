@@ -15,13 +15,19 @@ common → storage → messaging → document → embedding → vector-store →
 后层可依赖前层，禁止反向依赖。
 
 ## 编码规范
-- 面向接口编程，每层定义接口，Impl实现
+- 面向接口编程，每层 contract/ 放接口，impl/ 放实现
 - embedding和llm模块必须抽象，支持通义千问/DeepSeek双实现
 - 配置走 application.yml，敏感信息用环境变量
 - 统一返回体 Result<T>，统一异常处理
 - 日志用 Slf4j，关键节点必须打日志
 - REST API 用 SSE 做流式输出
 - 不写多余注释，命名即文档
+
+## 实现决策
+- MinIO 8.5.7 API 使用 composeObject 服务端合并分片，各分片为独立对象
+- 上传进度用 Redis Hash 追踪，key=upload:{md5}
+- 文件标识用 MD5，支持秒传和断点续传
+- 元数据暂存 ConcurrentHashMap，后续切 MySQL
 
 ## 开发顺序
 1. docker-compose 拉基础设施
