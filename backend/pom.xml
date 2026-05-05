@@ -24,6 +24,7 @@
         <minio.version>8.5.7</minio.version>
         <okhttp.version>4.12.0</okhttp.version>
         <kafka.version>3.6.0</kafka.version>
+        <mysql-connector.version>8.0.33</mysql-connector.version>
     </properties>
 
     <modules>
@@ -62,6 +63,12 @@
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>${kafka.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector.version}</version>
             </dependency>
 
             <!-- Internal modules -->
