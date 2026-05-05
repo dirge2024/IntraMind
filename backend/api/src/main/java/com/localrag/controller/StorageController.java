@@ -41,9 +41,10 @@ public class StorageController {
         String md5 = request.getFileMd5();
 
         FileMetadata existing = fileMetadataRepository.findByMd5(md5);
-        if (existing != null && existing.getStatus() == FileMetadata.Status.READY) {
-            if (existing.getFileName().equals(request.getFileName())) {
-                log.info("file already exists (秒传): md5={}", md5);
+        if (existing != null && existing.getStatus() != FileMetadata.Status.DELETED) {
+            if (existing.getStatus() == FileMetadata.Status.EMBEDDED
+                    && existing.getFileName().equals(request.getFileName())) {
+                log.info("file already exists and fully processed (秒传): md5={}", md5);
                 return Result.ok(InitUploadResponse.builder()
                         .md5(md5)
                         .fileName(existing.getFileName())
@@ -52,8 +53,12 @@ public class StorageController {
                         .url("/api/storage/download/" + md5)
                         .build());
             }
-            log.info("same MD5 but different filename, overwriting: old={}, new={}",
-                    existing.getFileName(), request.getFileName());
+            if (!existing.getFileName().equals(request.getFileName())) {
+                log.info("different filename, overwriting: old={}, new={}",
+                        existing.getFileName(), request.getFileName());
+            } else {
+                log.info("file needs re-processing: md5={}, status={}", md5, existing.getStatus());
+            }
             storageService.removeObject(existing.getBucket(), existing.getObjectKey());
             fileMetadataRepository.delete(md5);
         }

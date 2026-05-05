@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.localrag.common.dto.EmbeddingRequestedPayload;
 import com.localrag.messaging.model.KafkaMessage;
+import com.localrag.storage.contract.FileMetadataRepository;
+import com.localrag.storage.model.FileMetadata;
 import com.localrag.vectorstore.contract.VectorStoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ public class VectorStoreConsumer {
 
     private final ObjectMapper objectMapper;
     private final VectorStoreService vectorStoreService;
+    private final FileMetadataRepository fileMetadataRepository;
 
     @KafkaListener(topics = "embedding.requested", groupId = "localrag-vector-store")
     public void onMessage(String json) {
@@ -56,6 +59,13 @@ public class VectorStoreConsumer {
             }
 
             vectorStoreService.indexChunks(documents);
+
+            FileMetadata meta = fileMetadataRepository.findByMd5(payload.getMd5());
+            if (meta != null) {
+                meta.setStatus(FileMetadata.Status.EMBEDDED);
+                fileMetadataRepository.save(meta);
+            }
+
             log.info("indexed {} chunks to ES: md5={}", documents.size(), payload.getMd5());
 
         } catch (Exception e) {

@@ -10,7 +10,9 @@ import com.localrag.document.model.Chunk;
 import com.localrag.messaging.contract.MessageProducer;
 import com.localrag.messaging.model.KafkaMessage;
 import com.localrag.storage.config.MinioConfig;
+import com.localrag.storage.contract.FileMetadataRepository;
 import com.localrag.storage.contract.StorageService;
+import com.localrag.storage.model.FileMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -39,6 +41,7 @@ public class DocumentConsumer {
     private final TextChunker textChunker;
     private final MessageProducer messageProducer;
     private final MinioConfig minioConfig;
+    private final FileMetadataRepository fileMetadataRepository;
 
     private final Set<String> processed = ConcurrentHashMap.newKeySet();
 
@@ -96,6 +99,13 @@ public class DocumentConsumer {
                         .build());
 
                 processed.add(payload.getMd5());
+
+                FileMetadata meta = fileMetadataRepository.findByMd5(payload.getMd5());
+                if (meta != null) {
+                    meta.setStatus(FileMetadata.Status.CHUNKED);
+                    fileMetadataRepository.save(meta);
+                }
+
                 log.info("document processed: md5={}, fileName={}, chunks={}",
                         payload.getMd5(), payload.getFileName(), chunks.size());
             }

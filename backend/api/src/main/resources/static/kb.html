@@ -20,7 +20,11 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e7eb; }
 th { font-weight: 600; color: #6b7280; font-size: 12px; text-transform: uppercase; }
 .status { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
-.status-ready { background: #d1fae5; color: #065f46; }
+.status-uploading { background: #dbeafe; color: #1e40af; }
+.status-ready { background: #fef3c7; color: #92400e; }
+.status-chunked { background: #ffedd5; color: #9a3412; }
+.status-embedded { background: #d1fae5; color: #065f46; }
+.status-deleted { background: #fee2e2; color: #991b1b; }
 .btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
 .btn-danger { background: #fee2e2; color: #991b1b; } .btn-danger:hover { background: #fecaca; }
 .btn-dl { background: #e0e7ff; color: #3730a3; text-decoration: none; } .btn-dl:hover { background: #c7d2fe; }
@@ -62,7 +66,7 @@ async function loadFiles(){
             '<td>'+esc(f.fileName)+'</td>'+
             '<td style="font-size:11px;font-family:monospace;">'+esc(f.md5).substring(0,12)+'...</td>'+
             '<td>'+formatSize(f.fileSize)+'</td>'+
-            '<td><span class="status status-ready">'+f.status+'</span></td>'+
+            '<td><span class="status status-'+f.status.toLowerCase()+'">'+statusText(f.status)+'</span></td>'+
             '<td style="font-size:12px;color:#888;">'+f.createdAt+'</td>'+
             '<td>'+
                 '<a class="btn btn-dl" href="/api/storage/download/'+f.md5+'">下载</a> '+
@@ -76,6 +80,7 @@ async function deleteFile(md5){
     await fetch('/api/storage/file/'+md5,{method:'DELETE'});
     loadFiles();
 }
+function statusText(s){const m={'UPLOADING':'上传中','READY':'已上传','CHUNKED':'已分块','EMBEDDED':'已入库','DELETED':'已删除'};return m[s]||s;}
 function formatSize(b){const KB=1024,MB=1024*KB;if(b<KB)return b+' B';if(b<MB)return(b/KB).toFixed(1)+' KB';return(b/MB).toFixed(1)+' MB';}
 function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
 loadFiles();

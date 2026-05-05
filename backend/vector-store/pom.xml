@@ -27,6 +27,10 @@
             <artifactId>messaging</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.localrag</groupId>
+            <artifactId>storage</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>

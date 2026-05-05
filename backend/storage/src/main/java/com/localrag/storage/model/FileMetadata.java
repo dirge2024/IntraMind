@@ -17,7 +17,10 @@ import java.time.LocalDateTime;
 public class FileMetadata {
 
     public enum Status {
+        UPLOADING,
         READY,
+        CHUNKED,
+        EMBEDDED,
         DELETED
     }
 
