@@ -27,7 +27,7 @@ public class LlmController {
     @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter chat(@RequestParam String query,
                            @RequestParam(defaultValue = "default") String sessionId) {
-        sessionService.touchTitle(sessionId, query);
+        try { sessionService.touchTitle(sessionId, query); } catch (Exception ignored) {}
         return llmService.chat(query, sessionId);
     }
 
