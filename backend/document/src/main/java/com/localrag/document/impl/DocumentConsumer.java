@@ -82,7 +82,7 @@ public class DocumentConsumer {
                 List<Chunk> chunks = textChunker.chunk(text, CHUNK_SIZE, 0, OVERLAP_PCT);
                 log.info("chunked: md5={}, chunks={}", payload.getMd5(), chunks.size());
 
-                List<DocumentChunkedPayload.ChunkData> chunkData = chunks.stream()
+                List<DocumentChunkedPayload.ChunkData> allChunkData = chunks.stream()
                         .map(c -> DocumentChunkedPayload.ChunkData.builder()
                                 .chunkId(payload.getMd5() + "_" + String.format("%04d", c.getIndex()))
                                 .index(c.getIndex())
@@ -91,11 +91,17 @@ public class DocumentConsumer {
                                 .build())
                         .collect(Collectors.toList());
 
-                messageProducer.send("document.chunked", DocumentChunkedPayload.builder()
-                        .md5(payload.getMd5())
-                        .fileName(payload.getFileName())
-                        .chunks(chunkData)
-                        .build());
+                int batchSize = 20;
+                for (int i = 0; i < allChunkData.size(); i += batchSize) {
+                    int end = Math.min(i + batchSize, allChunkData.size());
+                    messageProducer.send("document.chunked", DocumentChunkedPayload.builder()
+                            .md5(payload.getMd5())
+                            .fileName(payload.getFileName())
+                            .chunks(allChunkData.subList(i, end))
+                            .build());
+                }
+                log.info("sent {} document.chunked messages ({} chunks total)",
+                        (int) Math.ceil((double) allChunkData.size() / batchSize), allChunkData.size());
 
                 processed.add(payload.getMd5());
 

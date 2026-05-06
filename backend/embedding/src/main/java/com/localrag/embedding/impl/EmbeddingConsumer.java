@@ -76,10 +76,14 @@ public class EmbeddingConsumer {
                     texts.size(), vectors.size());
         }
 
-        messageProducer.send("embedding.requested", EmbeddingRequestedPayload.builder()
-                .md5(payload.getMd5())
-                .chunks(vectorChunks)
-                .build());
+        int outBatchSize = 20;
+        for (int i = 0; i < vectorChunks.size(); i += outBatchSize) {
+            int end = Math.min(i + outBatchSize, vectorChunks.size());
+            messageProducer.send("embedding.requested", EmbeddingRequestedPayload.builder()
+                    .md5(payload.getMd5())
+                    .chunks(vectorChunks.subList(i, end))
+                    .build());
+        }
 
         log.info("embedding done: md5={}, chunks={}", payload.getMd5(), vectorChunks.size());
     }
