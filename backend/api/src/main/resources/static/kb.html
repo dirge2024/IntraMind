@@ -4,77 +4,47 @@
 <meta charset="UTF-8">
 <title>知识库 — LocalRAG</title>
 <style>
-:root {
-  --ink: #1a1a2e; --muted: #5b5b7a; --faint: #9494b8;
-  --accent: #c8464a; --accent-hover: #b13a3e;
-  --surface: #fff; --bg: #f7f6f4;
-  --border: #e6e4e0;
-  --space-xs: 8px; --space-sm: 12px; --space-md: 20px; --space-lg: 32px; --space-xl: 48px;
-  --sidebar-w: 200px;
-  --font-body: 'Georgia', 'Noto Serif SC', serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --radius: 6px;
-  --green: #166534; --green-bg: #dcfce7;
-  --amber: #92400e; --amber-bg: #fef3c7;
-  --orange: #9a3412; --orange-bg: #ffedd5;
-  --red: #991b1b; --red-bg: #fee2e2;
-  --blue: #1e40af; --blue-bg: #dbeafe;
-}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; }
-.sidebar { width: var(--sidebar-w); background: var(--ink); color: #b8b8d0; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
-.sidebar .brand { padding: var(--space-md); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: var(--space-xs); }
-.sidebar .brand .mark { width: 8px; height: 8px; background: var(--accent); }
-.sidebar nav { flex: 1; padding: var(--space-sm); }
-.sidebar nav a { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); color: #b8b8d0; text-decoration: none; font-size: 13px; border-radius: var(--radius); margin-bottom: 2px; }
-.sidebar nav a:hover { background: rgba(255,255,255,.06); color: #e0e0f0; }
-.sidebar nav a.active { background: var(--accent); color: #fff; }
-.sidebar .status { padding: var(--space-sm) var(--space-md); border-top: 1px solid rgba(255,255,255,.08); font-size: 10px; color: #6b6b8a; }
-.sidebar .status .svc { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-.sidebar .status .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
-.main { margin-left: var(--sidebar-w); flex: 1; }
-.topbar { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
-.topbar h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
-.content { padding: var(--space-lg); max-width: 960px; }
-.toolbar { margin-bottom: var(--space-md); }
-.btn { display: inline-block; padding: 7px 16px; border: none; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-family: var(--font-body); font-weight: 600; }
-.btn-accent { background: var(--accent); color: #fff; } .btn-accent:hover { background: var(--accent-hover); }
-.btn-ghost { background: none; border: 1px solid var(--border); color: var(--muted); padding: 5px 12px; font-size: 12px; margin-left: var(--space-xs); }
-.btn-ghost:hover { border-color: #ccc; }
-.btn-danger { background: none; color: var(--red); font-size: 12px; padding: 4px 10px; }
-.btn-danger:hover { background: var(--red-bg); }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fefefe; color: #222; display: flex; min-height: 100vh; }
+.sidebar { padding: 24px 20px; display: flex; flex-direction: column; gap: 4px; background: #f0f7ff; border-right: 1px solid #dceaf5; flex-shrink: 0; }
+.sidebar .brand { font-size: 15px; font-weight: 700; color: #1e3a5f; margin-bottom: 12px; }
+.sidebar a { display: block; padding: 7px 14px; color: #3b6ba5; text-decoration: none; font-size: 13.5px; border-radius: 6px; white-space: nowrap; transition: .15s; }
+.sidebar a:hover { background: #dceaf5; }
+.sidebar a.active { background: #2563eb; color: #fff; font-weight: 600; }
+.main { flex: 1; }
+.topbar { padding: 14px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+.topbar h1 { font-size: 16px; font-weight: 600; }
+.content { padding: 28px; max-width: 960px; }
+.btn { padding: 7px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; }
+.btn-primary { background: #2563eb; color: #fff; } .btn-primary:hover { background: #1d4ed8; }
+.btn-ghost { background: none; border: 1px solid #ddd; color: #666; padding: 5px 12px; font-size: 12px; margin-left: 8px; border-radius: 6px; }
+.btn-danger { background: none; color: #e53e3e; font-size: 12px; padding: 4px 10px; }
+.btn-danger:hover { background: #fff5f5; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
-thead th { text-align: left; padding: var(--space-xs) var(--space-sm); border-bottom: 2px solid var(--border); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); }
-tbody td { padding: var(--space-sm); border-bottom: 1px solid var(--border); vertical-align: middle; }
-tbody tr:hover { background: #fdfcfb; }
-.badge { display: inline-block; padding: 2px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; }
-.badge-uploading { background: var(--blue-bg); color: var(--blue); }
-.badge-ready { background: var(--amber-bg); color: var(--amber); }
-.badge-chunked { background: var(--orange-bg); color: var(--orange); }
-.badge-embedded { background: var(--green-bg); color: var(--green); }
-.badge-deleted { background: var(--red-bg); color: var(--red); }
-.note { text-align: center; padding: var(--space-xl) 0; color: var(--faint); font-size: 14px; }
+thead th { text-align: left; padding: 10px 12px; border-bottom: 2px solid #eee; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #aaa; }
+tbody td { padding: 12px; border-bottom: 1px solid #f5f5f5; }
+tbody tr:hover { background: #fafcfd; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 100px; font-size: 11.5px; font-weight: 600; }
+.badge-uploading { background: #e8f0fe; color: #1e40af; }
+.badge-ready { background: #fef9e7; color: #92400e; }
+.badge-chunked { background: #fff3e0; color: #9a3412; }
+.badge-embedded { background: #e8f5e9; color: #1b5e20; }
+.note { text-align: center; padding: 40px 0; color: #aaa; font-size: 14px; }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="brand"><div class="mark"></div>LocalRAG</div>
-    <nav>
-        <a href="/upload.html">上传文件</a>
-        <a href="/kb.html" class="active">知识库</a>
-        <a href="/chat.html">对话</a>
-    </nav>
-    <div class="status">
-        <div class="svc"><span class="dot"></span>ES :9200</div>
-        <div class="svc"><span class="dot"></span>MinIO :19001</div>
-        <div class="svc"><span class="dot"></span>Kafka :9092</div>
-        <div class="svc"><span class="dot"></span>MySQL :3307</div>
-    </div>
+    <div class="brand">LocalRAG</div>
+    <a href="/upload.html">上传文件</a>
+    <a href="/kb.html" class="active">知识库</a>
+    <a href="/chat.html">对话</a>
 </div>
 <div class="main">
-    <div class="topbar"><h1>知识库</h1></div>
+    <div class="topbar">
+        <h1>知识库</h1>
+        <button class="btn btn-primary" onclick="loadFiles()">刷新列表</button>
+    </div>
     <div class="content">
-        <div class="toolbar"><button class="btn btn-accent" onclick="loadFiles()">刷新列表</button></div>
         <table>
             <thead><tr><th>文件名</th><th>MD5</th><th>大小</th><th>状态</th><th>时间</th><th></th></tr></thead>
             <tbody id="fileList"><tr><td colspan="6" class="note">加载中&hellip;</td></tr></tbody>
@@ -91,10 +61,10 @@ async function loadFiles(){
         if(!files.length){tbody.innerHTML='<tr><td colspan="6" class="note">暂无文件，请先上传</td></tr>';return;}
         tbody.innerHTML=files.map(f=>'<tr>'+
             '<td><strong>'+esc(f.fileName)+'</strong></td>'+
-            '<td style="font-family:var(--font-mono);font-size:11px;color:var(--faint);">'+esc(f.md5).substring(0,12)+'&hellip;</td>'+
+            '<td style="font-family:monospace;font-size:11px;color:#aaa;">'+esc(f.md5).substring(0,12)+'&hellip;</td>'+
             '<td>'+formatSize(f.fileSize)+'</td>'+
             '<td><span class="badge badge-'+f.status.toLowerCase()+'">'+statusText(f.status)+'</span></td>'+
-            '<td style="font-size:12px;color:var(--faint);">'+f.createdAt+'</td>'+
+            '<td style="font-size:12px;color:#aaa;">'+f.createdAt+'</td>'+
             '<td style="text-align:right;">'+
                 '<a href="/api/storage/download/'+f.md5+'" class="btn btn-ghost">下载</a>'+
                 '<button class="btn btn-danger" onclick="deleteFile(\''+f.md5+'\')">删除</button>'+

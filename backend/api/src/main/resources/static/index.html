@@ -4,69 +4,44 @@
 <meta charset="UTF-8">
 <title>LocalRAG</title>
 <style>
-:root {
-  --ink: #1a1a2e; --muted: #5b5b7a; --faint: #9494b8;
-  --accent: #c8464a; --accent-hover: #b13a3e;
-  --surface: #fff; --bg: #f7f6f4;
-  --border: #e6e4e0;
-  --space-xs: 8px; --space-sm: 12px; --space-md: 20px; --space-lg: 32px; --space-xl: 48px;
-  --sidebar-w: 200px;
-  --font-body: 'Georgia', 'Noto Serif SC', 'Source Han Serif SC', serif;
-  --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
-  --radius: 6px;
-}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; }
-.sidebar { width: var(--sidebar-w); background: var(--ink); color: #b8b8d0; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
-.sidebar .brand { padding: var(--space-md); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: var(--space-xs); }
-.sidebar .brand .mark { width: 8px; height: 8px; background: var(--accent); }
-.sidebar nav { flex: 1; padding: var(--space-sm); }
-.sidebar nav a { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); color: #b8b8d0; text-decoration: none; font-size: 13px; border-radius: var(--radius); margin-bottom: 2px; }
-.sidebar nav a:hover { background: rgba(255,255,255,.06); color: #e0e0f0; }
-.sidebar nav a.active { background: var(--accent); color: #fff; }
-.sidebar .status { padding: var(--space-sm) var(--space-md); border-top: 1px solid rgba(255,255,255,.08); font-size: 10px; color: #6b6b8a; }
-.sidebar .status .svc { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-.sidebar .status .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
-.main { margin-left: var(--sidebar-w); flex: 1; }
-.topbar { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
-.topbar h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
-.content { padding: var(--space-lg); max-width: 880px; }
-.hero { padding: var(--space-lg) 0; margin-bottom: var(--space-lg); }
-.hero h2 { font-size: 28px; line-height: 1.25; letter-spacing: -.01em; margin-bottom: var(--space-sm); }
-.hero p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 540px; }
-.steps { display: flex; align-items: center; gap: 4px; padding: var(--space-md) 0; font-size: 12px; color: var(--faint); flex-wrap: wrap; }
-.steps .s { padding: 4px var(--space-xs); border: 1px solid var(--border); border-radius: var(--radius); font-weight: 600; white-space: nowrap; }
-.steps .s.done { border-color: #86efac; background: #f0fdf4; color: #166534; }
-.steps .sep { color: #d4d4d8; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
-.tile { padding: var(--space-md); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
-.tile .icon { font-size: 20px; margin-bottom: var(--space-xs); }
-.tile .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); margin-bottom: 4px; }
-.tile .val { font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.6; word-break: break-all; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fefefe; color: #222; display: flex; min-height: 100vh; }
+.sidebar { padding: 24px 20px; display: flex; flex-direction: column; gap: 4px; background: #f0f7ff; border-right: 1px solid #dceaf5; flex-shrink: 0; }
+.sidebar .brand { font-size: 15px; font-weight: 700; color: #1e3a5f; margin-bottom: 12px; }
+.sidebar a { display: block; padding: 7px 14px; color: #3b6ba5; text-decoration: none; font-size: 13.5px; border-radius: 6px; transition: .15s; white-space: nowrap; }
+.sidebar a:hover { background: #dceaf5; }
+.sidebar a.active { background: #2563eb; color: #fff; font-weight: 600; }
+.main { flex: 1; }
+.topbar { padding: 14px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
+.topbar h1 { font-size: 16px; font-weight: 600; }
+.content { padding: 28px; max-width: 900px; }
+.hero h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.hero p { color: #666; font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+.pipeline { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #999; flex-wrap: wrap; padding: 12px 0; }
+.pipeline .s { padding: 3px 10px; border: 1px solid #e0e0e0; border-radius: 100px; font-weight: 600; white-space: nowrap; }
+.pipeline .s.done { border-color: #a7f0ba; background: #ebfbee; color: #1b7a30; }
+.pipeline .sep { color: #ccc; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.tile { padding: 20px; border: 1px solid #eee; border-radius: 8px; background: #fff; }
+.tile .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #aaa; margin-bottom: 6px; }
+.tile .val { font-family: 'JetBrains Mono', 'Cascadia Code', monospace; font-size: 11.5px; color: #555; line-height: 1.6; word-break: break-all; }
+a { color: #2563eb; }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="brand"><div class="mark"></div>LocalRAG</div>
-    <nav>
-        <a href="/upload.html">上传文件</a>
-        <a href="/kb.html">知识库</a>
-        <a href="/chat.html">对话</a>
-    </nav>
-    <div class="status">
-        <div class="svc"><span class="dot"></span>ES :9200</div>
-        <div class="svc"><span class="dot"></span>MinIO :19001</div>
-        <div class="svc"><span class="dot"></span>Kafka :9092</div>
-        <div class="svc"><span class="dot"></span>MySQL :3307</div>
-    </div>
+    <div class="brand">LocalRAG</div>
+    <a href="/upload.html">上传文件</a>
+    <a href="/kb.html">知识库</a>
+    <a href="/chat.html">对话</a>
 </div>
 <div class="main">
-    <div class="topbar"><h1>RAG 知识库</h1></div>
+    <div class="topbar"><h1>控制台</h1></div>
     <div class="content">
         <div class="hero">
             <h2>上传文档，智能问答</h2>
-            <p>文件上传后自动解析分块、向量化存入 ES，通过 DeepSeek / Qwen 大模型进行检索增强生成。</p>
-            <div class="steps">
+            <p>文件上传后自动解析分块、向量化存入 ES，通过大模型进行检索增强生成。</p>
+            <div class="pipeline">
                 <span class="s done">上传</span><span class="sep">→</span>
                 <span class="s done">解析</span><span class="sep">→</span>
                 <span class="s done">分块</span><span class="sep">→</span>
@@ -77,17 +52,14 @@ body { font-family: var(--font-body); background: var(--bg); color: var(--ink); 
         </div>
         <div class="grid">
             <div class="tile">
-                <div class="icon">&#128269;</div>
                 <div class="lbl">ES 数据查询</div>
                 <div class="val">curl -u elastic:wsy2642@ localhost:9200/localrag-chunks/_count</div>
             </div>
             <div class="tile">
-                <div class="icon">&#128230;</div>
                 <div class="lbl">MinIO Console</div>
-                <div class="val"><a href="http://localhost:19001" target="_blank">localhost:19001</a> &mdash; dirge / wsy2642@</div>
+                <div class="val"><a href="http://localhost:19001" target="_blank">localhost:19001</a> — dirge / wsy2642@</div>
             </div>
             <div class="tile">
-                <div class="icon">&#127973;</div>
                 <div class="lbl">健康检查</div>
                 <div class="val"><a href="/api/health" target="_blank">/api/health</a></div>
             </div>

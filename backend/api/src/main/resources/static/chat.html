@@ -4,62 +4,39 @@
 <meta charset="UTF-8">
 <title>对话 — LocalRAG</title>
 <style>
-:root {
-  --ink: #1a1a2e; --muted: #5b5b7a; --faint: #9494b8;
-  --accent: #c8464a;
-  --surface: #fff; --bg: #f7f6f4;
-  --border: #e6e4e0;
-  --space-xs: 8px; --space-sm: 12px; --space-md: 20px; --space-lg: 32px; --space-xl: 48px;
-  --sidebar-w: 200px;
-  --font-body: 'Georgia', 'Noto Serif SC', serif;
-  --radius: 6px;
-}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; }
-.sidebar { width: var(--sidebar-w); background: var(--ink); color: #b8b8d0; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
-.sidebar .brand { padding: var(--space-md); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: var(--space-xs); }
-.sidebar .brand .mark { width: 8px; height: 8px; background: var(--accent); }
-.sidebar nav { flex: 1; padding: var(--space-sm); }
-.sidebar nav a { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); color: #b8b8d0; text-decoration: none; font-size: 13px; border-radius: var(--radius); margin-bottom: 2px; }
-.sidebar nav a:hover { background: rgba(255,255,255,.06); color: #e0e0f0; }
-.sidebar nav a.active { background: var(--accent); color: #fff; }
-.sidebar .status { padding: var(--space-sm) var(--space-md); border-top: 1px solid rgba(255,255,255,.08); font-size: 10px; color: #6b6b8a; }
-.sidebar .status .svc { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-.sidebar .status .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
-.main { margin-left: var(--sidebar-w); flex: 1; }
-.topbar { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
-.topbar h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
-.content { padding: var(--space-lg); max-width: 760px; }
-.chat-box { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-md); min-height: 320px; max-height: 480px; overflow-y: auto; margin-bottom: var(--space-sm); background: var(--surface); }
-.row { display: flex; gap: var(--space-xs); }
-.row input { flex: 1; padding: 10px var(--space-sm); border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; font-family: var(--font-body); outline: none; }
-.row input:focus { border-color: var(--ink); }
-.btn { padding: 10px 24px; border: none; border-radius: var(--radius); cursor: pointer; font-size: 14px; font-family: var(--font-body); font-weight: 600; }
-.btn-primary { background: var(--ink); color: #fff; } .btn-primary:hover { background: #2d2d44; }
-.btn-primary:disabled { background: #d4d4d8; color: #a1a1aa; cursor: not-allowed; }
-.note { text-align: center; padding: var(--space-xl) 0; color: var(--faint); font-size: 14px; line-height: 2; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fefefe; color: #222; display: flex; min-height: 100vh; }
+.sidebar { padding: 24px 20px; display: flex; flex-direction: column; gap: 4px; background: #f0f7ff; border-right: 1px solid #dceaf5; flex-shrink: 0; }
+.sidebar .brand { font-size: 15px; font-weight: 700; color: #1e3a5f; margin-bottom: 12px; }
+.sidebar a { display: block; padding: 7px 14px; color: #3b6ba5; text-decoration: none; font-size: 13.5px; border-radius: 6px; white-space: nowrap; transition: .15s; }
+.sidebar a:hover { background: #dceaf5; }
+.sidebar a.active { background: #2563eb; color: #fff; font-weight: 600; }
+.main { flex: 1; }
+.topbar { padding: 14px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
+.topbar h1 { font-size: 16px; font-weight: 600; }
+.content { padding: 28px; max-width: 760px; }
+.chat-box { border: 1px solid #eee; border-radius: 8px; padding: 20px; min-height: 320px; max-height: 480px; overflow-y: auto; margin-bottom: 12px; background: #fff; }
+.row { display: flex; gap: 8px; }
+.row input { flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; }
+.row input:focus { border-color: #2563eb; }
+.btn { padding: 10px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; }
+.btn-primary { background: #2563eb; color: #fff; } .btn-primary:hover { background: #1d4ed8; }
+.btn-primary:disabled { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
+.note { text-align: center; padding: 40px 0; color: #aaa; font-size: 14px; line-height: 2; }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="brand"><div class="mark"></div>LocalRAG</div>
-    <nav>
-        <a href="/upload.html">上传文件</a>
-        <a href="/kb.html">知识库</a>
-        <a href="/chat.html" class="active">对话</a>
-    </nav>
-    <div class="status">
-        <div class="svc"><span class="dot"></span>ES :9200</div>
-        <div class="svc"><span class="dot"></span>MinIO :19001</div>
-        <div class="svc"><span class="dot"></span>Kafka :9092</div>
-        <div class="svc"><span class="dot"></span>MySQL :3307</div>
-    </div>
+    <div class="brand">LocalRAG</div>
+    <a href="/upload.html">上传文件</a>
+    <a href="/kb.html">知识库</a>
+    <a href="/chat.html" class="active">对话</a>
 </div>
 <div class="main">
     <div class="topbar"><h1>对话</h1></div>
     <div class="content">
         <div class="chat-box">
-            <div class="note">retrieval + llm 模块开发中<br><small style="font-size:12px;">入链已贯通：上传 &rarr; 解析 &rarr; 向量化 &rarr; 入库</small></div>
+            <div class="note">retrieval + llm 模块开发中<br><small style="font-size:12px;">入链已贯通：上传 → 解析 → 向量化 → 入库</small></div>
         </div>
         <div class="row">
             <input type="text" id="question" placeholder="输入问题..." disabled>
