@@ -5,52 +5,63 @@
 <title>对话 — LocalRAG</title>
 <style>
 :root {
-  --primary: #6366f1; --primary-hover: #4f46e5;
-  --bg: #f1f5f9; --card: #fff; --text: #1e293b; --text-muted: #64748b;
-  --sidebar-bg: #0f172a; --sidebar-text: #94a3b8; --sidebar-active: #1e293b;
-  --radius: 10px;
+  --ink: #1a1a2e; --muted: #5b5b7a; --faint: #9494b8;
+  --accent: #c8464a;
+  --surface: #fff; --bg: #f7f6f4;
+  --border: #e6e4e0;
+  --space-xs: 8px; --space-sm: 12px; --space-md: 20px; --space-lg: 32px; --space-xl: 48px;
+  --sidebar-w: 200px;
+  --font-body: 'Georgia', 'Noto Serif SC', serif;
+  --radius: 6px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; line-height: 1.6; }
-.sidebar { width: 240px; background: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; }
-.sidebar .logo { padding: 0 24px 20px; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -.02em; border-bottom: 1px solid #1e293b; }
-.sidebar nav { flex: 1; padding: 12px 0; }
-.sidebar a { display: flex; align-items: center; gap: 10px; padding: 10px 24px; color: var(--sidebar-text); text-decoration: none; font-size: 14px; font-weight: 500; margin: 2px 12px; border-radius: 8px; transition: .15s; }
-.sidebar a:hover { background: var(--sidebar-active); color: #e2e8f0; }
-.sidebar a.active { background: var(--primary); color: #fff; }
-.sidebar .footer { padding: 16px 24px; font-size: 11px; color: #475569; border-top: 1px solid #1e293b; }
-.main { margin-left: 240px; flex: 1; padding: 32px 40px; max-width: 1100px; }
-h2 { font-size: 24px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
-.sub { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
-.card { background: var(--card); border-radius: var(--radius); box-shadow: 0 1px 3px 0 rgba(0,0,0,.04); padding: 24px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
-.chat-box { border: 1px solid #e2e8f0; border-radius: var(--radius); padding: 20px; min-height: 320px; max-height: 480px; overflow-y: auto; margin-bottom: 14px; background: #f8fafc; }
-.input-row { display: flex; gap: 10px; }
-.input-row input { flex: 1; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; }
-.input-row input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,.1); }
-.btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; }
-.btn-primary { background: var(--primary); color: #fff; } .btn-primary:hover { background: var(--primary-hover); }
-.btn-primary:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
-.empty { text-align: center; color: var(--text-muted); padding: 60px 0; font-size: 15px; line-height: 2; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; }
+.sidebar { width: var(--sidebar-w); background: var(--ink); color: #b8b8d0; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
+.sidebar .brand { padding: var(--space-md); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: var(--space-xs); }
+.sidebar .brand .mark { width: 8px; height: 8px; background: var(--accent); }
+.sidebar nav { flex: 1; padding: var(--space-sm); }
+.sidebar nav a { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); color: #b8b8d0; text-decoration: none; font-size: 13px; border-radius: var(--radius); margin-bottom: 2px; }
+.sidebar nav a:hover { background: rgba(255,255,255,.06); color: #e0e0f0; }
+.sidebar nav a.active { background: var(--accent); color: #fff; }
+.sidebar .status { padding: var(--space-sm) var(--space-md); border-top: 1px solid rgba(255,255,255,.08); font-size: 10px; color: #6b6b8a; }
+.sidebar .status .svc { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.sidebar .status .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
+.main { margin-left: var(--sidebar-w); flex: 1; }
+.topbar { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
+.topbar h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
+.content { padding: var(--space-lg); max-width: 760px; }
+.chat-box { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-md); min-height: 320px; max-height: 480px; overflow-y: auto; margin-bottom: var(--space-sm); background: var(--surface); }
+.row { display: flex; gap: var(--space-xs); }
+.row input { flex: 1; padding: 10px var(--space-sm); border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; font-family: var(--font-body); outline: none; }
+.row input:focus { border-color: var(--ink); }
+.btn { padding: 10px 24px; border: none; border-radius: var(--radius); cursor: pointer; font-size: 14px; font-family: var(--font-body); font-weight: 600; }
+.btn-primary { background: var(--ink); color: #fff; } .btn-primary:hover { background: #2d2d44; }
+.btn-primary:disabled { background: #d4d4d8; color: #a1a1aa; cursor: not-allowed; }
+.note { text-align: center; padding: var(--space-xl) 0; color: var(--faint); font-size: 14px; line-height: 2; }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="logo">LocalRAG</div>
+    <div class="brand"><div class="mark"></div>LocalRAG</div>
     <nav>
-        <a href="/upload.html">📤 文件上传</a>
-        <a href="/kb.html">📚 知识库</a>
-        <a href="/chat.html" class="active">💬 对话</a>
+        <a href="/upload.html">上传文件</a>
+        <a href="/kb.html">知识库</a>
+        <a href="/chat.html" class="active">对话</a>
     </nav>
-    <div class="footer">ES :9200 · MinIO :19001<br>Kafka :9092 · MySQL :3307</div>
+    <div class="status">
+        <div class="svc"><span class="dot"></span>ES :9200</div>
+        <div class="svc"><span class="dot"></span>MinIO :19001</div>
+        <div class="svc"><span class="dot"></span>Kafka :9092</div>
+        <div class="svc"><span class="dot"></span>MySQL :3307</div>
+    </div>
 </div>
 <div class="main">
-    <h2>💬 RAG 对话</h2>
-    <p class="sub">基于知识库的智能问答 — DeepSeek</p>
-    <div class="card">
-        <div class="chat-box" id="chatBox">
-            <div class="empty">retrieval + llm 模块开发中<br><small>入链已贯通：上传 → 解析 → 向量化 → 入库</small></div>
+    <div class="topbar"><h1>对话</h1></div>
+    <div class="content">
+        <div class="chat-box">
+            <div class="note">retrieval + llm 模块开发中<br><small style="font-size:12px;">入链已贯通：上传 &rarr; 解析 &rarr; 向量化 &rarr; 入库</small></div>
         </div>
-        <div class="input-row">
+        <div class="row">
             <input type="text" id="question" placeholder="输入问题..." disabled>
             <button class="btn btn-primary" disabled>发送</button>
         </div>

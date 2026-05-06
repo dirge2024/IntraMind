@@ -5,54 +5,93 @@
 <title>LocalRAG</title>
 <style>
 :root {
-  --primary: #6366f1; --primary-hover: #4f46e5;
-  --bg: #f1f5f9; --card: #fff;
-  --text: #1e293b; --text-muted: #64748b;
-  --sidebar-bg: #0f172a; --sidebar-text: #94a3b8; --sidebar-active: #1e293b;
-  --radius: 10px;
+  --ink: #1a1a2e; --muted: #5b5b7a; --faint: #9494b8;
+  --accent: #c8464a; --accent-hover: #b13a3e;
+  --surface: #fff; --bg: #f7f6f4;
+  --border: #e6e4e0;
+  --space-xs: 8px; --space-sm: 12px; --space-md: 20px; --space-lg: 32px; --space-xl: 48px;
+  --sidebar-w: 200px;
+  --font-body: 'Georgia', 'Noto Serif SC', 'Source Han Serif SC', serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
+  --radius: 6px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; line-height: 1.6; }
-.sidebar { width: 240px; background: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; }
-.sidebar .logo { padding: 0 24px 20px; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -.02em; border-bottom: 1px solid #1e293b; }
-.sidebar nav { flex: 1; padding: 12px 0; }
-.sidebar a { display: flex; align-items: center; gap: 10px; padding: 10px 24px; color: var(--sidebar-text); text-decoration: none; font-size: 14px; font-weight: 500; margin: 2px 12px; border-radius: 8px; transition: .15s; }
-.sidebar a:hover { background: var(--sidebar-active); color: #e2e8f0; }
-.sidebar a.active { background: var(--primary); color: #fff; }
-.sidebar .footer { padding: 16px 24px; font-size: 11px; color: #475569; border-top: 1px solid #1e293b; }
-.main { margin-left: 240px; flex: 1; padding: 32px 40px; max-width: 1100px; }
-h2 { font-size: 24px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
-.sub { color: var(--text-muted); margin-bottom: 28px; font-size: 14px; }
-.card { background: var(--card); border-radius: var(--radius); box-shadow: 0 1px 3px 0 rgba(0,0,0,.04), 0 1px 2px -1px rgba(0,0,0,.03); padding: 24px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
-.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
-.info-item { background: var(--card); border: 1px solid #e2e8f0; border-radius: var(--radius); padding: 16px; }
-.info-item .label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; }
-.info-item .value { font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--text); margin-top: 4px; word-break: break-all; }
-code { background: #f1f5f9; padding: 2px 8px; border-radius: 4px; font-size: 13px; color: #6366f1; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; }
+.sidebar { width: var(--sidebar-w); background: var(--ink); color: #b8b8d0; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
+.sidebar .brand { padding: var(--space-md); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: var(--space-xs); }
+.sidebar .brand .mark { width: 8px; height: 8px; background: var(--accent); }
+.sidebar nav { flex: 1; padding: var(--space-sm); }
+.sidebar nav a { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); color: #b8b8d0; text-decoration: none; font-size: 13px; border-radius: var(--radius); margin-bottom: 2px; }
+.sidebar nav a:hover { background: rgba(255,255,255,.06); color: #e0e0f0; }
+.sidebar nav a.active { background: var(--accent); color: #fff; }
+.sidebar .status { padding: var(--space-sm) var(--space-md); border-top: 1px solid rgba(255,255,255,.08); font-size: 10px; color: #6b6b8a; }
+.sidebar .status .svc { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.sidebar .status .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
+.main { margin-left: var(--sidebar-w); flex: 1; }
+.topbar { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
+.topbar h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
+.content { padding: var(--space-lg); max-width: 880px; }
+.hero { padding: var(--space-lg) 0; margin-bottom: var(--space-lg); }
+.hero h2 { font-size: 28px; line-height: 1.25; letter-spacing: -.01em; margin-bottom: var(--space-sm); }
+.hero p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 540px; }
+.steps { display: flex; align-items: center; gap: 4px; padding: var(--space-md) 0; font-size: 12px; color: var(--faint); flex-wrap: wrap; }
+.steps .s { padding: 4px var(--space-xs); border: 1px solid var(--border); border-radius: var(--radius); font-weight: 600; white-space: nowrap; }
+.steps .s.done { border-color: #86efac; background: #f0fdf4; color: #166534; }
+.steps .sep { color: #d4d4d8; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
+.tile { padding: var(--space-md); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.tile .icon { font-size: 20px; margin-bottom: var(--space-xs); }
+.tile .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); margin-bottom: 4px; }
+.tile .val { font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.6; word-break: break-all; }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="logo">LocalRAG</div>
+    <div class="brand"><div class="mark"></div>LocalRAG</div>
     <nav>
-        <a href="/upload.html">📤 文件上传</a>
-        <a href="/kb.html">📚 知识库</a>
-        <a href="/chat.html">💬 对话</a>
+        <a href="/upload.html">上传文件</a>
+        <a href="/kb.html">知识库</a>
+        <a href="/chat.html">对话</a>
     </nav>
-    <div class="footer">ES :9200 · MinIO :19001<br>Kafka :9092 · MySQL :3307</div>
+    <div class="status">
+        <div class="svc"><span class="dot"></span>ES :9200</div>
+        <div class="svc"><span class="dot"></span>MinIO :19001</div>
+        <div class="svc"><span class="dot"></span>Kafka :9092</div>
+        <div class="svc"><span class="dot"></span>MySQL :3307</div>
+    </div>
 </div>
 <div class="main">
-    <h2>RAG 知识库控制台</h2>
-    <p class="sub">入链：上传 → 解析 → 向量化 → ES | 查询链：检索 → LLM（开发中）</p>
-
-    <div class="card">
-        <p style="font-size:14px;">左侧菜单切换功能页面。首次使用请先 <strong>上传文档</strong>，等待入库完成后再对话。</p>
-    </div>
-
-    <div class="info-grid">
-        <div class="info-item"><div class="label">ES 数据查询</div><div class="value"><code>curl -u elastic:wsy2642@ localhost:9200/localrag-chunks/_count</code></div></div>
-        <div class="info-item"><div class="label">MinIO Console</div><div class="value"><a href="http://localhost:19001" target="_blank">localhost:19001</a>（dirge / wsy2642@）</div></div>
-        <div class="info-item"><div class="label">健康检查</div><div class="value"><a href="/api/health" target="_blank">/api/health</a></div></div>
+    <div class="topbar"><h1>RAG 知识库</h1></div>
+    <div class="content">
+        <div class="hero">
+            <h2>上传文档，智能问答</h2>
+            <p>文件上传后自动解析分块、向量化存入 ES，通过 DeepSeek / Qwen 大模型进行检索增强生成。</p>
+            <div class="steps">
+                <span class="s done">上传</span><span class="sep">→</span>
+                <span class="s done">解析</span><span class="sep">→</span>
+                <span class="s done">分块</span><span class="sep">→</span>
+                <span class="s done">向量化</span><span class="sep">→</span>
+                <span class="s done">入库</span><span class="sep">→</span>
+                <span class="s">检索回答</span>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="tile">
+                <div class="icon">&#128269;</div>
+                <div class="lbl">ES 数据查询</div>
+                <div class="val">curl -u elastic:wsy2642@ localhost:9200/localrag-chunks/_count</div>
+            </div>
+            <div class="tile">
+                <div class="icon">&#128230;</div>
+                <div class="lbl">MinIO Console</div>
+                <div class="val"><a href="http://localhost:19001" target="_blank">localhost:19001</a> &mdash; dirge / wsy2642@</div>
+            </div>
+            <div class="tile">
+                <div class="icon">&#127973;</div>
+                <div class="lbl">健康检查</div>
+                <div class="val"><a href="/api/health" target="_blank">/api/health</a></div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

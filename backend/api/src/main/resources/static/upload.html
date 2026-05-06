@@ -2,64 +2,74 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>文件上传 — LocalRAG</title>
+<title>上传 — LocalRAG</title>
 <script src="https://cdn.jsdelivr.net/npm/spark-md5@3.0.2/spark-md5.min.js"></script>
 <style>
 :root {
-  --primary: #6366f1; --primary-hover: #4f46e5;
-  --bg: #f1f5f9; --card: #fff; --text: #1e293b; --text-muted: #64748b;
-  --sidebar-bg: #0f172a; --sidebar-text: #94a3b8; --sidebar-active: #1e293b;
-  --radius: 10px;
+  --ink: #1a1a2e; --muted: #5b5b7a; --faint: #9494b8;
+  --accent: #c8464a; --accent-hover: #b13a3e;
+  --surface: #fff; --bg: #f7f6f4;
+  --border: #e6e4e0;
+  --space-xs: 8px; --space-sm: 12px; --space-md: 20px; --space-lg: 32px; --space-xl: 48px;
+  --sidebar-w: 200px;
+  --font-body: 'Georgia', 'Noto Serif SC', serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
+  --radius: 6px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; line-height: 1.6; }
-.sidebar { width: 240px; background: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; }
-.sidebar .logo { padding: 0 24px 20px; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -.02em; border-bottom: 1px solid #1e293b; }
-.sidebar nav { flex: 1; padding: 12px 0; }
-.sidebar a { display: flex; align-items: center; gap: 10px; padding: 10px 24px; color: var(--sidebar-text); text-decoration: none; font-size: 14px; font-weight: 500; margin: 2px 12px; border-radius: 8px; transition: .15s; }
-.sidebar a:hover { background: var(--sidebar-active); color: #e2e8f0; }
-.sidebar a.active { background: var(--primary); color: #fff; }
-.sidebar .footer { padding: 16px 24px; font-size: 11px; color: #475569; border-top: 1px solid #1e293b; }
-.main { margin-left: 240px; flex: 1; padding: 32px 40px; max-width: 1100px; }
-h2 { font-size: 24px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
-.sub { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
-.card { background: var(--card); border-radius: var(--radius); box-shadow: 0 1px 3px 0 rgba(0,0,0,.04); padding: 24px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
-label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
-input[type=file] { margin-bottom: 14px; font-size: 14px; }
-.btn { padding: 10px 22px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: .15s; }
-.btn-primary { background: var(--primary); color: #fff; } .btn-primary:hover { background: var(--primary-hover); }
-.btn-primary:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
-.btn-sm { padding: 7px 16px; font-size: 12px; background: #e2e8f0; color: #475569; margin-left: 10px; border-radius: 6px; }
-.mode-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
-.mode-toggle button { padding: 8px 18px; border: 1px solid #e2e8f0; background: var(--card); border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; transition: .15s; }
-.mode-toggle button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-.progress-bar { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin: 14px 0; }
-.progress-fill { height: 100%; background: var(--primary); border-radius: 4px; transition: width .2s; }
-.stats { display: flex; gap: 28px; font-size: 13px; color: var(--text-muted); margin-bottom: 14px; flex-wrap: wrap; }
-.stats span { font-weight: 600; color: var(--text); }
-#log { background: #0f172a; color: #e2e8f0; border-radius: var(--radius); padding: 18px; font-family: 'JetBrains Mono', 'Cascadia Code', monospace; font-size: 12px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; line-height: 1.7; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--ink); display: flex; min-height: 100vh; }
+.sidebar { width: var(--sidebar-w); background: var(--ink); color: #b8b8d0; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
+.sidebar .brand { padding: var(--space-md); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: var(--space-xs); }
+.sidebar .brand .mark { width: 8px; height: 8px; background: var(--accent); }
+.sidebar nav { flex: 1; padding: var(--space-sm); }
+.sidebar nav a { display: flex; align-items: center; gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); color: #b8b8d0; text-decoration: none; font-size: 13px; border-radius: var(--radius); margin-bottom: 2px; }
+.sidebar nav a:hover { background: rgba(255,255,255,.06); color: #e0e0f0; }
+.sidebar nav a.active { background: var(--accent); color: #fff; }
+.sidebar .status { padding: var(--space-sm) var(--space-md); border-top: 1px solid rgba(255,255,255,.08); font-size: 10px; color: #6b6b8a; }
+.sidebar .status .svc { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.sidebar .status .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
+.main { margin-left: var(--sidebar-w); flex: 1; }
+.topbar { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
+.topbar h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
+.content { padding: var(--space-lg); max-width: 760px; }
+.mode-toggle { display: flex; gap: var(--space-xs); margin-bottom: var(--space-md); }
+.mode-toggle button { padding: 6px 16px; border: 1px solid var(--border); background: var(--surface); border-radius: var(--radius); cursor: pointer; font-size: 13px; font-family: var(--font-body); }
+.mode-toggle button.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+input[type=file] { margin-bottom: var(--space-sm); font-size: 14px; }
+.btn { display: inline-block; padding: 9px 20px; border: none; border-radius: var(--radius); cursor: pointer; font-size: 14px; font-family: var(--font-body); font-weight: 600; }
+.btn-primary { background: var(--ink); color: #fff; } .btn-primary:hover { background: #2d2d44; }
+.btn-primary:disabled { background: #d4d4d8; color: #a1a1aa; cursor: not-allowed; }
+.btn-ghost { padding: 6px 14px; font-size: 12px; background: none; border: 1px solid var(--border); color: var(--muted); margin-left: var(--space-xs); }
+.stats { display: flex; gap: var(--space-md); font-size: 13px; color: var(--faint); margin-bottom: var(--space-sm); flex-wrap: wrap; }
+.stats span { font-weight: 600; color: var(--ink); }
+.progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin: var(--space-sm) 0; }
+.progress-fill { height: 100%; background: var(--ink); transition: width .2s; }
+#log { background: var(--ink); color: #d4d4d8; border-radius: var(--radius); padding: var(--space-md); font-family: var(--font-mono); font-size: 12px; max-height: 260px; overflow-y: auto; white-space: pre-wrap; line-height: 1.7; }
 #log .info { color: #93c5fd; } #log .ok { color: #86efac; } #log .warn { color: #fde68a; } #log .err { color: #fca5a5; }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="logo">LocalRAG</div>
+    <div class="brand"><div class="mark"></div>LocalRAG</div>
     <nav>
-        <a href="/upload.html" class="active">📤 文件上传</a>
-        <a href="/kb.html">📚 知识库</a>
-        <a href="/chat.html">💬 对话</a>
+        <a href="/upload.html" class="active">上传文件</a>
+        <a href="/kb.html">知识库</a>
+        <a href="/chat.html">对话</a>
     </nav>
-    <div class="footer">ES :9200 · MinIO :19001<br>Kafka :9092 · MySQL :3307</div>
+    <div class="status">
+        <div class="svc"><span class="dot"></span>ES :9200</div>
+        <div class="svc"><span class="dot"></span>MinIO :19001</div>
+        <div class="svc"><span class="dot"></span>Kafka :9092</div>
+        <div class="svc"><span class="dot"></span>MySQL :3307</div>
+    </div>
 </div>
 <div class="main">
-    <h2>📤 文件上传</h2>
-    <p class="sub">支持 TXT / PDF / Word / Markdown，自动解析+向量化</p>
-    <div class="mode-toggle">
-        <button id="btnChunk" class="active" onclick="switchMode('chunk')">分片上传</button>
-        <button id="btnDirect" onclick="switchMode('direct')">小文件直传</button>
-    </div>
-    <div class="card">
-        <label>选择文件</label>
+    <div class="topbar"><h1>上传文件</h1></div>
+    <div class="content">
+        <div class="mode-toggle">
+            <button id="btnChunk" class="active" onclick="switchMode('chunk')">分片上传</button>
+            <button id="btnDirect" onclick="switchMode('direct')">小文件直传</button>
+        </div>
         <input type="file" id="fileInput">
         <div class="stats">
             <div>大小: <span id="fileSize">-</span></div>
@@ -68,14 +78,13 @@ input[type=file] { margin-bottom: 14px; font-size: 14px; }
             <div>MD5: <span id="fileMd5" style="font-size:11px;">-</span></div>
         </div>
         <div class="progress-bar" id="progressBar" style="display:none;"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-        <p id="progressText" style="font-size:13px; color:var(--text-muted);"></p>
+        <p id="progressText" style="font-size:13px;color:var(--faint);margin-bottom:var(--space-sm);"></p>
         <button class="btn btn-primary" id="btnUpload" onclick="startUpload()" disabled>开始上传</button>
-        <button class="btn btn-sm" onclick="pauseUpload()">暂停</button>
-    </div>
-    <div class="card">
-        <h3 style="margin-bottom:12px;font-size:16px;">📋 日志</h3>
-        <div id="log"><span class="info">等待选择文件...</span></div>
-        <button class="btn btn-sm" onclick="document.getElementById('log').innerHTML=''" style="margin-top:8px;margin-left:0;">清空</button>
+        <button class="btn btn-ghost" onclick="pauseUpload()">暂停</button>
+        <div style="margin-top:var(--space-lg);">
+            <div id="log"><span class="info">等待选择文件...</span></div>
+            <button class="btn btn-ghost" onclick="document.getElementById('log').innerHTML=''" style="margin-top:var(--space-xs);margin-left:0;">清空日志</button>
+        </div>
     </div>
 </div>
 <script>
@@ -92,7 +101,7 @@ document.getElementById('fileInput').addEventListener('change',async function(){
         document.getElementById('fileMd5').textContent=md5;chunkSize=Math.max(CHUNK,Math.ceil(file.size/10000));
         totalChunks=Math.ceil(file.size/chunkSize);document.getElementById('chunkSize').textContent=formatSize(chunkSize);
         document.getElementById('totalChunks').textContent=totalChunks;
-        log('ok','MD5: '+md5+' | 分片: '+totalChunks+' × '+formatSize(chunkSize));
+        log('ok','MD5: '+md5+' | 分片: '+totalChunks+' x '+formatSize(chunkSize));
         try{const r=await fetch('/api/storage/upload/'+md5+'/progress');if(r.ok){const d=await r.json();if(d.code===200&&d.data.uploadedParts){uploadedParts=d.data.uploadedParts;log('warn','检测到未完成上传, 已上传 '+uploadedParts.length+' 片');}}}catch(e){}
     }else{document.getElementById('totalChunks').textContent='1（直传）';}
 });
@@ -104,30 +113,27 @@ async function startUpload(){
 async function directUpload(file){
     log('info','直传: '+file.name);const form=new FormData();form.append('file',file);
     const r=await fetch('/api/storage/upload/direct',{method:'POST',body:form});const d=await r.json();
-    if(d.code===200&&(d.data.status==='COMPLETE'||d.data.status==='EXIST')){log('ok','完成! MD5: '+d.data.md5+(d.data.status==='EXIST'?' （秒传）':''));document.getElementById('progressFill').style.width='100%';}
-    else log('err','失败: '+JSON.stringify(d));
-    document.getElementById('btnUpload').disabled=false;
+    if(d.code===200&&(d.data.status==='COMPLETE'||d.data.status==='EXIST')){log('ok','完成! MD5: '+d.data.md5+(d.data.status==='EXIST'?' (秒传)':''));document.getElementById('progressFill').style.width='100%';}
+    else log('err','失败: '+JSON.stringify(d));document.getElementById('btnUpload').disabled=false;
 }
 async function chunkedUpload(file){
-    log('info','→ Init...');
+    log('info','Init...');
     const r=await fetch('/api/storage/upload/init',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileMd5:md5,fileName:file.name,fileSize:file.size})});
     const d=(await r.json()).data;if(!d){log('err','Init 失败');return;}
-    if(d.status==='EXIST'){log('warn','已存在（秒传）!');document.getElementById('btnUpload').disabled=false;return;}
+    if(d.status==='EXIST'){log('warn','已存在 (秒传)!');document.getElementById('btnUpload').disabled=false;return;}
     if(d.status==='RESUME'){uploadedParts=d.uploadedParts||[];log('warn','续传, 已上传: '+JSON.stringify(uploadedParts));}
     totalChunks=d.totalParts;chunkSize=d.partSize;log('info','总分片: '+totalChunks);
     for(let i=1;i<=totalChunks;i++){
         if(uploadedParts.includes(i)){log('info','跳过 '+i+'/'+totalChunks);updateProgress(i,totalChunks);continue;}
-        while(paused)await sleep(500);
-        const s=(i-1)*chunkSize,e=Math.min(s+chunkSize,file.size);
+        while(paused)await sleep(500);const s=(i-1)*chunkSize,e=Math.min(s+chunkSize,file.size);
         const f=new FormData();f.append('md5',md5);f.append('partNumber',i);f.append('file',file.slice(s,e));
-        for(let retry=0;retry<3;retry++){try{const rr=await fetch('/api/storage/upload/part',{method:'POST',body:f});const dd=await rr.json();if(dd.code===200){log('ok','分片 '+i+'/'+totalChunks+' ✓');uploadedParts.push(i);updateProgress(i,totalChunks);break;}}catch(x){if(retry>=2){log('err','分片 '+i+' 失败');return;}log('warn','重试 '+(retry+1)+'/3');await sleep(1000);}}
+        for(let retry=0;retry<3;retry++){try{const rr=await fetch('/api/storage/upload/part',{method:'POST',body:f});const dd=await rr.json();if(dd.code===200){log('ok','分片 '+i+'/'+totalChunks+' OK');uploadedParts.push(i);updateProgress(i,totalChunks);break;}}catch(x){if(retry>=2){log('err','分片 '+i+' 失败');return;}log('warn','重试 '+(retry+1)+'/3');await sleep(1000);}}
     }
-    log('info','→ 合并...');
+    log('info','合并分片...');
     const cr=await fetch('/api/storage/upload/complete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({md5})});
     const cd=await cr.json();
-    if(cd.code===200){log('ok','完成!');document.getElementById('progressFill').style.width='100%';document.getElementById('progressText').textContent='100% — 完成';}
-    else log('err','合并失败: '+JSON.stringify(cd));
-    document.getElementById('btnUpload').disabled=false;
+    if(cd.code===200){log('ok','完成!');document.getElementById('progressFill').style.width='100%';document.getElementById('progressText').textContent='100% - 完成';}
+    else log('err','合并失败: '+JSON.stringify(cd));document.getElementById('btnUpload').disabled=false;
 }
 function updateProgress(i,t){const p=Math.round(i/t*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressText').textContent=i+'/'+t+' ('+p+'%)';}
 function pauseUpload(){paused=!paused;event.target.textContent=paused?'继续':'暂停';log(paused?'warn':'info',paused?'已暂停':'已继续');}
