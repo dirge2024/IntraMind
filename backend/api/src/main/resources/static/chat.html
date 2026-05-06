@@ -5,41 +5,46 @@
 <title>对话 — LocalRAG</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fefefe; color: #222; display: flex; min-height: 100vh; }
-.sidebar { padding: 24px 20px; display: flex; flex-direction: column; gap: 4px; background: #f0f7ff; border-right: 1px solid #dceaf5; flex-shrink: 0; }
-.sidebar .brand { font-size: 15px; font-weight: 700; color: #1e3a5f; margin-bottom: 12px; }
-.sidebar a { display: block; padding: 7px 14px; color: #3b6ba5; text-decoration: none; font-size: 13.5px; border-radius: 6px; white-space: nowrap; transition: .15s; }
-.sidebar a:hover { background: #dceaf5; }
-.sidebar a.active { background: #2563eb; color: #fff; font-weight: 600; }
-.main { flex: 1; }
-.topbar { padding: 14px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
-.topbar h1 { font-size: 16px; font-weight: 600; }
-.content { padding: 28px; max-width: 760px; }
-.chat-box { border: 1px solid #eee; border-radius: 8px; padding: 20px; min-height: 320px; max-height: 480px; overflow-y: auto; margin-bottom: 12px; background: #fff; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', system-ui, sans-serif; background: #f8faff; color: #333; display: flex; min-height: 100vh; }
+.sidebar { width: 200px; background: #fff; border-right: 1px solid #f0f0f5; display: flex; flex-direction: column; padding: 24px 16px; flex-shrink: 0; }
+.sidebar .brand { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: #333; margin-bottom: 32px; padding: 0 8px; }
+.sidebar .brand .icon { width: 28px; height: 28px; background: #7c3aed; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; }
+.sidebar nav { display: flex; flex-direction: column; gap: 2px; }
+.sidebar nav a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #555; text-decoration: none; font-size: 14px; border-radius: 10px; transition: .15s; }
+.sidebar nav a:hover { background: #f5f3ff; color: #7c3aed; }
+.sidebar nav a.active { background: #ede9fe; color: #7c3aed; font-weight: 600; }
+.sidebar nav a .ico { font-size: 17px; width: 22px; text-align: center; }
+.main { flex: 1; display: flex; flex-direction: column; }
+.topbar { background: #fff; padding: 12px 28px; border-bottom: 1px solid #f0f0f5; display: flex; align-items: center; }
+.topbar h1 { font-size: 16px; font-weight: 600; color: #333; }
+.content { flex: 1; padding: 28px; max-width: 760px; }
+.chat-box { border: 1px solid #f0f0f5; border-radius: 12px; padding: 20px; min-height: 320px; max-height: 480px; overflow-y: auto; margin-bottom: 12px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.03); }
 .row { display: flex; gap: 8px; }
-.row input { flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; }
-.row input:focus { border-color: #2563eb; }
-.btn { padding: 10px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; }
-.btn-primary { background: #2563eb; color: #fff; } .btn-primary:hover { background: #1d4ed8; }
+.row input { flex: 1; padding: 11px 16px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; color: #333; }
+.row input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
+.btn { padding: 11px 24px; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600; transition: .15s; }
+.btn-primary { background: #7c3aed; color: #fff; } .btn-primary:hover { background: #6d28d9; }
 .btn-primary:disabled { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
-.note { text-align: center; padding: 40px 0; color: #aaa; font-size: 14px; line-height: 2; }
+.note { text-align: center; padding: 40px 0; color: #bbb; font-size: 14px; line-height: 2; }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="brand">LocalRAG</div>
-    <a href="/upload.html">上传文件</a>
-    <a href="/kb.html">知识库</a>
-    <a href="/chat.html" class="active">对话</a>
+    <div class="brand"><div class="icon">R</div>LocalRAG</div>
+    <nav>
+        <a href="/upload.html"><span class="ico">&#128196;</span>文件上传</a>
+        <a href="/kb.html"><span class="ico">&#128451;</span>知识库</a>
+        <a href="/chat.html" class="active"><span class="ico">&#128172;</span>对话助手</a>
+    </nav>
 </div>
 <div class="main">
-    <div class="topbar"><h1>对话</h1></div>
+    <div class="topbar"><h1>对话助手</h1></div>
     <div class="content">
         <div class="chat-box">
             <div class="note">retrieval + llm 模块开发中<br><small style="font-size:12px;">入链已贯通：上传 → 解析 → 向量化 → 入库</small></div>
         </div>
         <div class="row">
-            <input type="text" id="question" placeholder="输入问题..." disabled>
+            <input type="text" id="question" placeholder="输入你的问题..." disabled>
             <button class="btn btn-primary" disabled>发送</button>
         </div>
     </div>
