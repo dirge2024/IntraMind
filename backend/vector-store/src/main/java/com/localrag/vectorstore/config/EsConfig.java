@@ -1,3 +1,4 @@
+/** ES 客户端配置：basic auth + SSL 跳过校验 + 启动健康检查。 */
 package com.localrag.vectorstore.config;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;

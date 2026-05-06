@@ -1,3 +1,4 @@
+/** ES 混合检索实现：第一轮 KNN 向量召回 Top30，第二轮 BM25 重排，第三轮 rescore 精排。 */
 package com.localrag.retrieval.impl;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;

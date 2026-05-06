@@ -1,3 +1,4 @@
+/** 通义千问 text-embedding-v4 实现，2048 维向量，每批 ≤10 条文本。 */
 package com.localrag.embedding.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

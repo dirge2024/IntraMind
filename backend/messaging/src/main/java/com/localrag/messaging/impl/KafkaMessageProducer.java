@@ -1,3 +1,4 @@
+/** MessageProducer 的 KafkaTemplate 实现，JSON 序列化 + 异步发送 + 回调日志。 */
 package com.localrag.messaging.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

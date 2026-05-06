@@ -1,3 +1,4 @@
+/** DeepSeek Embedding 实现，OpenAI 兼容 API 格式。 */
 package com.localrag.embedding.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

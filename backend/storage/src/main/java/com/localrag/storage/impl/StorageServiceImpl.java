@@ -1,3 +1,4 @@
+/** StorageService 的 MinIO 实现。分片上传采用 MinIO composeObject 服务端合并方案，避免应用层文件 IO。 */
 package com.localrag.storage.impl;
 
 import com.localrag.storage.exception.StorageException;

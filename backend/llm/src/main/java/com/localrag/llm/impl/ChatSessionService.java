@@ -1,3 +1,4 @@
+/** 会话管理：创建、列表(置顶优先+时间倒序)、重命名、删除(级联删聊天记录)、自动取首问前20字为标题。 */
 package com.localrag.llm.impl;
 
 import com.localrag.llm.model.ChatSession;

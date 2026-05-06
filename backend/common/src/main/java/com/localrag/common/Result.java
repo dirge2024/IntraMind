@@ -2,6 +2,9 @@ package com.localrag.common;
 
 import lombok.Getter;
 
+/**
+ * 统一 API 返回体。所有 Controller 通过此类包装返回值，前端按 {code, message, data} 解析。
+ */
 @Getter
 public class Result<T> {
     private final int code;

@@ -1,3 +1,4 @@
+/** 统一 Kafka 消息体：{messageId, topic, timestamp, payload}，泛型 payload 承载业务数据。 */
 package com.localrag.messaging.model;
 
 import lombok.Data;

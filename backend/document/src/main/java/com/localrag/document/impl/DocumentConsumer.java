@@ -1,3 +1,4 @@
+/** Kafka 消费者：监听 document.uploaded，下载文件→Tika解析→分块→发送 document.chunked（每批20条）。 */
 package com.localrag.document.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;

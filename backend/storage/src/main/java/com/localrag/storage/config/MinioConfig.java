@@ -1,3 +1,4 @@
+/** MinIO 客户端配置，从 application.yml 读取连接参数，启动时自动创建 Bucket。 */
 package com.localrag.storage.config;
 
 import io.minio.MinioClient;

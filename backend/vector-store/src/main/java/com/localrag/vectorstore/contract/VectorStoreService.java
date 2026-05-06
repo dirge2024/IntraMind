@@ -1,3 +1,4 @@
+/** ES 向量存储接口：indexChunks（bulk 写入）、deleteByMd5（删除）、索引管理。 */
 package com.localrag.vectorstore.contract;
 
 import java.util.List;

@@ -1,3 +1,4 @@
+/** Kafka 消费者：监听 document.chunked，批量调 EmbeddingService 向量化，发送 embedding.requested（每批20条）。 */
 package com.localrag.embedding.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;

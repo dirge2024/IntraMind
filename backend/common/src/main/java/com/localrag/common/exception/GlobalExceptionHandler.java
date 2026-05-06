@@ -1,3 +1,4 @@
+/** @RestControllerAdvice 全局异常拦截，将 BaseException 和未捕获异常统一转为 Result 返回。 */
 package com.localrag.common.exception;
 
 import com.localrag.common.Result;

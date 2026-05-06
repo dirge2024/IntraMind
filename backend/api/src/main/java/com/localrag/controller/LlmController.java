@@ -1,3 +1,4 @@
+/** LLM 对话 API：GET /api/llm/chat(SSE流式) + history(加载历史) + sessions(CRUD)。 */
 package com.localrag.controller;
 
 import com.localrag.common.Result;

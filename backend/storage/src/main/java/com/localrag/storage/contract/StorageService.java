@@ -1,3 +1,4 @@
+/** MinIO 对象存储服务接口：分片上传(composeObject)、文件直传、下载预签名、删除、Bucket 管理。 */
 package com.localrag.storage.contract;
 
 import java.io.InputStream;

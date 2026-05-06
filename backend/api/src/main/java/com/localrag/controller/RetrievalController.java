@@ -1,3 +1,4 @@
+/** 检索 API：POST /api/retrieval/search，返回 TopK 相关 chunk 及相似度分数。 */
 package com.localrag.controller;
 
 import com.localrag.common.Result;

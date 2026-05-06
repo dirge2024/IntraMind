@@ -1,3 +1,4 @@
+/** RAG Prompt 拼装：系统提示词 + 参考资料(含来源标注) + 历史对话(近15条) + 当前问题。 */
 package com.localrag.llm.impl;
 
 import com.localrag.llm.model.ChatHistoryMessage;

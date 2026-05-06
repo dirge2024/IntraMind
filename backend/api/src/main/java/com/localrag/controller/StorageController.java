@@ -1,3 +1,4 @@
+/** 文件上传 API：init/part/complete(分片) + direct(直传) + download/delete + knowledge-base list。 */
 package com.localrag.controller;
 
 import com.localrag.common.Result;

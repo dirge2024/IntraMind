@@ -1,3 +1,4 @@
+/** Kafka 消费者：监听 embedding.requested，将 chunk+vector 批量写入 ES，更新状态为 EMBEDDED。 */
 package com.localrag.vectorstore.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;

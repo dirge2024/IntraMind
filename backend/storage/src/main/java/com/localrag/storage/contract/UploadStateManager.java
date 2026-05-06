@@ -1,3 +1,4 @@
+/** 上传进度追踪接口，基于 Redis Hash 记录分片上传状态，支持断点续传。 */
 package com.localrag.storage.contract;
 
 import com.localrag.storage.model.UploadTask;

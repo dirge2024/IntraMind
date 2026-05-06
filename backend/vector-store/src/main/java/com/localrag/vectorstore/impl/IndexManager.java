@@ -1,3 +1,4 @@
+/** 启动时自动创建 localrag-chunks 索引，含 denseVector 字段映射。 */
 package com.localrag.vectorstore.impl;
 
 import com.localrag.vectorstore.contract.VectorStoreService;

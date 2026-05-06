@@ -1,3 +1,4 @@
+/** UploadStateManager 的 Redis 实现。key=upload:{md5} 存任务元数据，key=upload:{md5}:parts 存分片 ETag，TTL 24h。 */
 package com.localrag.storage.impl;
 
 import com.localrag.storage.contract.UploadStateManager;

@@ -1,3 +1,4 @@
+/** DeepSeek Chat API SSE 实现：检索→拼 Prompt→调 API→逐字流式返回，完成后写聊天记录。 */
 package com.localrag.llm.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;

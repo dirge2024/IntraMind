@@ -1,3 +1,4 @@
+/** 全局业务异常基类，携带错误码供 GlobalExceptionHandler 统一处理。 */
 package com.localrag.common.exception;
 
 import lombok.Getter;

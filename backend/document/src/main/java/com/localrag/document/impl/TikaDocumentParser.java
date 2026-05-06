@@ -1,3 +1,4 @@
+/** Apache Tika 实现，自动检测文件格式并提取纯文本，支持 1000+ 文件类型。 */
 package com.localrag.document.impl;
 
 import com.localrag.document.contract.DocumentParser;

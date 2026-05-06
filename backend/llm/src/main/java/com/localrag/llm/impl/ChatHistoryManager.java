@@ -1,3 +1,4 @@
+/** 聊天记录管理器，Redis(当天热数据24h TTL) + MySQL(全量持久) 双层存储，取最近15条。 */
 package com.localrag.llm.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

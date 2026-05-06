@@ -1,3 +1,4 @@
+/** 三级降级分块：段落 → 句子 → HanLP 分词。每块 ≤ 512 字，相邻块 15% 重叠。 */
 package com.localrag.document.impl;
 
 import com.hankcs.hanlp.HanLP;

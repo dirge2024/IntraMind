@@ -1,3 +1,4 @@
+/** ES elasticsearch-java 8.10 实现，dense_vector(2048,cosine) + ik_max_word BM25。 */
 package com.localrag.vectorstore.impl;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
