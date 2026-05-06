@@ -24,5 +24,8 @@ Thumbs.db
 # Local secret config
 **/application-local.yml
 
+# Claude Code skills
+.claude/
+
 # Docker
 volumes/

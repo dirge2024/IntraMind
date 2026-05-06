@@ -35,7 +35,9 @@ graph LR
     style G fill:#dbeafe,color:#1e40af
 ```
 
+## 系统功能
 <!-- SCREENSHOT: 系统运行时截图 -->
+![alt text](image-1.png)
 
 ## 技术栈
 
@@ -191,7 +193,7 @@ cp backend/api/src/main/resources/application-local.example.yml \
    backend/api/src/main/resources/application-local.yml
 ```
 
-编辑 `application-local.yml`，填入真实 Key（此文件已加入 .gitignore）。
+编辑 `application-local.yml`，填入真实 Key。
 
 ### 3. 构建并启动
 
@@ -238,6 +240,25 @@ mvn spring-boot:run -pl api
 | LLM | `PUT /api/llm/sessions/{id}` | 更新会话（重命名/置顶） |
 | LLM | `DELETE /api/llm/sessions/{id}` | 删除会话 |
 | Health | `GET /api/health` | 健康检查 |
+
+## 开发工具
+
+### Impeccable 前端设计 Skill
+
+前端 UI 使用 [Impeccable](https://github.com/pbakaus/impeccable) 设计规范和 CLI 检测工具辅助开发：
+
+```bash
+# 安装
+git clone git@github.com:pbakaus/impeccable.git
+cp -r impeccable/.agents/skills/impeccable .claude/skills/
+
+# 使用
+/impeccable layout    # 优化布局和视觉节奏
+/impeccable typeset   # 修复字体层次
+/impeccable audit     # 运行设计质量检查
+```
+
+该 Skill 提供了排版、色彩、空间、交互等 7 个领域的设计规范，以及 23 个设计命令和 27 条确定性反模式规则。
 
 ## 开发记录
 
