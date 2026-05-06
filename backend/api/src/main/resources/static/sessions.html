@@ -35,6 +35,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .btn-del { background: none; color: #e53e3e; } .btn-del:hover { background: #fee2e2; }
 .btn-pin { color: #f59e0b; }
 .note { text-align: center; color: #bbb; padding: 40px; font-size: 14px; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); display: flex; align-items: center; justify-content: center; z-index: 999; animation: fadeIn .15s; }
+.modal-box { background: #fff; border-radius: 14px; padding: 28px 32px; width: 360px; box-shadow: 0 8px 30px rgba(0,0,0,.12); text-align: center; }
+.modal-box p { font-size: 15px; margin-bottom: 24px; color: #333; line-height: 1.6; }
+.modal-box .btns { display: flex; gap: 10px; justify-content: center; }
+.modal-box .btns button { padding: 9px 28px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; }
+.modal-box .btn-ok { background: #e53e3e; color: #fff; } .modal-box .btn-ok:hover { background: #dc2626; }
+.modal-box .btn-cancel { background: #f4f4f5; color: #52525b; } .modal-box .btn-cancel:hover { background: #e4e4e7; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -61,6 +69,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
     </div>
 </div>
 <script>
+function showConfirm(msg) { return new Promise(r => { const ov = document.createElement('div'); ov.className = 'modal-overlay'; ov.innerHTML = '<div class="modal-box"><p>'+msg+'</p><div class="btns"><button class="btn-cancel">取消</button><button class="btn-ok">确定</button></div></div>'; ov.querySelector('.btn-cancel').onclick = () => { ov.remove(); r(false); }; ov.querySelector('.btn-ok').onclick = () => { ov.remove(); r(true); }; document.body.appendChild(ov); }); }
+
 let allSessions = [];
 
 async function load() {
@@ -123,7 +133,7 @@ async function rename(sid, old) {
 }
 
 async function del(sid) {
-    if (!confirm('删除此会话及全部聊天记录？')) return;
+    if (!await showConfirm('删除此会话及全部聊天记录？')) return;
     await fetch('/api/llm/sessions/' + sid, { method: 'DELETE' });
     load();
 }

@@ -33,6 +33,14 @@ tbody tr:hover { background: #fafafe; }
 .badge-chunked { background: #fff3e0; color: #9a3412; }
 .badge-embedded { background: #e8f5e9; color: #1b5e20; }
 .note { text-align: center; padding: 40px 0; color: #bbb; font-size: 14px; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); display: flex; align-items: center; justify-content: center; z-index: 999; animation: fadeIn .15s; }
+.modal-box { background: #fff; border-radius: 14px; padding: 28px 32px; width: 360px; box-shadow: 0 8px 30px rgba(0,0,0,.12); text-align: center; }
+.modal-box p { font-size: 15px; margin-bottom: 24px; color: #333; line-height: 1.6; }
+.modal-box .btns { display: flex; gap: 10px; justify-content: center; }
+.modal-box .btns button { padding: 9px 28px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; }
+.modal-box .btn-ok { background: #e53e3e; color: #fff; } .modal-box .btn-ok:hover { background: #dc2626; }
+.modal-box .btn-cancel { background: #f4f4f5; color: #52525b; } .modal-box .btn-cancel:hover { background: #e4e4e7; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -79,7 +87,8 @@ async function loadFiles(){
         '</tr>').join('');
     }catch(e){tbody.innerHTML='<tr><td colspan="6" class="note">请求失败</td></tr>';}
 }
-async function deleteFile(md5){if(!confirm('确认删除？'))return;await fetch('/api/storage/file/'+md5,{method:'DELETE'});loadFiles();}
+function showConfirm(msg) { return new Promise(r => { const ov = document.createElement('div'); ov.className = 'modal-overlay'; ov.innerHTML = '<div class="modal-box"><p>'+msg+'</p><div class="btns"><button class="btn-cancel">取消</button><button class="btn-ok">确定</button></div></div>'; ov.querySelector('.btn-cancel').onclick = () => { ov.remove(); r(false); }; ov.querySelector('.btn-ok').onclick = () => { ov.remove(); r(true); }; document.body.appendChild(ov); }); }
+async function deleteFile(md5){if(!await showConfirm('确认删除此文件？'))return;await fetch('/api/storage/file/'+md5,{method:'DELETE'});loadFiles();}
 function statusText(s){const m={'UPLOADING':'上传中','READY':'已上传','CHUNKED':'已分块','EMBEDDED':'已入库','DELETED':'已删除'};return m[s]||s;}
 function formatSize(b){const KB=1024,MB=1024*KB;if(b<KB)return b+' B';if(b<MB)return(b/KB).toFixed(1)+' KB';return(b/MB).toFixed(1)+' MB';}
 function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
