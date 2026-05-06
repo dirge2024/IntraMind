@@ -31,8 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DocumentConsumer {
 
-    private static final int BUFFER_SIZE = 512;
-    private static final int MIN_CHUNK = 128;
+    private static final int CHUNK_SIZE = 512;
     private static final double OVERLAP_PCT = 0.15;
 
     private final ObjectMapper objectMapper;
@@ -80,7 +79,7 @@ public class DocumentConsumer {
                     return;
                 }
 
-                List<Chunk> chunks = textChunker.chunk(text, BUFFER_SIZE, MIN_CHUNK, OVERLAP_PCT);
+                List<Chunk> chunks = textChunker.chunk(text, CHUNK_SIZE, 0, OVERLAP_PCT);
                 log.info("chunked: md5={}, chunks={}", payload.getMd5(), chunks.size());
 
                 List<DocumentChunkedPayload.ChunkData> chunkData = chunks.stream()

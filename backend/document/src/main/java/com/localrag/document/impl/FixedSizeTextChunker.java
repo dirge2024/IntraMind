@@ -13,154 +13,110 @@ import java.util.List;
 @Component
 public class FixedSizeTextChunker implements TextChunker {
 
-    private static final int MAX_OVERLAP = 512;
-
     @Override
-    public List<Chunk> chunk(String text, int bufferSize, int minChunk, double overlapPct) {
+    public List<Chunk> chunk(String text, int chunkSize, int unused, double overlapPct) {
         List<Chunk> chunks = new ArrayList<>();
-        if (text == null || text.isEmpty()) {
-            return chunks;
-        }
+        if (text == null || text.isEmpty()) return chunks;
 
-        int idx = 0;
-        int pos = 0;
-        String prevTail = "";
+        String[] paragraphs = text.split("\n\n");
+        List<String> raw = new ArrayList<>();
 
-        while (pos < text.length()) {
-            int end = Math.min(pos + bufferSize, text.length());
-            String segment = prevTail + text.substring(pos, end);
-
-            List<String> blocks = splitSegment(segment, minChunk);
-
-            for (int i = 0; i < blocks.size(); i++) {
-                String block = blocks.get(i);
-                if (block.isEmpty()) continue;
-
-                if (i > 0 || !prevTail.isEmpty()) {
-                    chunks.add(Chunk.builder()
-                            .chunkId("chunk_" + idx)
-                            .index(idx)
-                            .text(block)
-                            .charCount(block.length())
-                            .build());
-                    idx++;
-                }
-            }
-
-            if (!blocks.isEmpty() && end < text.length()) {
-                String lastBlock = blocks.get(blocks.size() - 1);
-                int overlapLen = (int) (lastBlock.length() * overlapPct);
-                if (overlapLen > MAX_OVERLAP) overlapLen = MAX_OVERLAP;
-                prevTail = lastBlock.substring(Math.max(0, lastBlock.length() - overlapLen));
-            } else {
-                prevTail = "";
-            }
-
-            pos = end;
-        }
-
-        if (chunks.isEmpty() && !text.isEmpty()) {
-            chunks.add(Chunk.builder()
-                    .chunkId("chunk_0")
-                    .index(0)
-                    .text(text)
-                    .charCount(text.length())
-                    .build());
-        }
-
-        return chunks;
-    }
-
-    private List<String> splitSegment(String segment, int minChunk) {
-        List<String> result = new ArrayList<>();
-        String[] paragraphs = segment.split("\n\n", -1);
-
-        StringBuilder buffer = new StringBuilder();
+        // 步骤1: 段落 → 句子 → HanLP 三级切分，每块 ≤ chunkSize
         for (String para : paragraphs) {
             String cleaned = para.trim();
             if (cleaned.isEmpty()) continue;
 
-            if (cleaned.length() < minChunk) {
-                buffer.append(cleaned).append("\n\n");
+            if (cleaned.length() <= chunkSize) {
+                raw.add(cleaned);
             } else {
-                if (buffer.length() >= minChunk) {
-                    result.add(buffer.toString().trim());
-                    buffer.setLength(0);
-                } else if (buffer.length() > 0) {
-                    String merged = buffer.toString() + cleaned;
-                    if (merged.length() <= minChunk * 3) {
-                        result.add(merged.trim());
-                        buffer.setLength(0);
-                        continue;
-                    }
-                    result.add(buffer.toString().trim());
-                    buffer.setLength(0);
-                }
-
-                List<String> sentences = splitSentences(cleaned);
-                for (String sent : sentences) {
-                    if (sent.length() < minChunk) {
-                        buffer.append(sent).append(" ");
-                    } else if (sent.length() >= minChunk && sent.length() < 2000) {
-                        if (buffer.length() > 0) {
-                            buffer.append(sent);
-                            result.add(buffer.toString().trim());
-                            buffer.setLength(0);
-                        } else {
-                            result.add(sent);
-                        }
-                    } else {
-                        if (buffer.length() > 0) {
-                            result.add(buffer.toString().trim());
-                            buffer.setLength(0);
-                        }
-                        result.addAll(hanlpSplit(sent, minChunk));
-                    }
-                }
+                raw.addAll(splitBySentence(cleaned, chunkSize));
             }
         }
 
-        if (buffer.length() >= minChunk) {
-            result.add(buffer.toString().trim());
-        } else if (buffer.length() > 0 && !result.isEmpty()) {
-            int lastIdx = result.size() - 1;
-            result.set(lastIdx, result.get(lastIdx) + "\n\n" + buffer.toString().trim());
-        } else if (buffer.length() > 0) {
-            result.add(buffer.toString().trim());
+        // 步骤2: 合并过小块，输出最终块
+        StringBuilder buf = new StringBuilder();
+        int idx = 0;
+        for (String block : raw) {
+            if (buf.length() + block.length() > chunkSize && buf.length() > 0) {
+                chunks.add(makeChunk(idx++, buf.toString().trim()));
+                buf.setLength(0);
+            }
+            buf.append(block);
+            if (buf.length() > 0 && !block.endsWith("。") && !block.endsWith("！")
+                    && !block.endsWith("？") && !block.endsWith("；")) {
+                buf.append(" ");
+            }
+        }
+        if (buf.length() > 0) {
+            chunks.add(makeChunk(idx, buf.toString().trim()));
         }
 
+        return addOverlap(chunks);
+    }
+
+    /**
+     * 三级切分：句子 → HanLP 分词，保证每块 ≤ chunkSize
+     */
+    private List<String> splitBySentence(String text, int chunkSize) {
+        List<String> result = new ArrayList<>();
+        String[] sentences = text.split("(?<=[。！？；])");
+
+        for (String sent : sentences) {
+            String s = sent.trim();
+            if (s.isEmpty()) continue;
+            if (s.length() <= chunkSize) {
+                result.add(s);
+            } else {
+                result.addAll(hanlpSplit(s, chunkSize));
+            }
+        }
         return result;
     }
 
-    private List<String> splitSentences(String text) {
-        List<String> sentences = new ArrayList<>();
-        String[] parts = text.split("(?<=[。！？；\\n])");
-        for (String part : parts) {
-            String trimmed = part.trim();
-            if (!trimmed.isEmpty()) {
-                sentences.add(trimmed);
-            }
-        }
-        return sentences.isEmpty() ? List.of(text) : sentences;
-    }
-
+    /**
+     * HanLP 分词后按 chunkSize 切分（超长句子保底）
+     */
     private List<String> hanlpSplit(String text, int chunkSize) {
         List<String> result = new ArrayList<>();
         List<String> tokens = HanLP.segment(text).stream()
                 .map(t -> t.word)
                 .toList();
 
-        StringBuilder buffer = new StringBuilder();
+        StringBuilder buf = new StringBuilder();
         for (String token : tokens) {
-            if (buffer.length() + token.length() > chunkSize && buffer.length() > 0) {
-                result.add(buffer.toString().trim());
-                buffer.setLength(0);
+            if (buf.length() + token.length() > chunkSize && buf.length() > 0) {
+                result.add(buf.toString().trim());
+                buf.setLength(0);
             }
-            buffer.append(token);
+            buf.append(token);
         }
-        if (buffer.length() > 0) {
-            result.add(buffer.toString().trim());
-        }
+        if (buf.length() > 0) result.add(buf.toString().trim());
         return result;
+    }
+
+    /**
+     * 相邻块之间加 15% 重叠（尾部内容拼到下一块开头）
+     */
+    private List<Chunk> addOverlap(List<Chunk> chunks) {
+        for (int i = 1; i < chunks.size(); i++) {
+            Chunk prev = chunks.get(i - 1);
+            int tailLen = Math.min((int) (prev.getText().length() * 0.15), 100);
+            if (tailLen > 0) {
+                String tail = prev.getText().substring(prev.getText().length() - tailLen);
+                Chunk cur = chunks.get(i);
+                cur.setText(tail + cur.getText());
+                cur.setCharCount(cur.getText().length());
+            }
+        }
+        return chunks;
+    }
+
+    private Chunk makeChunk(int idx, String text) {
+        return Chunk.builder()
+                .chunkId("chunk_" + idx)
+                .index(idx)
+                .text(text)
+                .charCount(text.length())
+                .build();
     }
 }
