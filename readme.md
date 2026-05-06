@@ -1,20 +1,41 @@
 # LocalRAG — 本地 RAG 知识库系统
 
-LocalRAG 是一个基于检索增强生成（RAG）技术的本地知识库系统，支持文档上传、自动解析分块、向量化存储、混合检索和 AI 对话。
+LocalRAG 是一个基于检索增强生成（RAG）技术的本地知识库学习项目，支持文档上传、自动解析分块、向量化存储、混合检索，内置 AI 助手「茉莉」，通过 DeepSeek / Qwen 大模型提供智能问答。
 
-核心技术栈包括 Spring Boot 3.3.5、Elasticsearch 8.10、Kafka、MinIO、MySQL、Redis 和 DeepSeek/Qwen 大模型。
-
-项目目标：在本地环境中搭建完整的 RAG 工作流，支持从文档上传到智能问答的全链路闭环。
+核心技术栈包括 Spring Boot 3.3.5、Elasticsearch 8.10、Kafka、MinIO、MySQL 和 Redis。
 
 ## 项目说明
 
-本仓库是我从零开始独立设计并实现的 RAG 知识库项目，所有代码均为手写，非 fork 或模板生成。
+本仓库是我学习 RAG 系统设计的实践项目，通过完整的工程链路掌握 AI 知识库的核心原理。
 
-- 目标：通过完整的工程实践掌握 RAG 系统的核心链路
-- 重点：文档解析与分块策略、向量检索与混合排序、对话历史管理
-- 方式：按数据流方向分模块开发，每个模块自测通过再进入下一个
+- 目标：从零搭建 RAG 工作流，深入理解文档处理、向量检索和 LLM 对话的全链路实现
+- 重点：文档解析与分块策略、KNN + BM25 混合检索、对话历史管理与会话持久化
+- 方式：按数据流方向分模块开发，逐模块自测通过后进入下一环节
 
-<!-- SCREENSHOT: 整体架构图 -->
+## 系统架构
+
+```mermaid
+graph LR
+    A[用户] -->|上传文件| B[Storage<br/>MinIO + Redis]
+    B -->|document.uploaded| C[Document<br/>Tika 解析 + 分块]
+    C -->|document.chunked| D[Embedding<br/>Qwen v4 / DeepSeek]
+    D -->|embedding.requested| E[Vector Store<br/>Elasticsearch]
+    
+    A -->|提问| F[Retrieval<br/>KNN → BM25 → Rerank]
+    F -->|TopK chunks| G[LLM<br/>DeepSeek Chat]
+    G -->|SSE 流式| A
+    
+    E -->|dense_vector 1024d| F
+    
+    style B fill:#ede9fe,color:#6d28d9
+    style C fill:#ede9fe,color:#6d28d9
+    style D fill:#ede9fe,color:#6d28d9
+    style E fill:#ede9fe,color:#6d28d9
+    style F fill:#fef3c7,color:#92400e
+    style G fill:#dbeafe,color:#1e40af
+```
+
+<!-- SCREENSHOT: 系统运行时截图 -->
 
 ## 技术栈
 
@@ -112,8 +133,9 @@ backend/api/src/main/resources/static/
 
 <!-- SCREENSHOT: 知识库管理页面 -->
 
-### 5. AI 对话
+### 5. AI 助手「茉莉」
 
+- 内置 AI 助手名称：**茉莉**
 - DeepSeek Chat API + SSE 流式输出
 - RAG Prompt 拼接：系统提示词 + 参考资料（含来源标注）+ 历史对话（近 15 条）
 - 仅基于知识库回答，无匹配时提示「知识库中不存在相关信息」
