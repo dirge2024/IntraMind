@@ -3,54 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>知识库 — LocalRAG</title>
+<link rel="stylesheet" href="/common.css">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', system-ui, sans-serif; background: #f0f2f8; color: #333; min-height: 100vh; padding: 16px; display: flex; gap: 16px; }
-.sidebar { width: 200px; background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04); padding: 24px 16px; display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; }
-.sidebar .brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; color: #333; margin-bottom: 28px; padding: 0 8px; }
-.sidebar .brand .ico { width: 30px; height: 30px; background: #7c3aed; border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px; font-weight: 700; }
-.sidebar nav { display: flex; flex-direction: column; gap: 2px; }
-.sidebar nav a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #555; text-decoration: none; font-size: 14px; border-radius: 10px; transition: .15s; }
-.sidebar nav a:hover { background: #f5f3ff; color: #7c3aed; }
-.sidebar nav a.active { background: #ede9fe; color: #7c3aed; font-weight: 600; }
-.sidebar nav a .ico-sm { font-size: 17px; width: 22px; text-align: center; }
-.main { flex: 1; background: #fafaff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04); display: flex; flex-direction: column; overflow: hidden; }
-.topbar { background: #fff; padding: 14px 28px; border-bottom: 1px solid #f2f2f7; display: flex; align-items: center; justify-content: space-between; }
-.topbar h1 { font-size: 16px; font-weight: 600; }
 .content { flex: 1; padding: 28px; max-width: 960px; }
-.btn { padding: 7px 16px; border: none; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; transition: .15s; }
-.btn-primary { background: #7c3aed; color: #fff; } .btn-primary:hover { background: #6d28d9; }
-.btn-ghost { background: #fff; border: 1px solid #e0e0e0; color: #666; padding: 6px 14px; font-size: 12px; margin-left: 8px; border-radius: 10px; }
-.btn-danger { background: none; color: #e53e3e; font-size: 12px; padding: 5px 12px; }
+.btn-ghost { background: #fff; border: 1px solid #e0e0e0; color: #666; padding: 6px 14px; font-size: 12px; margin-left: 8px; border-radius: 10px; cursor: pointer; }
+.btn-danger { background: none; color: #e53e3e; font-size: 12px; padding: 5px 12px; cursor: pointer; border: none; }
 .btn-danger:hover { background: #fff5f5; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 thead th { text-align: left; padding: 10px 12px; border-bottom: 2px solid #f0f0f5; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #aaa; }
 tbody td { padding: 12px; border-bottom: 1px solid #f8f8fa; color: #444; }
 tbody tr:hover { background: #fafafe; }
-.badge { display: inline-block; padding: 3px 12px; border-radius: 100px; font-size: 11.5px; font-weight: 600; }
-.badge-uploading { background: #e8f0fe; color: #1e40af; }
-.badge-ready { background: #fef9e7; color: #92400e; }
-.badge-chunked { background: #fff3e0; color: #9a3412; }
-.badge-embedded { background: #e8f5e9; color: #1b5e20; }
 .note { text-align: center; padding: 40px 0; color: #bbb; font-size: 14px; }
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); display: flex; align-items: center; justify-content: center; z-index: 999; animation: fadeIn .15s; }
-.modal-box { background: #fff; border-radius: 14px; padding: 28px 32px; width: 360px; box-shadow: 0 8px 30px rgba(0,0,0,.12); text-align: center; }
-.modal-box p { font-size: 15px; margin-bottom: 24px; color: #333; line-height: 1.6; }
-.modal-box .btns { display: flex; gap: 10px; justify-content: center; }
-.modal-box .btns button { padding: 9px 28px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; }
-.modal-box .btn-ok { background: #e53e3e; color: #fff; } .modal-box .btn-ok:hover { background: #dc2626; }
-.modal-box .btn-cancel { background: #f4f4f5; color: #52525b; } .modal-box .btn-cancel:hover { background: #e4e4e7; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="brand"><div class="ico">R</div>LocalRAG</div>
+    <div class="brand"><div class="logo">R</div>LocalRAG</div>
     <nav>
-        <a href="/upload.html"><span class="ico-sm">&#128196;</span>文件上传</a>
-        <a href="/kb.html" class="active"><span class="ico-sm">&#128451;</span>知识库</a>
-        <a href="/chat.html"><span class="ico-sm">&#128172;</span>对话助手</a>
-        <a href="/sessions.html"><span class="ico-sm">&#128337;</span>历史会话</a>
+        <a href="/upload.html">&#128196; 文件上传</a>
+        <a href="/kb.html" class="active">&#128451; 知识库</a>
+        <a href="/chat.html">&#128172; 对话助手</a>
+        <a href="/sessions.html">&#128337; 历史会话</a>
     </nav>
 </div>
 <div class="main">
@@ -66,27 +39,14 @@ tbody tr:hover { background: #fafafe; }
     </div>
 </div>
 <script>
+function showConfirm(msg) { return new Promise(r => { const ov = document.createElement('div'); ov.className = 'modal-overlay'; ov.innerHTML = '<div class="modal-box"><p>'+msg+'</p><div class="btns"><button class="btn-cancel">取消</button><button class="btn-ok">确定</button></div></div>'; ov.querySelector('.btn-cancel').onclick = () => { ov.remove(); r(false); }; ov.querySelector('.btn-ok').onclick = () => { ov.remove(); r(true); }; document.body.appendChild(ov); }); }
 async function loadFiles(){
     const tbody=document.getElementById('fileList');
-    try{
-        const r=await fetch('/api/storage/files');const d=await r.json();
-        if(d.code!==200){tbody.innerHTML='<tr><td colspan="6" class="note">加载失败</td></tr>';return;}
-        const files=(d.data||[]).filter(f=>f.status!=='DELETED');
-        if(!files.length){tbody.innerHTML='<tr><td colspan="6" class="note">暂无文件，请先上传</td></tr>';return;}
-        tbody.innerHTML=files.map(f=>'<tr>'+
-            '<td><strong>'+esc(f.fileName)+'</strong></td>'+
-            '<td style="font-family:monospace;font-size:11px;color:#bbb;">'+esc(f.md5).substring(0,12)+'&hellip;</td>'+
-            '<td>'+formatSize(f.fileSize)+'</td>'+
-            '<td><span class="badge badge-'+f.status.toLowerCase()+'">'+statusText(f.status)+'</span></td>'+
-            '<td style="font-size:12px;color:#bbb;">'+f.createdAt+'</td>'+
-            '<td style="text-align:right;">'+
-                '<a href="/api/storage/download/'+f.md5+'" class="btn btn-ghost">下载</a>'+
-                '<button class="btn btn-danger" onclick="deleteFile(\''+f.md5+'\')">删除</button>'+
-            '</td>'+
-        '</tr>').join('');
+    try{const r=await fetch('/api/storage/files');const d=await r.json();if(d.code!==200){tbody.innerHTML='<tr><td colspan="6" class="note">加载失败</td></tr>';return;}
+    const files=(d.data||[]).filter(f=>f.status!=='DELETED');if(!files.length){tbody.innerHTML='<tr><td colspan="6" class="note">暂无文件</td></tr>';return;}
+    tbody.innerHTML=files.map(f=>'<tr><td><strong>'+esc(f.fileName)+'</strong></td><td style="font-family:monospace;font-size:11px;color:#bbb;">'+esc(f.md5).substring(0,12)+'&hellip;</td><td>'+formatSize(f.fileSize)+'</td><td><span class="badge badge-'+f.status.toLowerCase()+'">'+statusText(f.status)+'</span></td><td style="font-size:12px;color:#bbb;">'+f.createdAt+'</td><td style="text-align:right;"><a href="/api/storage/download/'+f.md5+'" class="btn btn-ghost">下载</a><button class="btn btn-danger" onclick="deleteFile(\''+f.md5+'\')">删除</button></td></tr>').join('');
     }catch(e){tbody.innerHTML='<tr><td colspan="6" class="note">请求失败</td></tr>';}
 }
-function showConfirm(msg) { return new Promise(r => { const ov = document.createElement('div'); ov.className = 'modal-overlay'; ov.innerHTML = '<div class="modal-box"><p>'+msg+'</p><div class="btns"><button class="btn-cancel">取消</button><button class="btn-ok">确定</button></div></div>'; ov.querySelector('.btn-cancel').onclick = () => { ov.remove(); r(false); }; ov.querySelector('.btn-ok').onclick = () => { ov.remove(); r(true); }; document.body.appendChild(ov); }); }
 async function deleteFile(md5){if(!await showConfirm('确认删除此文件？'))return;await fetch('/api/storage/file/'+md5,{method:'DELETE'});loadFiles();}
 function statusText(s){const m={'UPLOADING':'上传中','READY':'已上传','CHUNKED':'已分块','EMBEDDED':'已入库','DELETED':'已删除'};return m[s]||s;}
 function formatSize(b){const KB=1024,MB=1024*KB;if(b<KB)return b+' B';if(b<MB)return(b/KB).toFixed(1)+' KB';return(b/MB).toFixed(1)+' MB';}
