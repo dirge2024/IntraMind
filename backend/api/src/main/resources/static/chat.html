@@ -52,7 +52,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
     </div>
 </div>
 <script>
-const sessionId = 'sess_' + Date.now();
+const sessionId = localStorage.getItem('rag_session') || ('sess_' + Date.now());
+localStorage.setItem('rag_session', sessionId);
 let streaming = false;
 
 function send() {
@@ -100,6 +101,17 @@ function send() {
         document.getElementById('btnSend').disabled = false;
     });
 }
+
+function loadHistory() {
+    fetch('/api/llm/history?sessionId=' + sessionId)
+        .then(r => r.json())
+        .then(d => {
+            if (d.code === 200 && d.data) {
+                d.data.forEach(msg => appendMessage(msg.role, msg.content));
+            }
+        });
+}
+loadHistory();
 
 function appendMessage(role, text, typing) {
     const box = document.getElementById('chatBox');
