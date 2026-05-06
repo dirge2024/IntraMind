@@ -11,7 +11,8 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', system-ui, sans-serif;
   background: #f0f2f8; color: #333;
-  min-height: 100vh; padding: var(--gap);
+  height: 100vh; overflow: hidden;
+  padding: var(--gap);
   display: flex; gap: var(--gap);
 }
 

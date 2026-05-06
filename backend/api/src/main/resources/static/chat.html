@@ -35,7 +35,7 @@
     <div class="chat-area" id="chatBox"><div style="text-align:center;color:#bbb;padding:80px 0;">点击「新对话」开始</div></div>
     <div class="bottom-bar">
         <span id="status"><span class="status-dot off"></span>检测中</span>
-        <input type="text" id="question" placeholder="输入问题，回车发送..." onkeydown="if(event.key==='Enter')send()">
+        <input type="text" id="question" placeholder="输入问题，回车发送..." onkeydown="if(event.key==='Enter'&&!event.isComposing){event.preventDefault();send();}">
         <button class="btn btn-primary" id="btnSend" onclick="send()">发送</button>
     </div>
 </div>
@@ -75,23 +75,37 @@ async function newChat() {
     if (d.code === 200 && d.data) window.location.href = '?session=' + d.data.sessionId;
 }
 
+let sendLock = false;
 function send() {
     if (!sessionId) { alert('请先点击「新对话」'); return; }
+    if (sendLock || streaming) return;
     const input = document.getElementById('question');
     const query = input.value.trim();
-    if (!query || streaming) return;
-    input.value = ''; streaming = true; document.getElementById('btnSend').disabled = true;
+    if (!query) return;
+
+    sendLock = true; streaming = true;
+    input.value = ''; document.getElementById('btnSend').disabled = true;
+
     const box = document.getElementById('chatBox');
     if (!box.querySelector('.msg')) box.innerHTML = '';
-    const userDiv = document.createElement('div'); userDiv.className = 'msg user'; userDiv.textContent = query; box.appendChild(userDiv);
-    const assistantDiv = document.createElement('div'); assistantDiv.className = 'msg assistant typing'; box.appendChild(assistantDiv);
+
+    const userDiv = document.createElement('div');
+    userDiv.className = 'msg user'; userDiv.textContent = query;
+    box.appendChild(userDiv);
+
+    const assistantDiv = document.createElement('div');
+    assistantDiv.className = 'msg assistant typing'; assistantDiv.setAttribute('data-msg-id', Date.now());
+    box.appendChild(assistantDiv);
     box.scrollTop = box.scrollHeight;
+
+    let finished = false;
     const es = new EventSource('/api/llm/chat?query=' + encodeURIComponent(query) + '&sessionId=' + sessionId);
     es.onmessage = function(e) {
-        try { const d = JSON.parse(e.data); if (d.done) { es.close(); finish(); return; } if (d.content) { assistantDiv.textContent += d.content; box.scrollTop = box.scrollHeight; } } catch(x) {}
+        if (finished) return;
+        try { const d = JSON.parse(e.data); if (d.done) { es.close(); done(); return; } if (d.content) { assistantDiv.textContent += d.content; box.scrollTop = box.scrollHeight; } } catch(x) {}
     };
-    es.onerror = function() { es.close(); if (assistantDiv.textContent.length === 0) { assistantDiv.textContent = '连接中断'; assistantDiv.className = 'msg error'; } finish(); };
-    function finish() { streaming = false; document.getElementById('btnSend').disabled = false; assistantDiv.classList.remove('typing'); }
+    es.onerror = function() { if (finished) return; es.close(); if (assistantDiv.textContent.length === 0) { assistantDiv.textContent = '连接中断'; assistantDiv.className = 'msg error'; } done(); };
+    function done() { if (finished) return; finished = true; sendLock = false; streaming = false; document.getElementById('btnSend').disabled = false; assistantDiv.classList.remove('typing'); }
 }
 
 function loadHistory() {
