@@ -28,6 +28,7 @@ public class ChatHistoryManager {
 
     public void append(String sessionId, String role, String content) {
         ChatHistoryMessage msg = ChatHistoryMessage.builder()
+                .messageId(java.util.UUID.randomUUID().toString())
                 .sessionId(sessionId)
                 .role(role)
                 .content(content)

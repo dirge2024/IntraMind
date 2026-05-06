@@ -22,6 +22,12 @@ public class ChatHistoryMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "message_id", length = 36, nullable = false, unique = true)
+    private String messageId;
+
+    @Column(name = "user_id", length = 64)
+    private String userId;
+
     @Column(name = "session_id", length = 64, nullable = false)
     private String sessionId;
 
