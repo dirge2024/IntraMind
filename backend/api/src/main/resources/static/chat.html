@@ -65,44 +65,38 @@ function send() {
     appendMessage('user', query);
     const assistantDiv = appendMessage('assistant', '', true);
 
-    fetch('/api/llm/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, sessionId })
-    }).then(response => {
-        if (!response.ok) { throw new Error('HTTP ' + response.status); }
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-        function read() {
-            reader.read().then(({ done, value }) => {
-                if (done) { finish(); return; }
-                buffer += decoder.decode(value, { stream: true });
-                const lines = buffer.split('\n');
-                buffer = lines.pop() || '';
-                for (const line of lines) {
-                    if (line.startsWith('data: ')) {
-                        try {
-                            const d = JSON.parse(line.substring(6));
-                            if (d.done) { finish(); return; }
-                            if (d.content) {
-                                assistantDiv.textContent += d.content;
-                                document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
-                            }
-                        } catch (e) {}
-                    }
-                }
-                setTimeout(read, 0);
-            }).catch(err => { assistantDiv.textContent = '读取失败: ' + err.message; finish(); });
+    const url = '/api/llm/chat?query=' + encodeURIComponent(query) + '&sessionId=' + encodeURIComponent(sessionId);
+    const es = new EventSource(url);
+
+    es.onmessage = function(event) {
+        try {
+            const d = JSON.parse(event.data);
+            if (d.done) {
+                es.close();
+                finish();
+                return;
+            }
+            if (d.content) {
+                assistantDiv.textContent += d.content;
+                document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+            }
+        } catch (e) {}
+    };
+
+    es.onerror = function() {
+        es.close();
+        if (assistantDiv.textContent.length === 0) {
+            assistantDiv.textContent = '连接中断，请重试';
+            assistantDiv.className = 'msg error';
         }
-        function finish() { streaming = false; document.getElementById('btnSend').disabled = false; assistantDiv.classList.remove('typing'); }
-        read();
-    }).catch(err => {
-        assistantDiv.textContent = '请求失败: ' + err.message;
-        assistantDiv.className = 'msg error';
+        finish();
+    };
+
+    function finish() {
         streaming = false;
         document.getElementById('btnSend').disabled = false;
-    });
+        assistantDiv.classList.remove('typing');
+    }
 }
 
 function appendMessage(role, text, typing) {
