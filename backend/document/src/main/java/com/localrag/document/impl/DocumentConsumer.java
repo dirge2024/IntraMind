@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DocumentConsumer {
 
-    private static final int BUFFER_SIZE = 5000;
-    private static final int MIN_CHUNK = 512;
+    private static final int BUFFER_SIZE = 512;
+    private static final int MIN_CHUNK = 128;
     private static final double OVERLAP_PCT = 0.15;
 
     private final ObjectMapper objectMapper;
