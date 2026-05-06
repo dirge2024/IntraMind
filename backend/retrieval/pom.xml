@@ -26,6 +26,11 @@
             <groupId>com.localrag</groupId>
             <artifactId>vector-store</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 </project>
