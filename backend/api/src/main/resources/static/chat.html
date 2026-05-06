@@ -6,14 +6,28 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', system-ui, sans-serif; background: #f0f2f8; color: #333; height: 100vh; padding: 16px; display: flex; gap: 16px; overflow: hidden; }
-.sidebar { width: 200px; background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04); padding: 24px 16px; display: flex; flex-direction: column; flex-shrink: 0; }
-.sidebar .brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; color: #333; margin-bottom: 28px; padding: 0 8px; }
+.sidebar { width: 240px; background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04); display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; }
+.sidebar .brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; color: #333; padding: 20px 16px 14px; flex-shrink: 0; }
 .sidebar .brand .ico { width: 30px; height: 30px; background: #7c3aed; border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px; font-weight: 700; }
-.sidebar nav { display: flex; flex-direction: column; gap: 2px; }
-.sidebar nav a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #555; text-decoration: none; font-size: 14px; border-radius: 10px; transition: .15s; }
-.sidebar nav a:hover { background: #f5f3ff; color: #7c3aed; }
-.sidebar nav a.active { background: #ede9fe; color: #7c3aed; font-weight: 600; }
-.sidebar nav a .ico-sm { font-size: 17px; width: 22px; text-align: center; }
+.sidebar .nav-top { padding: 0 10px; flex-shrink: 0; }
+.sidebar .nav-top a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #555; text-decoration: none; font-size: 14px; border-radius: 10px; transition: .15s; }
+.sidebar .nav-top a:hover { background: #f5f3ff; color: #7c3aed; }
+.sidebar .nav-top a.active { background: #ede9fe; color: #7c3aed; font-weight: 600; }
+.sidebar .sessions-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 16px 8px; flex-shrink: 0; }
+.sidebar .sessions-header span { font-size: 12px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: .04em; }
+.sidebar .sessions-header button { border: none; background: none; color: #7c3aed; font-size: 16px; cursor: pointer; font-weight: 700; padding: 2px 6px; border-radius: 6px; }
+.sidebar .sessions-header button:hover { background: #f5f3ff; }
+.sidebar .session-list { flex: 1; overflow-y: auto; padding: 4px 10px; }
+.sidebar .session-item { padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: .1s; display: flex; align-items: center; justify-content: space-between; }
+.sidebar .session-item:hover { background: #f5f3ff; }
+.sidebar .session-item.active { background: #ede9fe; color: #7c3aed; font-weight: 500; }
+.sidebar .session-item .title { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.sidebar .session-item .acts { display: none; gap: 2px; flex-shrink: 0; margin-left: 6px; }
+.sidebar .session-item:hover .acts { display: flex; }
+.sidebar .session-item .act { width: 22px; height: 22px; border: none; border-radius: 5px; cursor: pointer; font-size: 10px; background: none; color: #aaa; display: flex; align-items: center; justify-content: center; }
+.sidebar .session-item .act:hover { background: #e0e0e0; }
+.sidebar .session-item .act.del:hover { background: #fee2e2; color: #dc2626; }
+.edit-input { width: 100%; padding: 2px 4px; border: 1px solid #7c3aed; border-radius: 4px; font-size: 13px; outline: none; background: #fff; }
 .main { flex: 1; background: #fafaff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04); display: flex; flex-direction: column; overflow: hidden; }
 .topbar { background: #fff; padding: 14px 28px; border-bottom: 1px solid #f2f2f7; display: flex; align-items: center; flex-shrink: 0; }
 .topbar h1 { font-size: 16px; font-weight: 600; }
@@ -35,26 +49,113 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 <body>
 <div class="sidebar">
     <div class="brand"><div class="ico">R</div>LocalRAG</div>
-    <nav>
-        <a href="/upload.html"><span class="ico-sm">&#128196;</span>文件上传</a>
-        <a href="/kb.html"><span class="ico-sm">&#128451;</span>知识库</a>
-        <a href="/chat.html" class="active"><span class="ico-sm">&#128172;</span>对话助手</a>
-    </nav>
+    <div class="nav-top">
+        <a href="/upload.html">&#128196; 文件上传</a>
+        <a href="/kb.html">&#128451; 知识库</a>
+        <a href="/chat.html" class="active">&#128172; 对话助手</a>
+    </div>
+    <div class="sessions-header">
+        <span>历史会话</span>
+        <button onclick="newChat()" title="新对话">+</button>
+    </div>
+    <div class="session-list" id="sessionList"></div>
 </div>
 <div class="main">
-    <div class="topbar"><h1>对话助手</h1></div>
-    <div class="chat-area" id="chatBox"></div>
+    <div class="topbar"><h1 id="chatTitle">对话助手</h1></div>
+    <div class="chat-area" id="chatBox">
+        <div style="text-align:center;color:#bbb;padding:60px 0;">选择一个会话或点击 + 开始</div>
+    </div>
     <div class="bottom-bar">
         <input type="text" id="question" placeholder="输入问题，回车发送..." onkeydown="if(event.key==='Enter')send()">
         <button class="btn btn-primary" id="btnSend" onclick="send()">发送</button>
     </div>
 </div>
 <script>
-const sessionId = localStorage.getItem('rag_session') || ('sess_' + Date.now());
-localStorage.setItem('rag_session', sessionId);
-let streaming = false;
+let sessionId = null, streaming = false;
+
+async function loadSessions() {
+    const r = await fetch('/api/llm/sessions');
+    const d = await r.json();
+    const list = document.getElementById('sessionList');
+    if (d.code !== 200 || !d.data || d.data.length === 0) {
+        list.innerHTML = '<div style="color:#ccc;font-size:12px;padding:10px 12px;">暂无会话</div>';
+        return;
+    }
+    list.innerHTML = d.data.map(s => `
+        <div class="session-item${s.sessionId === sessionId ? ' active' : ''}" onclick="selectSession('${s.sessionId}')" title="${esc(s.title)}">
+            <span class="title">${esc(s.title)}</span>
+            <span class="acts">
+                <button class="act" title="编辑" onclick="event.stopPropagation();editTitle('${s.sessionId}')">&#9998;</button>
+                <button class="act del" title="删除" onclick="event.stopPropagation();delSession('${s.sessionId}')">&#128465;</button>
+            </span>
+        </div>
+    `).join('');
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+async function newChat() {
+    const r = await fetch('/api/llm/sessions', { method: 'POST' });
+    const d = await r.json();
+    if (d.code === 200 && d.data) selectSession(d.data.sessionId);
+    loadSessions();
+}
+
+function selectSession(sid) {
+    sessionId = sid;
+    document.querySelectorAll('.session-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('chatBox').innerHTML = '';
+    loadHistory();
+    loadSessions();
+}
+
+async function editTitle(sid) {
+    const items = document.querySelectorAll('.session-item');
+    let target = null;
+    items.forEach(el => {
+        if (el.onclick && el.onclick.toString().includes(sid)) target = el;
+    });
+    const titleEl = document.getElementById('item-title-' + sid) || target?.querySelector('.title');
+    if (!target) {
+        const el = document.querySelector(`.session-item[onclick*="${sid}"]`);
+        if (!el) return;
+        const span = el.querySelector('.title');
+        const old = span.textContent;
+        span.innerHTML = '<input class="edit-input" value="' + esc(old) + '" id="edit-inp">';
+        const inp = document.getElementById('edit-inp');
+        inp.focus(); inp.select();
+        inp.onblur = async () => { const v = inp.value.trim() || old; await save(sid, v); };
+        inp.onkeydown = e => { if (e.key === 'Enter') inp.blur(); };
+        return;
+    }
+    const old = target.querySelector('.title').textContent;
+    target.querySelector('.title').innerHTML = '<input class="edit-input" value="' + esc(old) + '" id="edit-inp">';
+    const inp = document.getElementById('edit-inp');
+    inp.focus(); inp.select();
+    inp.onblur = async () => { const v = inp.value.trim() || old; await save(sid, v); };
+    inp.onkeydown = e => { if (e.key === 'Enter') inp.blur(); };
+}
+
+async function save(sid, title) {
+    await fetch('/api/llm/sessions/' + sid, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title })
+    });
+    loadSessions();
+}
+
+async function delSession(sid) {
+    if (!confirm('删除此会话及全部聊天记录？')) return;
+    await fetch('/api/llm/sessions/' + sid, { method: 'DELETE' });
+    if (sid === sessionId) {
+        sessionId = null;
+        document.getElementById('chatBox').innerHTML = '<div style="text-align:center;color:#bbb;padding:60px 0;">选择一个会话或点击 + 开始</div>';
+    }
+    loadSessions();
+}
 
 function send() {
+    if (!sessionId) { alert('请先点击 + 创建会话'); return; }
     const input = document.getElementById('question');
     const query = input.value.trim();
     if (!query || streaming) return;
@@ -62,27 +163,29 @@ function send() {
     streaming = true;
     document.getElementById('btnSend').disabled = true;
 
-    appendMessage('user', query);
-    const assistantDiv = appendMessage('assistant', '', true);
+    const box = document.getElementById('chatBox');
+    if (!box.querySelector('.msg')) box.innerHTML = '';
 
-    const url = '/api/llm/chat?query=' + encodeURIComponent(query) + '&sessionId=' + encodeURIComponent(sessionId);
-    const es = new EventSource(url);
+    const userDiv = document.createElement('div');
+    userDiv.className = 'msg user'; userDiv.textContent = query;
+    box.appendChild(userDiv);
 
+    const assistantDiv = document.createElement('div');
+    assistantDiv.className = 'msg assistant typing';
+    box.appendChild(assistantDiv);
+    box.scrollTop = box.scrollHeight;
+
+    const es = new EventSource('/api/llm/chat?query=' + encodeURIComponent(query) + '&sessionId=' + sessionId);
     es.onmessage = function(event) {
         try {
             const d = JSON.parse(event.data);
-            if (d.done) {
-                es.close();
-                finish();
-                return;
-            }
+            if (d.done) { es.close(); finish(); return; }
             if (d.content) {
                 assistantDiv.textContent += d.content;
-                document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+                box.scrollTop = box.scrollHeight;
             }
         } catch (e) {}
     };
-
     es.onerror = function() {
         es.close();
         if (assistantDiv.textContent.length === 0) {
@@ -91,35 +194,34 @@ function send() {
         }
         finish();
     };
-
     function finish() {
         streaming = false;
         document.getElementById('btnSend').disabled = false;
         assistantDiv.classList.remove('typing');
+        loadSessions();
     }
 }
 
-function appendMessage(role, text, typing) {
-    const box = document.getElementById('chatBox');
-    const div = document.createElement('div');
-    div.className = 'msg ' + role + (typing ? ' typing' : '');
-    div.textContent = text || '';
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
-    return div;
-}
-
 function loadHistory() {
+    if (!sessionId) return;
     fetch('/api/llm/history?sessionId=' + sessionId)
         .then(r => r.json())
         .then(d => {
-            document.getElementById('chatBox').innerHTML = '';
-            if (d.code === 200 && d.data) {
-                d.data.forEach(msg => appendMessage(msg.role, msg.content));
+            const box = document.getElementById('chatBox');
+            box.innerHTML = '';
+            if (d.code === 200 && d.data && d.data.length > 0) {
+                d.data.forEach(msg => {
+                    const div = document.createElement('div');
+                    div.className = 'msg ' + msg.role;
+                    div.textContent = msg.content || '';
+                    box.appendChild(div);
+                });
+                box.scrollTop = box.scrollHeight;
             }
         });
 }
-loadHistory();
+
+loadSessions();
 </script>
 </body>
 </html>
