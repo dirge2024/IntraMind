@@ -103,3 +103,12 @@ body {
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: #6d28d9; }
 .btn-primary:disabled { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
+
+/* 连接状态灯 */
+.status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+.status-dot.on { background: #22c55e; box-shadow: 0 0 4px #22c55e; }
+.status-dot.off { background: #ef4444; }
+
+/* 新对话按钮 */
+.new-chat-btn { padding: 10px 16px; border: none; background: #7c3aed; color: #fff; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 12px; width: 100%; transition: .15s; }
+.new-chat-btn:hover { background: #6d28d9; }
