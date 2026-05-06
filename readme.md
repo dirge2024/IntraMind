@@ -37,7 +37,7 @@ graph LR
 
 ## 系统功能
 <!-- SCREENSHOT: 系统运行时截图 -->
-![alt text](系统功能展示.png)
+![系统功能展示](image/系统功能展示.png)
 
 ## 技术栈
 
