@@ -58,6 +58,18 @@ public class VectorStoreServiceImpl implements VectorStoreService {
     }
 
     @Override
+    public void deleteByMd5(String md5) {
+        try {
+            var response = client.deleteByQuery(d -> d
+                    .index(INDEX)
+                    .query(q -> q.term(t -> t.field("md5").value(md5))));
+            log.info("ES deleted {} chunks for md5={}", response.deleted(), md5);
+        } catch (Exception e) {
+            log.error("ES delete failed for md5={}", md5, e);
+        }
+    }
+
+    @Override
     public void createIndex(String indexName) {
         try {
             client.indices().create(CreateIndexRequest.of(b -> b

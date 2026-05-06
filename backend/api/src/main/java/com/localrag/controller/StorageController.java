@@ -11,6 +11,7 @@ import com.localrag.storage.dto.*;
 import com.localrag.storage.exception.StorageException;
 import com.localrag.storage.model.FileMetadata;
 import com.localrag.storage.model.UploadTask;
+import com.localrag.vectorstore.contract.VectorStoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +36,7 @@ public class StorageController {
     private final FileMetadataRepository fileMetadataRepository;
     private final MinioConfig minioConfig;
     private final MessageProducer messageProducer;
+    private final VectorStoreService vectorStoreService;
 
     @PostMapping("/upload/init")
     public Result<InitUploadResponse> initUpload(@RequestBody InitUploadRequest request) {
@@ -304,6 +306,7 @@ public class StorageController {
         FileMetadata metadata = fileMetadataRepository.findByMd5(md5);
         if (metadata != null) {
             storageService.removeObject(metadata.getBucket(), metadata.getObjectKey());
+            vectorStoreService.deleteByMd5(md5);
             metadata.setStatus(FileMetadata.Status.DELETED);
             fileMetadataRepository.save(metadata);
         }
