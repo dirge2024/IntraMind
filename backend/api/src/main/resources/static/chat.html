@@ -85,11 +85,14 @@ function send() {
                         try {
                             const d = JSON.parse(line.substring(6));
                             if (d.done) { finish(); return; }
-                            if (d.content) assistantDiv.textContent += d.content;
+                            if (d.content) {
+                                assistantDiv.textContent += d.content;
+                                document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+                            }
                         } catch (e) {}
                     }
                 }
-                read();
+                setTimeout(read, 0);
             }).catch(err => { assistantDiv.textContent = '读取失败: ' + err.message; finish(); });
         }
         function finish() { streaming = false; document.getElementById('btnSend').disabled = false; assistantDiv.classList.remove('typing'); }
