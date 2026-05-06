@@ -70,10 +70,20 @@ async function newChat() {
     }
 }
 
-if (sessionId) loadHistory();
+(async function init() {
+    if (!sessionId) {
+        const r = await fetch('/api/llm/sessions', { method: 'POST' });
+        const d = await r.json();
+        if (d.code === 200 && d.data) {
+            sessionId = d.data.sessionId;
+            history.replaceState(null, '', '?session=' + sessionId);
+        }
+    }
+    if (sessionId) loadHistory();
+})();
 
 function send() {
-    if (!sessionId) { alert('请先点击「新对话」'); return; }
+    if (!sessionId) { alert('创建会话失败，请刷新页面'); return; }
     const input = document.getElementById('question');
     const query = input.value.trim();
     if (!query || streaming) return;
