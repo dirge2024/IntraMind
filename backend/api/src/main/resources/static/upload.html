@@ -44,7 +44,6 @@ input[type=file] { margin-bottom: 14px; font-size: 14px; }
         <a href="/chat.html"><span class="ico-sm">&#128172;</span>对话助手</a>
         <a href="/sessions.html"><span class="ico-sm">&#128337;</span>历史会话</a>
     </nav>
-    <div id="sidebarSessions" style="flex:1;overflow-y:auto;padding:4px 6px;font-size:12px;"></div>
 </div>
 <div class="main">
     <div class="topbar"><h1>文件上传</h1></div>
@@ -124,8 +123,6 @@ function computeMd5(file,cb){return new Promise(r=>{let S=new SparkMD5.ArrayBuff
 function log(cls,msg){const e=document.getElementById('log');e.innerHTML+='<span class="'+cls+'">'+new Date().toLocaleTimeString()+'  '+msg+'</span>\n';e.scrollTop=e.scrollHeight;}
 function formatSize(b){if(b<KB)return b+' B';if(b<MB)return(b/KB).toFixed(1)+' KB';return(b/MB).toFixed(1)+' MB';}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-(async function loadSessions(){const r=await fetch('/api/llm/sessions');const d=await r.json();const el=document.getElementById('sidebarSessions');if(!d.data||!d.data.length){el.innerHTML='<div style="color:#ccc;padding:6px 8px;">暂无</div>';return;}el.innerHTML=d.data.map(s=>`<a href="/chat.html?session=${s.sessionId}" style="display:block;padding:6px 10px;color:#555;text-decoration:none;font-size:12px;border-radius:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onmouseover="this.style.background=\'#f5f3ff\'" onmouseout="this.style.background=\'none\'">${esc(s.title)}</a>`).join('');})();
-function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
 </script>
 </body>
 </html>
