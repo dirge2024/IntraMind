@@ -17,15 +17,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .main { flex: 1; background: #fafaff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04); display: flex; flex-direction: column; overflow: hidden; }
 .topbar { background: #fff; padding: 14px 28px; border-bottom: 1px solid #f2f2f7; display: flex; align-items: center; }
 .topbar h1 { font-size: 16px; font-weight: 600; }
-.content { flex: 1; padding: 28px; max-width: 760px; }
-.chat-box { border: 1px solid #f0f0f5; border-radius: 12px; padding: 20px; min-height: 320px; max-height: 480px; overflow-y: auto; margin-bottom: 12px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.03); }
-.row { display: flex; gap: 8px; }
-.row input { flex: 1; padding: 11px 16px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; color: #333; }
-.row input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
+.content { flex: 1; padding: 24px 28px; display: flex; flex-direction: column; }
+.chat-box { flex: 1; overflow-y: auto; padding-right: 4px; display: flex; flex-direction: column; gap: 14px; }
+.msg { max-width: 80%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.7; animation: fadeIn .3s; }
+.msg.user { align-self: flex-end; background: #7c3aed; color: #fff; }
+.msg.assistant { align-self: flex-start; background: #fff; color: #333; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+.msg.assistant.typing { opacity: .7; }
+.input-row { display: flex; gap: 8px; padding-top: 16px; border-top: 1px solid #f0f0f5; margin-top: 16px; }
+.input-row input { flex: 1; padding: 11px 16px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; color: #333; }
+.input-row input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
 .btn { padding: 11px 24px; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600; transition: .15s; }
 .btn-primary { background: #7c3aed; color: #fff; } .btn-primary:hover { background: #6d28d9; }
 .btn-primary:disabled { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
-.note { text-align: center; padding: 40px 0; color: #bbb; font-size: 14px; line-height: 2; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
@@ -40,14 +44,72 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 <div class="main">
     <div class="topbar"><h1>对话助手</h1></div>
     <div class="content">
-        <div class="chat-box">
-            <div class="note">retrieval + llm 模块开发中<br><small style="font-size:12px;">入链已贯通：上传 → 解析 → 向量化 → 入库</small></div>
-        </div>
-        <div class="row">
-            <input type="text" id="question" placeholder="输入你的问题..." disabled>
-            <button class="btn btn-primary" disabled>发送</button>
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-row">
+            <input type="text" id="question" placeholder="输入问题，回车发送..." onkeydown="if(event.key==='Enter')send()">
+            <button class="btn btn-primary" id="btnSend" onclick="send()">发送</button>
         </div>
     </div>
 </div>
+<script>
+const sessionId = 'sess_' + Date.now();
+let streaming = false;
+
+function send() {
+    const input = document.getElementById('question');
+    const query = input.value.trim();
+    if (!query || streaming) return;
+    input.value = '';
+    streaming = true;
+    document.getElementById('btnSend').disabled = true;
+
+    appendMessage('user', query);
+    const assistantDiv = appendMessage('assistant', '', true);
+
+    fetch('/api/llm/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query, sessionId })
+    }).then(response => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        function read() {
+            reader.read().then(({ done, value }) => {
+                if (done) { streaming = false; document.getElementById('btnSend').disabled = false; assistantDiv.classList.remove('typing'); return; }
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const d = JSON.parse(line.substring(6));
+                            if (d.done) { streaming = false; document.getElementById('btnSend').disabled = false; assistantDiv.classList.remove('typing'); return; }
+                            if (d.content) assistantDiv.textContent += d.content;
+                        } catch (e) {}
+                    }
+                }
+                read();
+            });
+        }
+        read();
+    }).catch(err => {
+        assistantDiv.textContent = '请求失败: ' + err.message;
+        streaming = false;
+        document.getElementById('btnSend').disabled = false;
+    });
+}
+
+function appendMessage(role, text, typing) {
+    const box = document.getElementById('chatBox');
+    const div = document.createElement('div');
+    div.className = 'msg ' + role + (typing ? ' typing' : '');
+    div.textContent = text || '';
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    return div;
+}
+</script>
 </body>
 </html>

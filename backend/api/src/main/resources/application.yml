@@ -65,6 +65,9 @@ localrag:
       api-key: ${QWEN_API_KEY:}
     deepseek:
       api-key: ${DEEPSEEK_API_KEY:}
+  llm:
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY:}
   kafka:
     brokers: ${KAFKA_BROKERS:localhost:9092}
     topic-prefix: ${KAFKA_TOPIC_PREFIX:localrag}
