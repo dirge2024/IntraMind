@@ -50,6 +50,7 @@ public class DeepSeekLlmService implements LlmService {
 
         executor.submit(() -> {
             try {
+                // RAG 链路: 检索→查文件名→拼Prompt→调DeepSeek API→SSE流式转发
                 List<RetrievalResult> chunks = retrievalService.search(query, 5);
                 List<com.localrag.llm.model.ChatHistoryMessage> history =
                         chatHistoryManager.getRecent(sessionId);

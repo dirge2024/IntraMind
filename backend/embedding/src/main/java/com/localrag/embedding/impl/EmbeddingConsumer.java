@@ -47,6 +47,7 @@ public class EmbeddingConsumer {
 
         log.info("processing embedding: md5={}, chunks={}", payload.getMd5(), payload.getChunks().size());
 
+        // 链路: 分批向量化 → 分批发送 embedding.requested（避免单条 Kafka 消息超 1MB）
         int batchSize = config.getBatchSize();
         List<DocumentChunkedPayload.ChunkData> allChunks = payload.getChunks();
         List<EmbeddingRequestedPayload.VectorChunk> vectorChunks = new ArrayList<>();

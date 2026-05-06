@@ -43,6 +43,7 @@ public class StorageController {
     public Result<InitUploadResponse> initUpload(@RequestBody InitUploadRequest request) {
         String md5 = request.getFileMd5();
 
+        // 上传链路: 秒传检查 → 断点续传检查 → 新上传(创建Redis任务)
         FileMetadata existing = fileMetadataRepository.findByMd5(md5);
         if (existing != null && existing.getStatus() != FileMetadata.Status.DELETED) {
             if (existing.getStatus() == FileMetadata.Status.EMBEDDED

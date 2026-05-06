@@ -29,6 +29,7 @@ public class RetrievalServiceImpl implements RetrievalService {
         }
 
         try {
+            // 检索链路: query向量化 → 第一轮KNN(Top30) → 第二轮BM25重排 → 第三轮rescore精排
             float[] vector = embeddingService.embed(List.of(query)).get(0);
             List<Float> queryVector = new ArrayList<>();
             for (float v : vector) {

@@ -65,6 +65,7 @@ public class DocumentConsumer {
         log.info("processing document: md5={}, fileName={}", payload.getMd5(), payload.getFileName());
 
         try {
+            // 链路: 下载 → Tika解析 → 分块 → 分批发送 document.chunked
             String presignedUrl = storageService.getPresignedUrl(
                     minioConfig.getBucket(), payload.getObjectKey(), 300);
 
