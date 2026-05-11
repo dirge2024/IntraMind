@@ -30,12 +30,10 @@ Thumbs.db
 # Docker
 volumes/
 
-# Local-only docs (面试准备、开发笔记、扩展规划)
+# Local-only docs (面试准备、开发笔记)
 doc/IntraMind.md
-doc/IntraMind-vs-PaiSmart-扩展规划.md
 doc/开发问题.md
 doc/COMMIT_TEMPLATE.md
-扩展需求/
 
 # Reference project (对标参考项目，不提交)
 A-/
