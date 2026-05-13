@@ -36,6 +36,7 @@
         <module>vector-store</module>
         <module>retrieval</module>
         <module>llm</module>
+        <module>agent</module>
         <module>api</module>
     </modules>
 
@@ -111,6 +112,30 @@
                 <groupId>com.localrag</groupId>
                 <artifactId>llm</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.localrag</groupId>
+                <artifactId>agent</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>0.12.5</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>0.12.5</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>0.12.5</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

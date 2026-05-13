@@ -71,3 +71,20 @@ localrag:
   kafka:
     brokers: ${KAFKA_BROKERS:localhost:9092}
     topic-prefix: ${KAFKA_TOPIC_PREFIX:localrag}
+
+  rate-limit:
+    chat-per-minute-per-user: 10
+    chat-per-minute-global: 100
+    llm-per-minute-per-user: 5
+    llm-daily-tokens-per-user: 100000
+    llm-daily-tokens-global: 5000000
+
+  prompt:
+    rules: |
+      你是IntraMind知识库AI助手「茉莉」。
+      本系统是知识库优先的问答助手，默认必须先调用search_knowledge。
+      可以跳过检索的白名单：打招呼/寒暄、纯翻译请求、与本系统无关的创作。
+      只要search_knowledge返回了片段，必须基于片段作答并标注来源编号。
+    ref-start: "<<REF>>"
+    ref-end: "<<END>>"
+    no-result-text: "（本轮无预置检索结果，可按需调用工具）"

@@ -129,7 +129,7 @@ public class StorageController {
             throw new StorageException("分片上传失败");
         }
 
-        uploadStateManager.savePartEtag(md5, partNumber, etag);
+        uploadStateManager.markPartComplete(md5, partNumber);
 
         int uploadedCount = uploadStateManager.getUploadedParts(md5).size();
         log.debug("part uploaded: md5={}, part={}/{}, total={}",
@@ -174,11 +174,13 @@ public class StorageController {
                 .build();
         fileMetadataRepository.save(metadata);
 
+        var userId = getUserId();
         messageProducer.send("document.uploaded", FileUploadedPayload.builder()
                 .md5(md5)
                 .fileName(task.getFileName())
                 .fileSize(task.getFileSize())
                 .objectKey(task.getObjectKey())
+                .userId(userId)
                 .build());
 
         log.info("upload complete: md5={}, fileName={}, size={}", md5, task.getFileName(), task.getFileSize());
@@ -265,11 +267,13 @@ public class StorageController {
                 .build();
         fileMetadataRepository.save(metadata);
 
+        var userId = getUserId();
         messageProducer.send("document.uploaded", FileUploadedPayload.builder()
                 .md5(md5)
                 .fileName(file.getOriginalFilename())
                 .fileSize(file.getSize())
                 .objectKey(objectKey)
+                .userId(userId)
                 .build());
 
         log.info("direct upload complete: md5={}, fileName={}", md5, file.getOriginalFilename());
@@ -318,6 +322,18 @@ public class StorageController {
     private void ensureBucket(String bucket) {
         if (!storageService.bucketExists(bucket)) {
             storageService.createBucket(bucket);
+        }
+    }
+
+    private String getUserId() {
+        try {
+            var request = ((org.springframework.web.context.request.ServletRequestAttributes)
+                    org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes())
+                    .getRequest();
+            Object userId = request.getAttribute("userId");
+            return userId != null ? userId.toString() : "anonymous";
+        } catch (Exception ignored) {
+            return "anonymous";
         }
     }
 

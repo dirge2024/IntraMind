@@ -14,4 +14,7 @@ public class FileUploadedPayload {
     private String fileName;
     private long fileSize;
     private String objectKey;
+    private String userId;
+    private String orgTag;
+    private boolean isPublic;
 }

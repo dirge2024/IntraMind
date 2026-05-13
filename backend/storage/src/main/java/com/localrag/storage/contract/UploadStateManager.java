@@ -1,4 +1,4 @@
-/** 上传进度追踪接口，基于 Redis Hash 记录分片上传状态，支持断点续传。 */
+/** 上传进度追踪接口，基于 Redis BitMap 记录分片上传状态，支持断点续传。 */
 package com.localrag.storage.contract;
 
 import com.localrag.storage.model.UploadTask;
@@ -11,7 +11,7 @@ public interface UploadStateManager {
 
     UploadTask getByMd5(String md5);
 
-    void savePartEtag(String md5, int partNumber, String etag);
+    void markPartComplete(String md5, int partNumber);
 
     List<Integer> getUploadedParts(String md5);
 

@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -31,5 +31,5 @@ public class UploadTask {
     private LocalDateTime createdAt;
 
     @Builder.Default
-    private Map<Integer, String> uploadedParts = new ConcurrentHashMap<>();
+    private Set<Integer> uploadedParts = new HashSet<>();
 }

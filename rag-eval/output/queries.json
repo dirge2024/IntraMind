@@ -1,0 +1,2754 @@
+[
+  {
+    "query": "match 查询 全文本 精确查询",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0166"
+    ],
+    "type": "精确术语",
+    "query_id": "q0000"
+  },
+  {
+    "query": "docker build --tag <none>",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0057"
+    ],
+    "type": "精确术语",
+    "query_id": "q0001"
+  },
+  {
+    "query": "redis.h/redisDb结构 文件引用格式 <file>/name",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0018"
+    ],
+    "type": "精确术语",
+    "query_id": "q0002"
+  },
+  {
+    "query": "自定义路由 文档 分片 映射",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0107"
+    ],
+    "type": "精确术语",
+    "query_id": "q0003"
+  },
+  {
+    "query": "spring-boot-starter-data-jpa spring-boot-starter-test Gradle dependencies compile",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0094"
+    ],
+    "type": "精确术语",
+    "query_id": "q0004"
+  },
+  {
+    "query": "object arrays arrays of inner objects followers",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0154"
+    ],
+    "type": "精确术语",
+    "query_id": "q0005"
+  },
+  {
+    "query": "docker pull mongo:3.2",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0057"
+    ],
+    "type": "精确术语",
+    "query_id": "q0006"
+  },
+  {
+    "query": "点对点协议 PPP 帧格式 3.2.2",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0014"
+    ],
+    "type": "精确术语",
+    "query_id": "q0007"
+  },
+  {
+    "query": "javac 编译 字节码 Java虚拟机 解释执行",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0097"
+    ],
+    "type": "精确术语",
+    "query_id": "q0008"
+  },
+  {
+    "query": "spring-boot-starter-thymeleaf h2database Maven dependency pom.xml",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0088"
+    ],
+    "type": "精确术语",
+    "query_id": "q0009"
+  },
+  {
+    "query": "Spring Boot 自动配置 覆盖 自定义 配置 类",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0136"
+    ],
+    "type": "精确术语",
+    "query_id": "q0010"
+  },
+  {
+    "query": "Spring Security antMatchers hasRole READER permitAll formLogin loginPage failureUrl",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0136"
+    ],
+    "type": "精确术语",
+    "query_id": "q0011"
+  },
+  {
+    "query": "停止等待协议 5.4.1",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0007"
+    ],
+    "type": "精确术语",
+    "query_id": "q0012"
+  },
+  {
+    "query": "sudo apt-get -t jessie-backports update",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0028"
+    ],
+    "type": "精确术语",
+    "query_id": "q0013"
+  },
+  {
+    "query": "StringBuffer 可变 线程安全 同步 方法",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0023"
+    ],
+    "type": "精确术语",
+    "query_id": "q0014"
+  },
+  {
+    "query": "sort 多级排序 date:desc",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0179"
+    ],
+    "type": "精确术语",
+    "query_id": "q0015"
+  },
+  {
+    "query": "RDB文件开头 REDIS 5字节 二进制数据 文件格式",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0179"
+    ],
+    "type": "精确术语",
+    "query_id": "q0016"
+  },
+  {
+    "query": "确切值 Foo foo 2014 2014-09-15 不同",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0129"
+    ],
+    "type": "精确术语",
+    "query_id": "q0017"
+  },
+  {
+    "query": "Redis 整数集合 encoding属性 INTSET_ENC_INT16 contents数组",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0068"
+    ],
+    "type": "精确术语",
+    "query_id": "q0018"
+  },
+  {
+    "query": "docker ps --filter --quiet",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0062"
+    ],
+    "type": "精确术语",
+    "query_id": "q0019"
+  },
+  {
+    "query": "CSMA/CD 协议 3.3.2",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0004"
+    ],
+    "type": "精确术语",
+    "query_id": "q0020"
+  },
+  {
+    "query": "MySQL 5.7 DATE_ADD DATE_SUB INTERVAL 用法 示例",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0180"
+    ],
+    "type": "精确术语",
+    "query_id": "q0021"
+  },
+  {
+    "query": "双亲委派模型 类加载器 父类加载器 启动类加载器 委派",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0088"
+    ],
+    "type": "精确术语",
+    "query_id": "q0022"
+  },
+  {
+    "query": "MySQL 5.7 SHOW ENGINES 查看存储引擎 列表",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0074"
+    ],
+    "type": "精确术语",
+    "query_id": "q0023"
+  },
+  {
+    "query": "docker network --bridge BRIDGE --bip CIDR",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0188"
+    ],
+    "type": "精确术语",
+    "query_id": "q0024"
+  },
+  {
+    "query": "spring.datasource.driver-class-name 配置 JDBC 驱动 MySQL",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0163"
+    ],
+    "type": "精确术语",
+    "query_id": "q0025"
+  },
+  {
+    "query": "Elasticsearch 权威指南（中文版） 阅读地址",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0006"
+    ],
+    "type": "精确术语",
+    "query_id": "q0026"
+  },
+  {
+    "query": "主节点 不参与 文档级别 变更 搜索",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0050"
+    ],
+    "type": "精确术语",
+    "query_id": "q0027"
+  },
+  {
+    "query": "实时运输协议 RTP 8.3.3",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0019"
+    ],
+    "type": "精确术语",
+    "query_id": "q0028"
+  },
+  {
+    "query": "echo deb http://http.debian.net/debian jessie-backports main | sudo tee /etc/apt/sources.list.d/backports.list",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0028"
+    ],
+    "type": "精确术语",
+    "query_id": "q0029"
+  },
+  {
+    "query": "Spring Boot CLI shell-completion BASH zsh 安装 脚本",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0052"
+    ],
+    "type": "精确术语",
+    "query_id": "q0030"
+  },
+  {
+    "query": "Error 和 Exception 区别 OutOfMemoryError StackOverflowError",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0026"
+    ],
+    "type": "精确术语",
+    "query_id": "q0031"
+  },
+  {
+    "query": "Redis BGSAVE命令执行时子进程创建RDB文件 服务器状态",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0171"
+    ],
+    "type": "精确术语",
+    "query_id": "q0032"
+  },
+  {
+    "query": "Redis save选项 自动执行BGSAVE 保存条件 设置",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0174"
+    ],
+    "type": "精确术语",
+    "query_id": "q0033"
+  },
+  {
+    "query": "映射 核心简单字段类型 name string tweet string user_id long",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0143"
+    ],
+    "type": "精确术语",
+    "query_id": "q0034"
+  },
+  {
+    "query": "@SpringBootApplication 注解 Spring Boot 1.2.0 启动引导",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0075"
+    ],
+    "type": "精确术语",
+    "query_id": "q0035"
+  },
+  {
+    "query": "logback.xml 日志文件 配置 Spring Boot 应用程序",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0160"
+    ],
+    "type": "精确术语",
+    "query_id": "q0036"
+  },
+  {
+    "query": "深拷贝 浅拷贝 区别 复制对象 内部结构",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0024"
+    ],
+    "type": "精确术语",
+    "query_id": "q0037"
+  },
+  {
+    "query": "UserDetailsService ReaderRepository findOne Spring Data JPA 仓库接口",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0138"
+    ],
+    "type": "精确术语",
+    "query_id": "q0038"
+  },
+  {
+    "query": "Redis Sentinel 选举 slave-priority offset 规则",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0154"
+    ],
+    "type": "精确术语",
+    "query_id": "q0039"
+  },
+  {
+    "query": "MySQL 5.7 INSERT INTO students 插入数据 示例",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0011"
+    ],
+    "type": "精确术语",
+    "query_id": "q0040"
+  },
+  {
+    "query": "sudo groupadd docker",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0035"
+    ],
+    "type": "精确术语",
+    "query_id": "q0041"
+  },
+  {
+    "query": "MySQL 5.7 运算符优先级 圆括号 改变优先级",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0147"
+    ],
+    "type": "精确术语",
+    "query_id": "q0042"
+  },
+  {
+    "query": "MySQL 5.7 ELT 函数 返回指定位置字符串 FIELD 函数 返回字符串位置",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0169"
+    ],
+    "type": "精确术语",
+    "query_id": "q0043"
+  },
+  {
+    "query": "analyze API 查看 文本 分析 standard",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0139"
+    ],
+    "type": "精确术语",
+    "query_id": "q0044"
+  },
+  {
+    "query": "redisServer.db数组 redisServer.dbnum属性 数据库数量",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0165"
+    ],
+    "type": "精确术语",
+    "query_id": "q0045"
+  },
+  {
+    "query": "Redis 键空间通知 键事件通知 服务器配置 发送通知",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0165"
+    ],
+    "type": "精确术语",
+    "query_id": "q0046"
+  },
+  {
+    "query": "String 不可变 线程安全 竞争条件 字符串对象",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0023"
+    ],
+    "type": "精确术语",
+    "query_id": "q0047"
+  },
+  {
+    "query": "Redis 渐进式rehash 哈希表 ht[0] ht[1] 键值对数量 服务器性能",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0053"
+    ],
+    "type": "精确术语",
+    "query_id": "q0048"
+  },
+  {
+    "query": "curl http://192.168.7.26:5000/v1/search",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0163"
+    ],
+    "type": "精确术语",
+    "query_id": "q0049"
+  },
+  {
+    "query": "MySQL 5.7 FLOAT DOUBLE DECIMAL 数据类型 区别",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0092"
+    ],
+    "type": "精确术语",
+    "query_id": "q0050"
+  },
+  {
+    "query": "match_all 查询 所有文档 _score 1",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0166"
+    ],
+    "type": "精确术语",
+    "query_id": "q0051"
+  },
+  {
+    "query": "MySQL 5.7 源码安装 cmake 编译工具 依赖",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0049"
+    ],
+    "type": "精确术语",
+    "query_id": "q0052"
+  },
+  {
+    "query": "docker history --no-trunc",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0070"
+    ],
+    "type": "精确术语",
+    "query_id": "q0053"
+  },
+  {
+    "query": "MySQL 5.7 YEAR TIME DATE DATETIME TIMESTAMP 日期类型",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0092"
+    ],
+    "type": "精确术语",
+    "query_id": "q0054"
+  },
+  {
+    "query": "TCP 报文段首部格式 5.5",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0007"
+    ],
+    "type": "精确术语",
+    "query_id": "q0055"
+  },
+  {
+    "query": "TCP/IP 体系结构 1.7.5",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0013"
+    ],
+    "type": "精确术语",
+    "query_id": "q0056"
+  },
+  {
+    "query": "统一资源定位符 URL 6.4.2",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0008"
+    ],
+    "type": "精确术语",
+    "query_id": "q0057"
+  },
+  {
+    "query": "Redis 载入RDB文件 过期键处理 主服务器模式 从服务器模式",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0155"
+    ],
+    "type": "精确术语",
+    "query_id": "q0058"
+  },
+  {
+    "query": "多协议标记交换 MPLS 10.2",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0020"
+    ],
+    "type": "精确术语",
+    "query_id": "q0059"
+  },
+  {
+    "query": "文件传送协议 FTP 6.2",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0008"
+    ],
+    "type": "精确术语",
+    "query_id": "q0060"
+  },
+  {
+    "query": "MySQL 5.7 CHAR VARCHAR BINARY VARBINARY BLOB TEXT ENUM SET 字符串类型",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0092"
+    ],
+    "type": "精确术语",
+    "query_id": "q0061"
+  },
+  {
+    "query": "YoungGC Eden区 Survivor区 调优 响应时间",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0091"
+    ],
+    "type": "精确术语",
+    "query_id": "q0062"
+  },
+  {
+    "query": "三色标记算法 黑色对象 条件 漏标",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0086"
+    ],
+    "type": "精确术语",
+    "query_id": "q0063"
+  },
+  {
+    "query": "以太网 MAC 层 3.4.3",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0004"
+    ],
+    "type": "精确术语",
+    "query_id": "q0064"
+  },
+  {
+    "query": "浅拷贝 创建新对象 引用 修改 影响",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0024"
+    ],
+    "type": "精确术语",
+    "query_id": "q0065"
+  },
+  {
+    "query": "Redis SAVE命令执行时服务器状态 阻塞 拒绝命令请求",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0171"
+    ],
+    "type": "精确术语",
+    "query_id": "q0066"
+  },
+  {
+    "query": "ReadingListApplication @SpringBootApplication @Configuration @EnableAutoConfiguration @ComponentScan",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0073"
+    ],
+    "type": "精确术语",
+    "query_id": "q0067"
+  },
+  {
+    "query": "docker --bridge=BRIDGE --bip=CIDR --host=SOCKET",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0189"
+    ],
+    "type": "精确术语",
+    "query_id": "q0068"
+  },
+  {
+    "query": "MySQL 5.7 CREATE DATABASE USE SHOW TABLES 创建数据库 创建表",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0058"
+    ],
+    "type": "精确术语",
+    "query_id": "q0069"
+  },
+  {
+    "query": "什么是Elasticsearch的空搜索（empty search）？基本搜索API是如何工作的？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0116"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0070"
+  },
+  {
+    "query": "什么是Spring Boot CLI？它如何简化开发？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0024"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0071"
+  },
+  {
+    "query": "Redis中设置键过期时间的命令是如何工作的？例如EXPIRE和PEXPIREAT的实现原理。",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0141"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0072"
+  },
+  {
+    "query": "什么是Redis中的跳跃表？它的基本概念和定义是什么？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0058"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0073"
+  },
+  {
+    "query": "数字签名是如何工作的？它如何保证报文鉴别的安全性？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0010"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0074"
+  },
+  {
+    "query": "Elasticsearch中文档的_version字段是什么？它是如何工作的？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0067"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0075"
+  },
+  {
+    "query": "Redis中移除键过期时间的PERSIST命令是如何实现的？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0141"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0076"
+  },
+  {
+    "query": "模拟Spring MVC测试的原理是什么？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0201"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0077"
+  },
+  {
+    "query": "LAST_INSERT_ID() 函数在 MySQL 中是如何工作的？它返回哪个表的 ID？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0193"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0078"
+  },
+  {
+    "query": "Elasticsearch中match_phrase查询与match查询有什么区别？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0040"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0079"
+  },
+  {
+    "query": "Elasticsearch中的聚合（aggregation）是什么？如何计算每个兴趣组的平均年龄？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0045"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0080"
+  },
+  {
+    "query": "Docker仓库的概念是什么？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0152"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0081"
+  },
+  {
+    "query": "Redis中SORT命令的实现原理是什么？它如何处理多个选项的执行顺序？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0016"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0082"
+  },
+  {
+    "query": "Java泛型的类型擦除是什么？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0014"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0083"
+  },
+  {
+    "query": "什么是Docker镜像？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0016"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0084"
+  },
+  {
+    "query": "DATETIME 类型在 MySQL 中的格式是什么？如何给 DATETIME 字段赋值？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0108"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0085"
+  },
+  {
+    "query": "如何使用SDKMAN安装Spring Boot CLI？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0048"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0086"
+  },
+  {
+    "query": "如何创建、查看和删除数据库？请描述在 MySQL 中创建数据库 zoo 的步骤。",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0054"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0087"
+  },
+  {
+    "query": "Redis的过期键删除策略（惰性删除和定期删除）的原理是什么？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0150"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0088"
+  },
+  {
+    "query": "Redis中共同关注（共同关注集合）功能的实现原理是什么？它如何利用集合计算？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0005"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0089"
+  },
+  {
+    "query": "Redis中二进制位数组（BIT数组）的存储方法是什么？GETBIT、SETBIT等命令的实现原理是怎样的？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0016"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0090"
+  },
+  {
+    "query": "IP地址和硬件地址有什么区别？ARP协议是如何工作的？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0015"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0091"
+  },
+  {
+    "query": "Redis中对象系统的概念是什么？它支持哪些数据类型？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0086"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0092"
+  },
+  {
+    "query": "什么是计算机网络，它的定义是什么？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0013"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0093"
+  },
+  {
+    "query": "什么是大模型的幻觉？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0004"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0094"
+  },
+  {
+    "query": "如何测试Spring MVC应用程序？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0023"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0095"
+  },
+  {
+    "query": "如何挂载本地文件到Docker容器中？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0174"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0096"
+  },
+  {
+    "query": "Redis中渐进式rehash的工作原理是什么？为什么需要渐进式rehash？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0056"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0097"
+  },
+  {
+    "query": "什么是CMS垃圾回收的浮动垃圾？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0082"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0098"
+  },
+  {
+    "query": "WEEK(d) 函数在 MySQL 中是如何工作的？它计算什么？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0176"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0099"
+  },
+  {
+    "query": "CMS垃圾回收算法的并发标记和并发清理阶段如何实现？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0082"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0100"
+  },
+  {
+    "query": "Docker中ONBUILD指令的工作原理是什么？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0119"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0101"
+  },
+  {
+    "query": "Linux公社（Linuxidc.com）是什么？它提供哪些Linux相关的服务？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0000"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0102"
+  },
+  {
+    "query": "TRUNCATE(x, y) 函数在 SQL 中是如何工作的？当 y 为负数时会发生什么？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0155"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0103"
+  },
+  {
+    "query": "MD5(str) 加密函数在 MySQL 中的作用是什么？它如何对字符串进行加密？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0193"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0104"
+  },
+  {
+    "query": "Java中对象分配流程是怎样的？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0078"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0105"
+  },
+  {
+    "query": "IPv6的基本首部结构是怎样的？它是如何解决IP地址耗尽问题的？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0012"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0106"
+  },
+  {
+    "query": "JVM调优在什么情况下是必要的？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0092"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0107"
+  },
+  {
+    "query": "Elasticsearch中的索引（index）、类型（type）和文档（document）是什么？它们之间的关系如何？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0027"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0108"
+  },
+  {
+    "query": "Elasticsearch中确切值（exact value）和全文文本（full text）有什么区别？它们如何被索引？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0129"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0109"
+  },
+  {
+    "query": "什么是Spring Initializr？它的工作原理是什么？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0062"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0110"
+  },
+  {
+    "query": "Docker中如何给命令传递参数？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0098"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0111"
+  },
+  {
+    "query": "实时运输协议RTP和RTCP的作用是什么？它们是如何协同工作的？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0019"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0112"
+  },
+  {
+    "query": "Redis的跳跃表是如何工作的？节点如何存储和排序？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0063",
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0057"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0113"
+  },
+  {
+    "query": "什么是SDKMAN？它如何工作？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0048"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0114"
+  },
+  {
+    "query": "Spring Boot CLI的版本升级方法是什么？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0048"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0115"
+  },
+  {
+    "query": "CSMA/CD协议是如何工作的？它解决了什么问题？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0003",
+      "5d06d931051b1bc9d74658dde43f770b_0014"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0116"
+  },
+  {
+    "query": "Docker中CMD和ENTRYPOINT指令的区别是什么？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0097"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0117"
+  },
+  {
+    "query": "LIKE 运算符中的通配符 '%' 和 '_' 是如何工作的？它们匹配什么模式？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0138"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0118"
+  },
+  {
+    "query": "IS NULL 和 IS NOT NULL 在 SQL 中如何工作？它们返回什么值？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0135"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0119"
+  },
+  {
+    "query": "CentOS/RHEL上使用Docker时需要注意什么？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0135"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0120"
+  },
+  {
+    "query": "PPP协议的工作原理是什么？它是如何建立连接的？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0003",
+      "5d06d931051b1bc9d74658dde43f770b_0014"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0121"
+  },
+  {
+    "query": "ALTER TABLE RENAME 语句的作用是什么？如何将表 tb_dept3 改名为 tb_deptment3？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0067"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0122"
+  },
+  {
+    "query": "MPLS（多协议标记交换）的工作原理是什么？它产生的背景是什么？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0020",
+      "5d06d931051b1bc9d74658dde43f770b_0012"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0123"
+  },
+  {
+    "query": "Java中throw和throws关键字的区别是什么？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0028"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0124"
+  },
+  {
+    "query": "TLAB机制如何提高多线程内存分配效率？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0078"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0125"
+  },
+  {
+    "query": "Docker中EXPOSE指令的作用是什么？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0108"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0126"
+  },
+  {
+    "query": "RDB持久化为什么不能设置过短的间隔时间？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0145"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0127"
+  },
+  {
+    "query": "Elasticsearch中字段映射（mapping）是什么？动态映射是如何工作的？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0128"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0128"
+  },
+  {
+    "query": "Elasticsearch的update API是如何工作的？请描述执行局部更新的步骤。",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0111"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0129"
+  },
+  {
+    "query": "联合索引中如何排列字段顺序？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0125"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0130"
+  },
+  {
+    "query": "IF() 函数在 MySQL 中如何进行条件判断？请举例说明其用法。",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0186"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0131"
+  },
+  {
+    "query": "如何清理Docker中不需要的镜像？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0135"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0132"
+  },
+  {
+    "query": "对称密钥密码体制和公钥密码体制的区别是什么？它们各自如何工作？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0010"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0133"
+  },
+  {
+    "query": "什么是Elasticsearch中的主分片和复制分片？它们如何工作？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0111"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0134"
+  },
+  {
+    "query": "Docker容器和虚拟机有什么区别？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0016"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0135"
+  },
+  {
+    "query": "如何在IntelliJ IDEA中使用Spring Initializr创建项目？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0062"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0136"
+  },
+  {
+    "query": "什么是Spring Security？如何配置它？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0134"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0137"
+  },
+  {
+    "query": "Spring Boot自动配置是如何工作的？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0113"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0138"
+  },
+  {
+    "query": "什么是ICMP协议？它有哪些种类和作用？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0015"
+    ],
+    "type": "描述/解释",
+    "query_id": "q0139"
+  },
+  {
+    "query": "有多少条记录提到了DELETE操作？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0080"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0140"
+  },
+  {
+    "query": "第8章中关于实时运输协议的内容有哪些？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0019"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0141"
+  },
+  {
+    "query": "SDS的buf属性为什么被称为字节数组？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0033"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0142"
+  },
+  {
+    "query": "在Elasticsearch中，哪些字段类型可以存储数值？列举一下。",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0142"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0143"
+  },
+  {
+    "query": "数据库中一共有多少条关于INSERT操作的记录？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0080"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0144"
+  },
+  {
+    "query": "列举所有涉及表重命名的操作",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0067"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0145"
+  },
+  {
+    "query": "ClassLoader被回收的常见场景有哪些？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0103"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0146"
+  },
+  {
+    "query": "解压 Spring Boot CLI 后，bin 目录下有哪些脚本文件？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0046"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0147"
+  },
+  {
+    "query": "Elasticsearch中，查询语句和过滤语句分别有哪些？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0169"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0148"
+  },
+  {
+    "query": "列举docker --dns参数的选项",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0192"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0149"
+  },
+  {
+    "query": "列举Docker容器的特点有哪些",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0012"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0150"
+  },
+  {
+    "query": "Docker镜像仓库有哪些类型？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0023"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0151"
+  },
+  {
+    "query": "Elasticsearch中，索引文档时，_all字段的作用是什么？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0124"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0152"
+  },
+  {
+    "query": "第1章中关于因特网概述的小节有哪些？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0001"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0153"
+  },
+  {
+    "query": "第4章中IP协议相关的子节有哪些？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0005"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0154"
+  },
+  {
+    "query": "ReadingListRepository 继承了多少个方法？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0107"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0155"
+  },
+  {
+    "query": "键空间的值可以是哪些Redis对象类型？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0129"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0156"
+  },
+  {
+    "query": "docker run命令有多少种用法？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0138"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0157"
+  },
+  {
+    "query": "Java中引用类型有哪些？软引用和弱引用的区别是什么？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0047"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0158"
+  },
+  {
+    "query": "Kafka Broker有哪些功能？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0172"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0159"
+  },
+  {
+    "query": "Redis数据库的键空间中有哪些类型的键值对？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0129"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0160"
+  },
+  {
+    "query": "第2章物理层包含哪些小节？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0002"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0161"
+  },
+  {
+    "query": "列举计算机网络第5版的章节标题。",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0001",
+      "5d06d931051b1bc9d74658dde43f770b_0002",
+      "5d06d931051b1bc9d74658dde43f770b_0005",
+      "5d06d931051b1bc9d74658dde43f770b_0008",
+      "5d06d931051b1bc9d74658dde43f770b_0019",
+      "5d06d931051b1bc9d74658dde43f770b_0020"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0162"
+  },
+  {
+    "query": "在跳跃表中计算节点排位时，需要经过哪些层？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0062"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0163"
+  },
+  {
+    "query": "本书的第四部分包含的章节是否相互独立？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0017"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0164"
+  },
+  {
+    "query": "Java中线程有哪些类型？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0017"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0165"
+  },
+  {
+    "query": "列举所有涉及创建数据库的语句",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0052"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0166"
+  },
+  {
+    "query": "Redis主从复制有哪些作用？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0152"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0167"
+  },
+  {
+    "query": "书中特别感谢了哪些人？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0018"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0168"
+  },
+  {
+    "query": "计算机网络第5版共有多少章？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0000"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0169"
+  },
+  {
+    "query": "Docker容器有多少个特点？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0012"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0170"
+  },
+  {
+    "query": "Docker三剑客有哪些？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0003"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0171"
+  },
+  {
+    "query": "多线程交替打印有哪些实现方式？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0060"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0172"
+  },
+  {
+    "query": "Elasticsearch中，如何强制计算相关性评分？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0178"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0173"
+  },
+  {
+    "query": "第10章包含哪些小节？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0012",
+      "5d06d931051b1bc9d74658dde43f770b_0020"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0174"
+  },
+  {
+    "query": "列举所有关于日期和时间函数的例子",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0171",
+      "ada7776cabb111e579d30ae1521a560b_0183"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0175"
+  },
+  {
+    "query": "第6章包含哪些小节？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0008"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0176"
+  },
+  {
+    "query": "列举公开的Docker镜像仓库服务",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0023"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0177"
+  },
+  {
+    "query": "整数集合的encoding属性有哪些可能的取值？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0067"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0178"
+  },
+  {
+    "query": "有多少条记录涉及外键约束的创建？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0061"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0179"
+  },
+  {
+    "query": "列举所有关于TIME类型的描述",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0101"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0180"
+  },
+  {
+    "query": "有多少条记录提到了ALTER TABLE语句？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0067"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0181"
+  },
+  {
+    "query": "Redis链表可以保存哪些类型的值？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0040"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0182"
+  },
+  {
+    "query": "Spring Data JPA 中，需要扩展哪个接口来定义仓库？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0106"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0183"
+  },
+  {
+    "query": "附录部分包含哪些内容？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0020"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0184"
+  },
+  {
+    "query": "Spring Boot 的 Actuator 能让你深入什么？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0067"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0185"
+  },
+  {
+    "query": "MySQL复制方式有哪些？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0130"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0186"
+  },
+  {
+    "query": "Elasticsearch中，创建文档时，如果文档已存在会怎样？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0075"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0187"
+  },
+  {
+    "query": "Elasticsearch集群中，节点故障会导致什么后果？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0055"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0188"
+  },
+  {
+    "query": "Elasticsearch中，分片的作用是什么？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0048"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0189"
+  },
+  {
+    "query": "Elasticsearch中，文档的_id用于确定文档属于哪个分片？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0108"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0190"
+  },
+  {
+    "query": "Redis中浮点数3.14是以什么编码保存的？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0094"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0191"
+  },
+  {
+    "query": "String为什么设计为不可变的？原因有哪些？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0020"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0192"
+  },
+  {
+    "query": "Elasticsearch中，默认的排序方式是什么？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0039"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0193"
+  },
+  {
+    "query": "Elasticsearch中，有哪些常见的查询类型？列举几个。",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0169"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0194"
+  },
+  {
+    "query": "Redis中TYPE命令对于有序集合类型的输出是什么？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0089"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0195"
+  },
+  {
+    "query": "安全配置类上使用了哪些条件注解？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0147"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0196"
+  },
+  {
+    "query": "列举所有关于SHOW CREATE TABLE的使用示例",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0066"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0197"
+  },
+  {
+    "query": "列举Docker三剑客的项目名称",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0003"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0198"
+  },
+  {
+    "query": "整数集合升级操作的时间复杂度是多少？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0072"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0199"
+  },
+  {
+    "query": "Spring Boot CLI 的压缩包文件名是什么？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0046"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0200"
+  },
+  {
+    "query": "第1章中提到了哪些关于计算机网络体系结构的内容？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0002",
+      "5d06d931051b1bc9d74658dde43f770b_0013"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0201"
+  },
+  {
+    "query": "ReadingListController 中使用了哪些注解？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0109"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0202"
+  },
+  {
+    "query": "有多少条记录提到了SET函数的使用？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0171"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0203"
+  },
+  {
+    "query": "Java泛型有哪些特点？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0014"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0204"
+  },
+  {
+    "query": "docker images命令支持哪些参数？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0060"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0205"
+  },
+  {
+    "query": "在模板中，如果 book.description 为空，会显示什么内容？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0114"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0206"
+  },
+  {
+    "query": "列举docker run命令的常见用法",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0138"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0207"
+  },
+  {
+    "query": "ThreadLocal如何避免内存泄漏？有哪些方法？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0047"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0208"
+  },
+  {
+    "query": "Spring Boot 自动配置消除了传统 Spring 中的什么？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0067"
+    ],
+    "type": "数值/列表",
+    "query_id": "q0209"
+  },
+  {
+    "query": "会不会在application.yml中使用三个连字符作为Profile配置的分隔符？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0184"
+    ],
+    "type": "是否判断",
+    "query_id": "q0210"
+  },
+  {
+    "query": "Redis能不能使用allkeys-lru策略来避免内存写满？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0148"
+    ],
+    "type": "是否判断",
+    "query_id": "q0211"
+  },
+  {
+    "query": "是不是在索引文档时Elasticsearch会自动映射字段类型？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0142"
+    ],
+    "type": "是否判断",
+    "query_id": "q0212"
+  },
+  {
+    "query": "StringBuffer是不是适用于需要频繁修改字符串的场景？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0024"
+    ],
+    "type": "是否判断",
+    "query_id": "q0213"
+  },
+  {
+    "query": "浅拷贝会不会复制原始对象引用指向的对象？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0024"
+    ],
+    "type": "是否判断",
+    "query_id": "q0214"
+  },
+  {
+    "query": "ReentrantLock是不是支持公平锁和非公平锁？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0053"
+    ],
+    "type": "是否判断",
+    "query_id": "q0215"
+  },
+  {
+    "query": "BGREWRITEAOF和BGSAVE命令会不会因为操作冲突而不能同时执行？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0172"
+    ],
+    "type": "是否判断",
+    "query_id": "q0216"
+  },
+  {
+    "query": "能不能使用--volumes-from挂载数据卷容器中的数据？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0175"
+    ],
+    "type": "是否判断",
+    "query_id": "q0217"
+  },
+  {
+    "query": "能不能通过增加节点数量来扩展Elasticsearch集群的存储和计算能力？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0057"
+    ],
+    "type": "是否判断",
+    "query_id": "q0218"
+  },
+  {
+    "query": "Elasticsearch能不能自动将查询文本中的同义词（如'UK'和'United Kingdom'）进行匹配？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0130"
+    ],
+    "type": "是否判断",
+    "query_id": "q0219"
+  },
+  {
+    "query": "能不能使用match_all查询来匹配索引中的所有文档？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0159"
+    ],
+    "type": "是否判断",
+    "query_id": "q0220"
+  },
+  {
+    "query": "能不能通过SHOW PROCESSLIST命令查看当前用户的连接信息？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0189"
+    ],
+    "type": "是否判断",
+    "query_id": "q0221"
+  },
+  {
+    "query": "Spring Data是不是能自动实现仓库接口的方法？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0107"
+    ],
+    "type": "是否判断",
+    "query_id": "q0222"
+  },
+  {
+    "query": "Elasticsearch是不是一个实时分布式搜索和分析引擎？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0010"
+    ],
+    "type": "是否判断",
+    "query_id": "q0223"
+  },
+  {
+    "query": "镜像构建完成后，其内容会不会再被改变？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0017"
+    ],
+    "type": "是否判断",
+    "query_id": "q0224"
+  },
+  {
+    "query": "能不能使用ALTER TABLE语句在表的指定列之后添加字段？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0071"
+    ],
+    "type": "是否判断",
+    "query_id": "q0225"
+  },
+  {
+    "query": "能不能通过命令行参数设置server.port端口？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0154"
+    ],
+    "type": "是否判断",
+    "query_id": "q0226"
+  },
+  {
+    "query": "IPv6能不能解决IP地址耗尽的问题？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0012"
+    ],
+    "type": "是否判断",
+    "query_id": "q0227"
+  },
+  {
+    "query": "运输层是不是只有TCP和UDP这两个主要协议？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0006",
+      "5d06d931051b1bc9d74658dde43f770b_0016"
+    ],
+    "type": "是否判断",
+    "query_id": "q0228"
+  },
+  {
+    "query": "能不能使用CREATE DATABASE语句创建数据库？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0052"
+    ],
+    "type": "是否判断",
+    "query_id": "q0229"
+  },
+  {
+    "query": "跳跃表节点中会不会包含指向表头节点的指针？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0058"
+    ],
+    "type": "是否判断",
+    "query_id": "q0230"
+  },
+  {
+    "query": "健康检查指令HEALTHCHECK是不是Docker 1.12引入的新指令？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0112"
+    ],
+    "type": "是否判断",
+    "query_id": "q0231"
+  },
+  {
+    "query": "Spring Boot的自动配置是不是针对常见应用场景提供默认配置？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0035"
+    ],
+    "type": "是否判断",
+    "query_id": "q0232"
+  },
+  {
+    "query": "int编码的字符串对象在保存整数值时会不会被转换为raw编码？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0095"
+    ],
+    "type": "是否判断",
+    "query_id": "q0233"
+  },
+  {
+    "query": "Spring Boot的起步依赖是不是通过传递依赖引入所需库？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0095"
+    ],
+    "type": "是否判断",
+    "query_id": "q0234"
+  },
+  {
+    "query": "会不会用IS NULL函数判断一个值是否为NULL时，返回值为1表示是NULL？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0135"
+    ],
+    "type": "是否判断",
+    "query_id": "q0235"
+  },
+  {
+    "query": "能不能使用UNIX_TIMESTAMP函数将日期参数转换为UNIX时间戳？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0173"
+    ],
+    "type": "是否判断",
+    "query_id": "q0236"
+  },
+  {
+    "query": "物理层会不会涉及到数据通信中信道极限容量的概念？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0013"
+    ],
+    "type": "是否判断",
+    "query_id": "q0237"
+  },
+  {
+    "query": "Kafka能不能通过增加分区数量来解决消息堆积问题？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0188"
+    ],
+    "type": "是否判断",
+    "query_id": "q0238"
+  },
+  {
+    "query": "能不能通过Dockerfile来定制镜像？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0074"
+    ],
+    "type": "是否判断",
+    "query_id": "q0239"
+  },
+  {
+    "query": "Redis是不是所有数据结构都可以使用共享对象？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0122"
+    ],
+    "type": "是否判断",
+    "query_id": "q0240"
+  },
+  {
+    "query": "是不是ENUM类型在MySQL中是以编号序列存储的？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0120"
+    ],
+    "type": "是否判断",
+    "query_id": "q0241"
+  },
+  {
+    "query": "是不是所有文档的分片位置都是由哈希算法根据routing值决定的？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0106"
+    ],
+    "type": "是否判断",
+    "query_id": "q0242"
+  },
+  {
+    "query": "能不能使用滑动窗口机制来实现TCP的流量控制？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0007",
+      "5d06d931051b1bc9d74658dde43f770b_0016"
+    ],
+    "type": "是否判断",
+    "query_id": "q0243"
+  },
+  {
+    "query": "Redis能不能通过共享对象机制来节约内存？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0120"
+    ],
+    "type": "是否判断",
+    "query_id": "q0244"
+  },
+  {
+    "query": "Elasticsearch会不会自动对文档的字段进行索引以便快速查询？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0115"
+    ],
+    "type": "是否判断",
+    "query_id": "q0245"
+  },
+  {
+    "query": "能不能通过设置spring.main.show-banner=false来禁用启动Banner？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0149"
+    ],
+    "type": "是否判断",
+    "query_id": "q0246"
+  },
+  {
+    "query": "Redis的slave节点是不是根据offset值判断数据新旧程度？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0154"
+    ],
+    "type": "是否判断",
+    "query_id": "q0247"
+  },
+  {
+    "query": "关系数据库能不能直接支持集合交集计算操作？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0005"
+    ],
+    "type": "是否判断",
+    "query_id": "q0248"
+  },
+  {
+    "query": "在Mac上使用Docker是不是需要配置加速器？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0042"
+    ],
+    "type": "是否判断",
+    "query_id": "q0249"
+  },
+  {
+    "query": "是不是CHAR类型会自动删除插入数据的尾部空格？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0127"
+    ],
+    "type": "是否判断",
+    "query_id": "q0250"
+  },
+  {
+    "query": "SAVE命令执行时Redis服务器会不会被阻塞？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0171"
+    ],
+    "type": "是否判断",
+    "query_id": "q0251"
+  },
+  {
+    "query": "Spring Boot会不会自动配置嵌入式H2数据库？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0037"
+    ],
+    "type": "是否判断",
+    "query_id": "q0252"
+  },
+  {
+    "query": "Docker是不是基于dotCloud公司多年云服务技术开发的？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0010"
+    ],
+    "type": "是否判断",
+    "query_id": "q0253"
+  },
+  {
+    "query": "Kafka能不能通过启用幂等性来避免消息重复发送？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0185"
+    ],
+    "type": "是否判断",
+    "query_id": "q0254"
+  },
+  {
+    "query": "Redis是不是通过订阅频道来获知数据库中键的变化？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0158"
+    ],
+    "type": "是否判断",
+    "query_id": "q0255"
+  },
+  {
+    "query": "是不是数据库表由纵向的列和横向的行组成？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0007"
+    ],
+    "type": "是否判断",
+    "query_id": "q0256"
+  },
+  {
+    "query": "能不能通过划分子网来解决IP地址耗尽的问题？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0005",
+      "5d06d931051b1bc9d74658dde43f770b_0015"
+    ],
+    "type": "是否判断",
+    "query_id": "q0257"
+  },
+  {
+    "query": "Kafka消费者会不会因为偏移量提交失败而重复消费消息？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0185"
+    ],
+    "type": "是否判断",
+    "query_id": "q0258"
+  },
+  {
+    "query": "能不能用@ConfigurationProperties注解从配置属性注入值？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0171"
+    ],
+    "type": "是否判断",
+    "query_id": "q0259"
+  },
+  {
+    "query": "容器之间能不能通过--link参数进行安全交互？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0183"
+    ],
+    "type": "是否判断",
+    "query_id": "q0260"
+  },
+  {
+    "query": "域名服务器是不是因特网域名结构中的一个组成部分？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0017",
+      "5d06d931051b1bc9d74658dde43f770b_0008"
+    ],
+    "type": "是否判断",
+    "query_id": "q0261"
+  },
+  {
+    "query": "CSMA/CD协议是不是只用于使用广播信道的以太网？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0004"
+    ],
+    "type": "是否判断",
+    "query_id": "q0262"
+  },
+  {
+    "query": "Docker容器会不会继承宿主机的内核？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0012"
+    ],
+    "type": "是否判断",
+    "query_id": "q0263"
+  },
+  {
+    "query": "会不会出现因为版本号不一致导致旧版本文档覆盖新版本文档的问题？",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0079"
+    ],
+    "type": "是否判断",
+    "query_id": "q0264"
+  },
+  {
+    "query": "万维网是不是就等同于因特网？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0017"
+    ],
+    "type": "是否判断",
+    "query_id": "q0265"
+  },
+  {
+    "query": "Spring Boot自动配置咋就能省掉那么多麻烦的配置？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0067",
+      "79ea709741a1f84529cfbddab999108f_0010"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0334"
+  },
+  {
+    "query": "为啥容器还在就不能删镜像？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0134"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0335"
+  },
+  {
+    "query": "建表时怎么给字段设成自增并且当主键？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0090"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0336"
+  },
+  {
+    "query": "Redis里dirty计数器是干啥的？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0176"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0337"
+  },
+  {
+    "query": "外键是干嘛的，怎么创建？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0060"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0338"
+  },
+  {
+    "query": "加密流量有哪几种方式？链路加密和端到端加密有啥区别？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0010"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0339"
+  },
+  {
+    "query": "char和varchar存字符串有啥不一样？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0115"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0340"
+  },
+  {
+    "query": "怎么让外面访问容器里的网站？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0178"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0341"
+  },
+  {
+    "query": "SDS咋防止缓冲区溢出的？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0026"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0342"
+  },
+  {
+    "query": "MySQL Workbench社区版和商业版有啥区别？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0020"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0343"
+  },
+  {
+    "query": "镜像名字变成<none>咋回事？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0057"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0344"
+  },
+  {
+    "query": "MySQL里比较两个值相等用等号和安全等于有啥区别？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0132"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0345"
+  },
+  {
+    "query": "数据库键空间是个啥玩意儿？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0130"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0346"
+  },
+  {
+    "query": "Dockerfile里VOLUME是干啥用的？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0107"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0347"
+  },
+  {
+    "query": "公钥怎么安全地发给别人？密钥分配有啥门道？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0010"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0348"
+  },
+  {
+    "query": "上网时怎么保证数据没被篡改？报文鉴别是干嘛的？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0010"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0349"
+  },
+  {
+    "query": "Redis定期清理过期key咋整的？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0151"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0350"
+  },
+  {
+    "query": "怎么验证查询语句对不对",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0174"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0351"
+  },
+  {
+    "query": "聚合结果里咋算平均年龄",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0045"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0352"
+  },
+  {
+    "query": "Docker是用啥技术搞出来的？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0011"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0353"
+  },
+  {
+    "query": "哈希对象啥时候用ziplist编码？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0102"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0354"
+  },
+  {
+    "query": "Redis主从复制是不是就是为了让读更快？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0152"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0355"
+  },
+  {
+    "query": "虚拟线程和普通线程有啥不一样？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0017"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0356"
+  },
+  {
+    "query": "局部更新文档咋弄",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0085"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0357"
+  },
+  {
+    "query": "Kafka 消费者挂了之后怎么知道读到哪了？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0177"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0358"
+  },
+  {
+    "query": "Codis 扩容的时候那些 key 怎么搬过去的？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0160"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0359"
+  },
+  {
+    "query": "MySQL查数据时 extra 那栏出现 using filesort 是不是很慢？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0123"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0360"
+  },
+  {
+    "query": "三色标记法里灰色对象到底啥意思？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0085"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0361"
+  },
+  {
+    "query": "SAVE和BGSAVE存快照有啥不一样？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0169"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0362"
+  },
+  {
+    "query": "大表驱动小表和小表驱动大表哪个更耗性能？",
+    "positive_pids": [
+      "3709b3fb976653ae9c08717eb7a261d6_0126"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0363"
+  },
+  {
+    "query": "取整函数ceil和floor怎么用？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0153"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0364"
+  },
+  {
+    "query": "搜索高亮怎么做",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0041"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0365"
+  },
+  {
+    "query": "咋改字段的映射类型",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0181"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0366"
+  },
+  {
+    "query": "IP地址不够用了咋办？IPv6和CIDR哪个更常用？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0012",
+      "5d06d931051b1bc9d74658dde43f770b_0015"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0367"
+  },
+  {
+    "query": "通过属性文件咋设置不同场景的配置？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0182",
+      "79ea709741a1f84529cfbddab999108f_0154"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0368"
+  },
+  {
+    "query": "TCP怎么做到不丢包？滑动窗口和超时重传咋配合的？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0007",
+      "5d06d931051b1bc9d74658dde43f770b_0016"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0369"
+  },
+  {
+    "query": "docker build跑的时候每一步都干了啥？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0083"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0370"
+  },
+  {
+    "query": "Spring Boot CLI这个命令行工具到底能干啥？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0041",
+      "79ea709741a1f84529cfbddab999108f_0067"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0371"
+  },
+  {
+    "query": "无线网和有线网在MAC层有啥不一样？CSMA/CD还能用吗？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0014",
+      "5d06d931051b1bc9d74658dde43f770b_0011"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0372"
+  },
+  {
+    "query": "跳表里怎么算节点排位的？",
+    "positive_pids": [
+      "ce42c7a638bdaea2e1cbc4a115b57f67_0062"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0373"
+  },
+  {
+    "query": "Spring Boot框架到底有啥好处，为啥说它阻力小？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0067"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0374"
+  },
+  {
+    "query": "Spring Boot自定义报错页面有哪几种方式？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0186"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0375"
+  },
+  {
+    "query": "Actuator咋帮我监控程序运行时的状态？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0067"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0376"
+  },
+  {
+    "query": "es能实时处理数据吗",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0012"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0377"
+  },
+  {
+    "query": "上网卡顿是咋回事？TCP拥塞控制能解决吗？",
+    "positive_pids": [
+      "5d06d931051b1bc9d74658dde43f770b_0007"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0378"
+  },
+  {
+    "query": "Docker咋把多个层拼成一个镜像的？",
+    "positive_pids": [
+      "2bf2f75ff0823a118be3042ab0799d2a_0137"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0379"
+  },
+  {
+    "query": "批量操作bulk有啥注意事项",
+    "positive_pids": [
+      "078129796ceb762b6d12cfac9e64d385_0104"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0380"
+  },
+  {
+    "query": "怎么把数据库整个删掉？",
+    "positive_pids": [
+      "ada7776cabb111e579d30ae1521a560b_0055"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0381"
+  },
+  {
+    "query": "不同环境怎么单独配日志级别和输出？",
+    "positive_pids": [
+      "79ea709741a1f84529cfbddab999108f_0182"
+    ],
+    "type": "长尾/模糊",
+    "query_id": "q0382"
+  },
+  {
+    "query": "Elasticsearch 的 refresh、flush、merge 区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0383"
+  },
+  {
+    "query": "TCP 三次握手和四次挥手的过程",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0384"
+  },
+  {
+    "query": "微服务网关 Zuul 和 Gateway 的区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0385"
+  },
+  {
+    "query": "什么是零拷贝技术",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0386"
+  },
+  {
+    "query": "设计模式中工厂模式和策略模式的区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0387"
+  },
+  {
+    "query": "GraphQL 和 RESTful 的区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0388"
+  },
+  {
+    "query": "Java 中 volatile 和 synchronized 的区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0389"
+  },
+  {
+    "query": "雪花算法生成分布式 ID 的原理",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0390"
+  },
+  {
+    "query": "MongoDB 副本集怎么搭建",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0391"
+  },
+  {
+    "query": "JVM 的 CMS 和 G1 垃圾回收器对比",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0392"
+  },
+  {
+    "query": "MySQL 分库分表中间件有哪些",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0393"
+  },
+  {
+    "query": "Vue3 和 React 的区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0394"
+  },
+  {
+    "query": "Linux 内核进程调度算法",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0395"
+  },
+  {
+    "query": "分布式事务的 Seata 方案",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0396"
+  },
+  {
+    "query": "Git 的 rebase 和 merge 区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0397"
+  },
+  {
+    "query": "怎么用 Prometheus 监控 Spring Boot 应用",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0398"
+  },
+  {
+    "query": "消息队列 Kafka 和 RocketMQ 的区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0399"
+  },
+  {
+    "query": "Python 的 GIL 是什么",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0400"
+  },
+  {
+    "query": "Hadoop 和 Spark 的对比",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0401"
+  },
+  {
+    "query": "Redis 集群模式下 slot 迁移过程",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0402"
+  },
+  {
+    "query": "HTTP/2 的多路复用原理",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0403"
+  },
+  {
+    "query": "HTTPS 证书验证流程是什么",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0404"
+  },
+  {
+    "query": "什么是 WebAssembly",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0405"
+  },
+  {
+    "query": "Nginx 反向代理和负载均衡配置",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0406"
+  },
+  {
+    "query": "OAuth2.0 授权码模式流程",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0407"
+  },
+  {
+    "query": "React Hooks 有哪些",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0408"
+  },
+  {
+    "query": "为什么 Python 比 Java 慢",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0409"
+  },
+  {
+    "query": "Redis Cluster 和 Sentinel 的区别",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0410"
+  },
+  {
+    "query": "怎么排查 Java 内存泄漏",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0411"
+  },
+  {
+    "query": "Golang 的 goroutine 调度原理",
+    "type": "知识库不存在",
+    "positive_pids": [],
+    "negative_pids": [],
+    "query_id": "q0412"
+  }
+]

@@ -1,4 +1,4 @@
-/** UploadStateManager 的 Redis 实现。key=upload:{md5} 存任务元数据，key=upload:{md5}:parts 存分片 ETag，TTL 24h。 */
+/** UploadStateManager 的 Redis BitMap 实现。upload:{md5} Hash 存元数据，upload:{md5}:parts BitMap 存分片状态。 */
 package com.localrag.storage.impl;
 
 import com.localrag.storage.contract.UploadStateManager;
@@ -9,12 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -68,6 +63,8 @@ public class RedisUploadStateManager implements UploadStateManager {
         }
 
         try {
+            int totalParts = Integer.parseInt(totalPartsStr);
+            Set<Integer> uploadedParts = readBitMapParts(md5, totalParts);
             return UploadTask.builder()
                     .md5(getStr(fields, "md5"))
                     .fileName(getStr(fields, "fileName"))
@@ -75,9 +72,9 @@ public class RedisUploadStateManager implements UploadStateManager {
                     .uploadId(getStr(fields, "uploadId"))
                     .bucket(getStr(fields, "bucket"))
                     .objectKey(getStr(fields, "objectKey"))
-                    .totalParts(Integer.parseInt(totalPartsStr))
+                    .totalParts(totalParts)
                     .status(UploadTask.Status.valueOf(statusStr))
-                    .uploadedParts(getPartsMap(md5))
+                    .uploadedParts(uploadedParts)
                     .build();
         } catch (Exception e) {
             log.warn("corrupted upload task in Redis, removing: md5={}", md5, e);
@@ -87,16 +84,19 @@ public class RedisUploadStateManager implements UploadStateManager {
     }
 
     @Override
-    public void savePartEtag(String md5, int partNumber, String etag) {
+    public void markPartComplete(String md5, int partNumber) {
         String key = KEY_PREFIX + md5 + PARTS_SUFFIX;
-        redisTemplate.opsForHash().put(key, String.valueOf(partNumber), etag);
+        redisTemplate.opsForValue().setBit(key, partNumber - 1, true);
         redisTemplate.expire(key, Duration.ofHours(TTL_HOURS));
     }
 
     @Override
     public List<Integer> getUploadedParts(String md5) {
-        Map<Integer, String> parts = getPartsMap(md5);
-        List<Integer> list = new ArrayList<>(parts.keySet());
+        UploadTask task = getByMd5(md5);
+        if (task == null) {
+            return Collections.emptyList();
+        }
+        List<Integer> list = new ArrayList<>(readBitMapParts(md5, task.getTotalParts()));
         Collections.sort(list);
         return list;
     }
@@ -110,18 +110,19 @@ public class RedisUploadStateManager implements UploadStateManager {
 
     @Override
     public void cleanExpired(int maxAgeHours) {
-        // Redis TTL handles expiration automatically
         log.debug("cleanExpired skipped: Redis TTL handles this");
     }
 
-    private Map<Integer, String> getPartsMap(String md5) {
+    private Set<Integer> readBitMapParts(String md5, int totalParts) {
         String key = KEY_PREFIX + md5 + PARTS_SUFFIX;
-        Map<Object, Object> raw = redisTemplate.opsForHash().entries(key);
-        return raw.entrySet().stream()
-                .collect(Collectors.toMap(
-                        e -> Integer.parseInt(e.getKey().toString()),
-                        e -> String.valueOf(e.getValue())
-                ));
+        Set<Integer> parts = new HashSet<>();
+        for (int i = 0; i < totalParts; i++) {
+            Boolean bit = redisTemplate.opsForValue().getBit(key, i);
+            if (Boolean.TRUE.equals(bit)) {
+                parts.add(i + 1);
+            }
+        }
+        return parts;
     }
 
     private String getStr(Map<Object, Object> fields, String key) {

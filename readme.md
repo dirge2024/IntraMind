@@ -2,7 +2,7 @@
 
 **IntraMind** 是一个本地知识库 AI 助手，支持文档上传、自动解析分块、向量化存储、混合检索，内置 AI 助手「茉莉」，通过 DeepSeek / Qwen 大模型提供智能问答。
 
-> 代码库名为 **LocalRAG**。项目从 RAG 系统学习实践起步，逐步扩展为完整知识库产品后更名为 IntraMind（[GitHub](https://github.com/dirge2024/IntraMind)）。本地目录保留 LocalRAG 以保持既有开发环境不变。
+> 代码库名为 **LocalRAG**。项目从 RAG 系统学习实践起步，逐步扩展为完整项目后更名为 IntraMind。本地目录保留 LocalRAG 以保持既有开发环境不变。
 
 核心技术栈包括 Spring Boot 3.3.5、Elasticsearch 8.10、Kafka、MinIO、MySQL 和 Redis。
 

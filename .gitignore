@@ -37,3 +37,5 @@ doc/COMMIT_TEMPLATE.md
 
 # Reference project (对标参考项目，不提交)
 A-/
+rag-eval/test_data/
+rag-eval/__pycache__/

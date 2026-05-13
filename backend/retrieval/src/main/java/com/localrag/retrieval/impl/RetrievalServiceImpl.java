@@ -29,11 +29,16 @@ public class RetrievalServiceImpl implements RetrievalService {
         }
 
         try {
-            // 检索链路: query向量化 → 第一轮KNN(Top30) → 第二轮BM25重排 → 第三轮rescore精排
-            float[] vector = embeddingService.embed(List.of(query)).get(0);
-            List<Float> queryVector = new ArrayList<>();
-            for (float v : vector) {
-                queryVector.add(v);
+            List<Float> queryVector;
+            try {
+                float[] vector = embeddingService.embed(List.of(query)).get(0);
+                queryVector = new ArrayList<>();
+                for (float v : vector) {
+                    queryVector.add(v);
+                }
+            } catch (Exception e) {
+                log.warn("embedding failed, falling back to BM25-only: {}", e.getMessage());
+                return textOnlySearch(query, topK);
             }
 
             // 第一轮：KNN 向量召回 Top 30
@@ -118,6 +123,32 @@ public class RetrievalServiceImpl implements RetrievalService {
                     .build());
         }
         return results;
+    }
+
+    private List<RetrievalResult> textOnlySearch(String query, int topK) {
+        try {
+            SearchResponse<Map> bm25Resp = client.search(s -> s
+                    .index("localrag-chunks")
+                    .query(q -> q.match(m -> m.field("text").query(query)))
+                    .size(topK), Map.class);
+            List<RetrievalResult> results = new ArrayList<>();
+            for (var hit : bm25Resp.hits().hits()) {
+                Map<String, Object> src = (Map<String, Object>) hit.source();
+                if (src == null) continue;
+                results.add(RetrievalResult.builder()
+                        .chunkId(toString(src.get("chunkId")))
+                        .md5(toString(src.get("md5")))
+                        .text(toString(src.get("text")))
+                        .charCount(toInt(src.get("charCount")))
+                        .score(hit.score() != null ? hit.score() : 0.0)
+                        .build());
+            }
+            log.info("BM25-only fallback returned {} results for query: {}", results.size(), query);
+            return results;
+        } catch (Exception e) {
+            log.error("BM25-only search failed: {}", e.getMessage());
+            return List.of();
+        }
     }
 
     private String toString(Object o) { return o != null ? o.toString() : ""; }
